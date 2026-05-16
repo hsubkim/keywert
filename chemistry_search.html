@@ -73,7 +73,7 @@
     .is-user-avatar { width: 28px; height: 28px; border-radius: 50%; background: #DCFCE7; color: #16A34A; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
     .is-user-name { font-size: 12px; font-weight: 600; color: #111827; }
     .is-user-plan { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: #DCFCE7; color: #16A34A; display: block; margin-top: 2px; }
-    .is-main { flex: 1; overflow-y: auto; padding: 0 48px; background: #fff; display: flex; flex-direction: column; align-items: center; }
+    .is-main { flex: 1; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
     .is-main-inner { width: 888px; max-width: 100%; }
     .is-search-block { padding-top: 68px; display: flex; flex-direction: column; align-items: center; }
     .is-search-block .is-search-box,
@@ -220,6 +220,48 @@
     .ai-btn-green:hover { background: #09A3B2; }
     .ai-modal-x { position: absolute; top: 16px; right: 16px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: none; background: none; cursor: pointer; color: #9CA3AF; border-radius: 6px; transition: background 0.15s, color 0.15s; }
     .ai-modal-x:hover { background: #F3F4F6; color: #374151; }
+
+    /* ── CHEMISTRY CHAT ── */
+    .chem-feed { flex: 1; overflow-y: auto; padding: 28px 48px 20px; display: flex; flex-direction: column; gap: 22px; }
+    .cc-row { display: flex; }
+    .cc-row--user { justify-content: flex-end; }
+    .cc-row--ai { flex-direction: column; }
+    .cc-bubble-user { background: #F3F4F6; border-radius: 18px 18px 4px 18px; padding: 10px 16px; font-size: 14px; color: #111827; font-weight: 500; }
+    .cc-ai-text { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 14px; }
+    .chem-sel-wrap { display: flex; gap: 16px; align-items: flex-start; }
+    .chem-cards-col { flex: 1; min-width: 0; }
+    .chem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+    .chem-card { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 10px 12px 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s; background: #fff; position: relative; user-select: none; }
+    .chem-card.checked { border-color: #0BB8C9; background: rgba(11,184,201,0.04); }
+    .cc-cb { position: absolute; top: 10px; left: 10px; width: 17px; height: 17px; border: 1.5px solid #D1D5DB; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; background: #fff; transition: all 0.15s; color: transparent; font-weight: 700; }
+    .chem-card.checked .cc-cb { background: #0BB8C9; border-color: #0BB8C9; color: #fff; }
+    .chem-img { height: 68px; background: #F8FAFB; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
+    .chem-card.checked .chem-img { background: #EBF8FA; }
+    .chem-name { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 3px; }
+    .chem-formula { font-size: 11px; color: #0BB8C9; font-weight: 500; }
+    .chem-sel-bar { display: flex; align-items: center; gap: 8px; }
+    .chem-sel-count { font-size: 12px; color: #6B7280; flex: 1; }
+    .chem-btn-clear { padding: 5px 14px; font-size: 12px; font-weight: 500; border: 1.5px solid #D1D5DB; border-radius: 8px; background: #fff; color: #374151; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .chem-btn-clear:hover { border-color: #9CA3AF; }
+    .chem-btn-do { padding: 6px 16px; font-size: 13px; font-weight: 600; border: none; border-radius: 8px; background: #0BB8C9; color: #fff; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; }
+    .chem-btn-do:hover { background: #09A5B5; }
+    .chem-preview-card { width: 160px; flex-shrink: 0; border: 1.5px solid #E5E7EB; border-radius: 12px; background: #F8FAFB; display: flex; align-items: center; justify-content: center; min-height: 190px; }
+    .cc-sel-bubble { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .cc-sel-thumb { background: #F3F4F6; border: 1px solid #E5E7EB; border-radius: 10px; overflow: hidden; }
+    .cc-sel-text { background: #F3F4F6; border-radius: 18px 18px 4px 18px; padding: 9px 16px; font-size: 14px; color: #111827; font-weight: 500; }
+    .chem-scope-box { border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 16px 20px; background: #fff; max-width: 520px; }
+    .chem-scope-head { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 12px; }
+    .chem-scope-query { font-size: 14px; font-weight: 600; color: #111827; margin-bottom: 10px; }
+    .chem-scope-tag { display: inline-flex; align-items: center; padding: 4px 12px; background: #D1FAE5; color: #059669; font-size: 12px; font-weight: 600; border-radius: 20px; }
+    .chem-input-wrap { flex-shrink: 0; padding: 10px 48px 20px; background: #fff; border-top: 1px solid #F3F4F6; }
+    .chem-input-box { border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 10px 12px 10px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .chem-input { flex: 1; border: none; background: none; outline: none; font-size: 14px; font-family: inherit; color: #111827; }
+    .chem-input::placeholder { color: #C4C8CE; }
+    .chem-send-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: #F3F4F6; border-radius: 8px; border: none; cursor: pointer; color: #9CA3AF; flex-shrink: 0; transition: background 0.15s; }
+    .chem-send-btn:hover { background: #E5E7EB; color: #374151; }
+    .chem-input-tools { display: flex; align-items: center; gap: 4px; }
+    .chem-tool-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1.5px solid #E5E7EB; border-radius: 8px; background: #fff; cursor: pointer; color: #6B7280; transition: all 0.15s; }
+    .chem-tool-btn:hover { border-color: #9CA3AF; color: #374151; }
   </style>
 </head>
 <body>
@@ -435,93 +477,261 @@
 
     <!-- MAIN -->
     <div class="is-main">
-      <div class="is-main-inner">
-      <!-- 검색 영역 -->
-      <div class="is-search-block">
 
-      <!-- 검색 박스 -->
-      <div class="is-search-box">
-        <textarea class="is-search-textarea" rows="2" placeholder="검색할 특허 내용을 입력하세요. 예: EGFR 억제제 골격 특허">EGFR 억제제 골격 특허</textarea>
-        <div class="is-search-foot">
-          <button class="is-foot-btn">@</button>
-          <button class="is-foot-btn">#</button>
-          <button class="is-ai-btn" onclick="showAiModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            AI 분석
+      <!-- Chat Feed -->
+      <div class="chem-feed">
+
+        <!-- User: query bubble -->
+        <div class="cc-row cc-row--user">
+          <div class="cc-bubble-user">EGFR 억제제 골격 특허</div>
+        </div>
+
+        <!-- AI: compound selection -->
+        <div class="cc-row cc-row--ai">
+          <p class="cc-ai-text">항암제 관련 화합물입니다. 기준 구조를 선택해주세요.</p>
+          <div class="chem-sel-wrap">
+
+            <!-- Compound grid + selection bar -->
+            <div class="chem-cards-col">
+              <div class="chem-grid" id="chemGrid">
+
+                <!-- 1. 시스플라틴 (checked) -->
+                <div class="chem-card checked" onclick="toggleChemCard(this)">
+                  <span class="cc-cb">✓</span>
+                  <div class="chem-img">
+                    <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <text x="50" y="35" text-anchor="middle" dominant-baseline="middle" font-size="9.5" fill="#4299A8" font-weight="700" font-family="sans-serif">Pt</text>
+                      <line x1="50" y1="25" x2="50" y2="13" stroke="#85C7D4" stroke-width="1.4"/>
+                      <text x="50" y="9" text-anchor="middle" font-size="8" fill="#85C7D4" font-family="sans-serif">H₃N</text>
+                      <line x1="50" y1="45" x2="50" y2="56" stroke="#85C7D4" stroke-width="1.4"/>
+                      <text x="50" y="62" text-anchor="middle" font-size="8" fill="#85C7D4" font-family="sans-serif">NH₃</text>
+                      <line x1="38" y1="32" x2="22" y2="32" stroke="#85C7D4" stroke-width="1.4"/>
+                      <text x="15" y="35" text-anchor="middle" font-size="8" fill="#85C7D4" font-family="sans-serif">Cl</text>
+                      <line x1="62" y1="32" x2="78" y2="32" stroke="#85C7D4" stroke-width="1.4"/>
+                      <text x="85" y="35" text-anchor="middle" font-size="8" fill="#85C7D4" font-family="sans-serif">Cl</text>
+                    </svg>
+                  </div>
+                  <div class="chem-name">시스플라틴</div>
+                  <div class="chem-formula">Cl2H6N2Pt</div>
+                </div>
+
+                <!-- 2. 파클리탁셀 (checked) -->
+                <div class="chem-card checked" onclick="toggleChemCard(this)">
+                  <span class="cc-cb">✓</span>
+                  <div class="chem-img">
+                    <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g stroke="#85C7D4" stroke-width="1.3">
+                        <polygon points="26,18 38,12 50,18 50,32 38,38 26,32"/>
+                        <polygon points="50,18 62,12 74,18 74,32 50,32"/>
+                        <line x1="74" y1="25" x2="84" y2="25"/>
+                        <line x1="26" y1="25" x2="16" y2="22"/>
+                        <line x1="38" y1="38" x2="38" y2="50"/>
+                        <line x1="50" y1="32" x2="50" y2="50"/>
+                        <text x="38" y="56" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">O</text>
+                        <text x="12" y="24" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">OH</text>
+                        <text x="86" y="28" font-size="7" fill="#85C7D4" font-family="sans-serif">O</text>
+                        <line x1="62" y1="12" x2="62" y2="4"/>
+                        <text x="62" y="2" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">O</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="chem-name">파클리탁셀</div>
+                  <div class="chem-formula">C47H51N014</div>
+                </div>
+
+                <!-- 3. 이마티닙 (unchecked) -->
+                <div class="chem-card" onclick="toggleChemCard(this)">
+                  <span class="cc-cb"></span>
+                  <div class="chem-img">
+                    <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g stroke="#C4CDD4" stroke-width="1.3">
+                        <polygon points="22,20 32,14 42,20 42,32 32,38 22,32"/>
+                        <line x1="42" y1="26" x2="54" y2="26"/>
+                        <rect x="54" y="19" width="16" height="14" rx="2"/>
+                        <line x1="70" y1="26" x2="80" y2="26"/>
+                        <line x1="22" y1="26" x2="13" y2="26"/>
+                        <line x1="13" y1="26" x2="8" y2="33"/>
+                        <text x="80" y="29" font-size="7" fill="#C4CDD4" font-family="sans-serif">N</text>
+                        <text x="5" y="38" text-anchor="middle" font-size="7" fill="#C4CDD4" font-family="sans-serif">N</text>
+                        <text x="32" y="50" text-anchor="middle" font-size="7" fill="#C4CDD4" font-family="sans-serif">NH</text>
+                        <line x1="32" y1="38" x2="32" y2="46"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="chem-name">이마티닙</div>
+                  <div class="chem-formula">C29H31N70</div>
+                </div>
+
+                <!-- 4. 게피티닙 (checked) -->
+                <div class="chem-card checked" onclick="toggleChemCard(this)">
+                  <span class="cc-cb">✓</span>
+                  <div class="chem-img">
+                    <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g stroke="#85C7D4" stroke-width="1.3">
+                        <polygon points="18,16 28,10 38,16 38,28 28,34 18,28"/>
+                        <rect x="38" y="10" width="16" height="22" rx="0"/>
+                        <line x1="54" y1="21" x2="64" y2="21"/>
+                        <line x1="64" y1="21" x2="72" y2="15"/>
+                        <line x1="64" y1="21" x2="72" y2="27"/>
+                        <line x1="72" y1="15" x2="80" y2="19"/>
+                        <line x1="72" y1="27" x2="80" y2="23"/>
+                        <line x1="80" y1="19" x2="80" y2="23"/>
+                        <line x1="18" y1="22" x2="9" y2="18"/>
+                        <text x="5" y="17" font-size="7" fill="#85C7D4" font-family="sans-serif">F</text>
+                        <line x1="28" y1="34" x2="28" y2="44"/>
+                        <text x="28" y="50" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">NH</text>
+                        <text x="46" y="57" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">N</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="chem-name">게피티닙</div>
+                  <div class="chem-formula">C22H24ClFN403</div>
+                </div>
+
+                <!-- 5. 엘로티닙 (unchecked) -->
+                <div class="chem-card" onclick="toggleChemCard(this)">
+                  <span class="cc-cb"></span>
+                  <div class="chem-img">
+                    <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g stroke="#C4CDD4" stroke-width="1.3">
+                        <polygon points="20,16 30,10 40,16 40,28 30,34 20,28"/>
+                        <rect x="40" y="10" width="16" height="22" rx="0"/>
+                        <line x1="56" y1="21" x2="66" y2="21"/>
+                        <line x1="66" y1="21" x2="74" y2="15"/>
+                        <line x1="66" y1="21" x2="74" y2="27"/>
+                        <line x1="74" y1="15" x2="82" y2="19"/>
+                        <line x1="74" y1="27" x2="82" y2="23"/>
+                        <line x1="82" y1="19" x2="82" y2="23"/>
+                        <line x1="20" y1="22" x2="10" y2="22"/>
+                        <line x1="10" y1="22" x2="5" y2="15"/>
+                        <text x="4" y="13" font-size="7" fill="#C4CDD4" font-family="sans-serif">O</text>
+                        <line x1="30" y1="34" x2="30" y2="44"/>
+                        <text x="30" y="50" text-anchor="middle" font-size="7" fill="#C4CDD4" font-family="sans-serif">NH</text>
+                        <text x="48" y="57" text-anchor="middle" font-size="7" fill="#C4CDD4" font-family="sans-serif">N</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="chem-name">엘로티닙</div>
+                  <div class="chem-formula">C22H23ClN403</div>
+                </div>
+
+              </div><!-- /chem-grid -->
+
+              <div class="chem-sel-bar">
+                <span class="chem-sel-count" id="chemSelCount">3개 선택됨 · 동시 검색 가능</span>
+                <button class="chem-btn-clear" onclick="clearChemCards()">해제</button>
+                <button class="chem-btn-do" id="chemBtnDo">선택한 3개로 검색</button>
+              </div>
+            </div><!-- /chem-cards-col -->
+
+            <!-- Preview card: gefitinib structure -->
+            <div class="chem-preview-card">
+              <svg viewBox="0 0 130 160" width="130" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g stroke="#7BBFCE" stroke-width="1.5" fill="none">
+                  <!-- quinazoline bicyclic core -->
+                  <polygon points="44,44 56,37 68,44 68,58 56,65 44,58"/>
+                  <rect x="68" y="38" width="20" height="26" />
+                  <!-- benzene ring fused (left) -->
+                  <polygon points="24,44 36,38 44,44 44,58 36,64 24,58"/>
+                  <!-- morpholine side chain (right) -->
+                  <line x1="88" y1="51" x2="100" y2="51"/>
+                  <line x1="100" y1="51" x2="106" y2="43"/>
+                  <line x1="106" y1="43" x2="115" y2="43"/>
+                  <line x1="115" y1="43" x2="120" y2="51"/>
+                  <line x1="120" y1="51" x2="120" y2="60"/>
+                  <line x1="120" y1="60" x2="115" y2="67"/>
+                  <line x1="115" y1="67" x2="106" y2="67"/>
+                  <line x1="106" y1="67" x2="100" y2="60"/>
+                  <line x1="100" y1="60" x2="100" y2="51"/>
+                  <text x="113" y="58" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">O</text>
+                  <!-- NH linker down -->
+                  <line x1="56" y1="65" x2="56" y2="77"/>
+                  <text x="56" y="85" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">NH</text>
+                  <!-- anilino ring -->
+                  <line x1="56" y1="87" x2="56" y2="96"/>
+                  <polygon points="44,96 56,90 68,96 68,110 56,116 44,110"/>
+                  <!-- Cl on anilino -->
+                  <line x1="44" y1="103" x2="33" y2="103"/>
+                  <text x="27" y="106" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">Cl</text>
+                  <!-- methoxy on quinazoline -->
+                  <line x1="68" y1="44" x2="78" y2="37"/>
+                  <!-- F on left ring -->
+                  <line x1="24" y1="51" x2="14" y2="47"/>
+                  <text x="9" y="46" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">F</text>
+                  <!-- OMe on anilino -->
+                  <line x1="56" y1="116" x2="56" y2="126"/>
+                  <text x="56" y="132" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">OMe</text>
+                </g>
+              </svg>
+            </div>
+
+          </div><!-- /chem-sel-wrap -->
+        </div><!-- /cc-row--ai -->
+
+        <!-- User: selected compounds -->
+        <div class="cc-row cc-row--user">
+          <div class="cc-sel-bubble">
+            <div class="cc-sel-thumb">
+              <svg viewBox="0 0 148 88" width="148" height="88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g stroke="#7BBFCE" stroke-width="1.5" fill="none">
+                  <polygon points="44,24 56,17 68,24 68,38 56,45 44,38"/>
+                  <rect x="68" y="18" width="16" height="22"/>
+                  <line x1="84" y1="29" x2="96" y2="29"/>
+                  <line x1="96" y1="29" x2="104" y2="22"/>
+                  <line x1="96" y1="29" x2="104" y2="36"/>
+                  <line x1="104" y1="22" x2="112" y2="26"/>
+                  <line x1="104" y1="36" x2="112" y2="32"/>
+                  <line x1="112" y1="26" x2="112" y2="32"/>
+                  <line x1="56" y1="45" x2="56" y2="56"/>
+                  <text x="56" y="63" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">NH</text>
+                  <line x1="44" y1="31" x2="33" y2="27"/>
+                  <text x="27" y="26" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">F</text>
+                </g>
+              </svg>
+            </div>
+            <div class="cc-sel-text">시스플라틴, 파클리탁셀, 게피티닙</div>
+          </div>
+        </div>
+
+        <!-- AI: search scope -->
+        <div class="cc-row cc-row--ai">
+          <div class="chem-scope-box">
+            <div class="chem-scope-head">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              검색 범위
+            </div>
+            <p class="chem-scope-query">"시스플라틴, 파클리탁셀, 게피티닙"</p>
+            <span class="chem-scope-tag">정확한 화학식 매칭 (exact match)</span>
+          </div>
+        </div>
+
+      </div><!-- /chem-feed -->
+
+      <!-- Follow-up input -->
+      <div class="chem-input-wrap">
+        <div class="chem-input-box">
+          <input class="chem-input" placeholder="후속 질문하기...">
+          <button class="chem-send-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div class="chem-input-tools">
+          <button class="chem-tool-btn" title="공유">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </button>
+          <button class="chem-tool-btn" title="저장">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          </button>
+          <button class="chem-tool-btn" title="첨부">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
           </button>
         </div>
       </div>
 
-      <!-- 예시 문장 카드 -->
-      <div class="is-trend-cards">
-        <div class="is-trend-card">
-          <p class="is-trend-card-text">
-            <span class="is-tag-hash">#자동 충전 촉매 기술</span>과 관련된 <span class="is-tag-at">@최근 5년</span> 특허 문헌을 찾아줘
-          </p>
-        </div>
-        <div class="is-trend-card">
-          <p class="is-trend-card-text">
-            <span class="is-tag-hash">#화상인식로봇제어 기술</span>과 관련된 <span class="is-tag-at">@한국</span>, <span class="is-tag-at">@미국</span> 특허 문헌을 보여줘
-          </p>
-        </div>
-        <div class="is-trend-card">
-          <p class="is-trend-card-text">
-            <span class="is-tag-hash">#3D 비디오 디스플레이 기술</span>과 관련된 <span class="is-tag-at">@삼성전자 주식회사</span> 특허 문헌을 알려줘
-          </p>
-        </div>
-      </div>
-      </div><!-- /is-search-block -->
+    </div><!-- /is-main -->
 
-      <!-- AI 보고서 바로 시작하기 -->
-      <div class="is-report-block">
-        <div class="is-report-header">AI 보고서 바로 시작하기</div>
-        <div class="is-report-cards">
-          <div class="is-report-card">
-            <div class="is-report-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0BB8C9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <polyline points="10 9 9 9 8 9"/>
-              </svg>
-            </div>
-            <div class="is-report-title">발명신고서</div>
-            <div class="is-report-desc">연구 내용을 분석해 형식에 맞춰 구체화합니다.</div>
-          </div>
-          <div class="is-report-card">
-            <div class="is-report-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0BB8C9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <line x1="10" y1="9" x2="8" y2="9"/>
-              </svg>
-            </div>
-            <div class="is-report-title">선행기술조사보고서</div>
-            <div class="is-report-desc">유사 특허를 분석해 출원 가능성을 검토합니다.</div>
-          </div>
-          <div class="is-report-card">
-            <div class="is-report-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0BB8C9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="12" y1="17" x2="8" y2="17"/>
-              </svg>
-            </div>
-            <div class="is-report-title">특허명세서</div>
-            <div class="is-report-desc">법적 형식에 맞춰 명세서 초안을 작성합니다.</div>
-          </div>
-        </div>
-      </div><!-- /is-report-block -->
-
-      </div><!-- /is-main-inner -->
-    </div>
-
-  </div>
-</div>
+  </div><!-- /is-layout -->
+</div><!-- /panelSearch -->
 
 <script>
   // 2Depth 메뉴 Insight 버튼 좌측 정렬 동기화
@@ -583,6 +793,22 @@
       }
     } catch(e) {}
   });
+
+  function toggleChemCard(card) {
+    card.classList.toggle('checked');
+    updateChemSel();
+  }
+  function clearChemCards() {
+    document.querySelectorAll('.chem-card').forEach(function(c) { c.classList.remove('checked'); });
+    updateChemSel();
+  }
+  function updateChemSel() {
+    var n = document.querySelectorAll('.chem-card.checked').length;
+    var countEl = document.getElementById('chemSelCount');
+    var btnEl = document.getElementById('chemBtnDo');
+    if (countEl) countEl.textContent = n > 0 ? n + '개 선택됨 · 동시 검색 가능' : '선택된 화합물 없음';
+    if (btnEl) btnEl.textContent = n > 0 ? '선택한 ' + n + '개로 검색' : '검색';
+  }
 </script>
 <script src="auth.js"></script>
 
@@ -652,7 +878,7 @@
   // 2Depth 메뉴 스크롤 자동 숨김/표시
   (function() {
     var subBar = document.querySelector('.mega-bar--fixed');
-    var scrollEl = document.querySelector('.is-main') || window;
+    var scrollEl = document.querySelector('.chem-feed') || window;
     if (!subBar) return;
     var lastY = Math.round(scrollEl.scrollTop || 0);
     var ticking = false;
@@ -792,7 +1018,6 @@
 </div>
 <script>
   function closeChemModal() { document.getElementById('chemModal').style.display = 'none'; }
-  function toggleChemCard(el) { el.classList.toggle('checked'); }
 </script>
 </body>
 </html>
