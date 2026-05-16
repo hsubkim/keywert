@@ -10,30 +10,74 @@
     body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
     .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
 
+    /* ── GLOBAL HEADER ── */
     header {
       position: sticky; top: 0; z-index: 200;
       background: #fff; border-bottom: 1px solid #E5E7EB;
     }
     header .container { max-width: none; }
-    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #111827; font-size: 20px; font-weight: 700; }
-    nav { display: flex; align-items: center; gap: 2px; }
+    .header-inner {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; height: 64px; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 28px; width: auto; display: block; }
+    .logo-fallback {
+      display: none; align-items: center; gap: 7px;
+      font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em;
+    }
+    nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
     .nav-btn {
       display: flex; align-items: center; gap: 4px;
-      padding: 8px 14px; font-size: 15px; font-weight: 500;
-      color: #374151; cursor: pointer; border-radius: 8px;
-      background: none; border: none; font-family: inherit; transition: background 0.15s;
+      padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827;
+      cursor: pointer; border-radius: 8px; background: none; border: none;
+      font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s;
     }
     .nav-btn:hover { background: #F3F4F6; }
-    .header-actions { display: flex; align-items: center; gap: 8px; }
-    .btn-chemistry {
-      display: flex; align-items: center; gap: 6px;
-      padding: 7px 14px; border: 1.5px solid #7C3AED;
-      border-radius: 8px; color: #7C3AED; font-size: 14px; font-weight: 600;
-      background: #F5F3FF; cursor: pointer; text-decoration: none;
+    .nav-btn.active { color: #00AACB; }
+    .mega-bar {
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      opacity: 0; pointer-events: none; transform: translateY(-4px);
+      transition: opacity 0.15s, transform 0.15s; z-index: 199;
     }
-    .btn-login { padding: 7px 14px; font-size: 14px; font-weight: 500; color: #374151; text-decoration: none; border-radius: 8px; }
-    .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; white-space: nowrap; }
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab {
+      padding: 6px 14px; font-size: 14px; font-weight: 500;
+      color: #6B7280; text-decoration: none;
+      border-radius: 6px; transition: all 0.15s; white-space: nowrap;
+    }
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab-util {
+      font-size: 12px; font-weight: 500; color: #6B7280;
+      padding: 3px 9px; border-radius: 6px; border: 1.5px solid #D1D5DB;
+      text-decoration: none; white-space: nowrap;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-chemistry {
+      display: flex; align-items: center; gap: 5px; padding: 5px 11px;
+      border: 1.5px solid #3B82F6; border-radius: 7px; color: #3B82F6;
+      font-size: 16px; font-weight: 700; background: none; cursor: pointer;
+      text-decoration: none; font-family: inherit; transition: background 0.15s; line-height: 1;
+    }
+    .btn-chemistry:hover { background: #EFF6FF; }
+    .btn-text {
+      padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
+    .btn-primary {
+      padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600;
+      border-radius: 8px; text-decoration: none; border: none; cursor: pointer;
+      font-family: inherit; transition: background 0.15s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #008FA8; }
 
     .page-hero {
       padding: 80px 0 60px;
@@ -66,30 +110,94 @@
 <header>
   <div class="container">
     <div class="header-inner">
+
       <a href="index.html" class="logo">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-          <circle cx="15" cy="15" r="15" fill="#111827"/>
-          <path d="M6 17 Q9.5 9 13 17 Q16.5 25 20 17 Q22 13 24 17" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        </svg>
-        keywert
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;letter-spacing:-0.02em;">keywert</span>
+        </span>
       </a>
+
       <nav>
-        <button class="nav-btn" onclick="location.href='insight.html'">
-          Insight
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <button class="nav-btn" onclick="location.href='pro.html'">
-          Pro
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-      </nav>
-      <div class="header-actions">
-        <a href="chemistry.html" class="btn-chemistry">
-          <svg width="14" height="16" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 1h4M5 1v5L1 13h12L9 6V1"/></svg>
+        <div onmouseenter="kwMegaShow('megaInsight')" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaPro')" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <a href="chemistry.html" class="btn-chemistry" style="margin-left:4px;">
+          <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
+            <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
           Chemistry
         </a>
-        <a href="#" class="btn-login">로그인</a>
-        <a href="#" class="btn-primary">무료체험 시작하기</a>
+      </nav>
+
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
+        </div>
+        <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 호버 바: Insight -->
+  <div class="mega-bar" id="megaInsight"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">특허 검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="#" class="mega-tab">AI보고서</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="insight.html" class="mega-tab-util">플랜 안내</a>
+          <a href="insight.html" class="mega-tab-util">이용 가이드</a>
+          <a href="insight.html" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- 호버 바: Pro -->
+  <div class="mega-bar" id="megaPro"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="pro_search.html" class="mega-tab">일반검색</a>
+          <a href="#" class="mega-tab">선행조사용 검색</a>
+          <a href="#" class="mega-tab">AI검색</a>
+          <a href="#" class="mega-tab">번호검색</a>
+          <a href="#" class="mega-tab">미국소송검색</a>
+          <a href="#" class="mega-tab">K WORK</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="pro.html" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="#" class="mega-tab-util">설정</a>
+        </nav>
       </div>
     </div>
   </div>
@@ -117,5 +225,37 @@
   </div>
 </footer>
 
+<script>
+  (function() {
+    function alignSubMenu() {
+      var insightBtn = document.querySelector('nav .nav-btn');
+      var headerContainer = document.querySelector('header .container');
+      if (!insightBtn || !headerContainer) return;
+      var offset = Math.round(insightBtn.getBoundingClientRect().left - headerContainer.getBoundingClientRect().left) - 83;
+      document.querySelectorAll('.mega-bar-inner').forEach(function(el) {
+        el.style.paddingLeft = offset + 'px';
+      });
+    }
+    alignSubMenu();
+    window.addEventListener('resize', alignSubMenu);
+  })();
+
+  (function() {
+    var _t = null;
+    window.kwMegaShow = function(id) {
+      clearTimeout(_t);
+      document.querySelectorAll('.mega-bar').forEach(function(b) { b.classList.remove('open'); });
+      var el = document.getElementById(id);
+      if (el) el.classList.add('open');
+    };
+    window.kwMegaHide = function() {
+      _t = setTimeout(function() {
+        document.querySelectorAll('.mega-bar').forEach(function(b) { b.classList.remove('open'); });
+      }, 120);
+    };
+    window.kwMegaCancel = function() { clearTimeout(_t); };
+  })();
+</script>
+<script src="auth.js"></script>
 </body>
 </html>
