@@ -35,6 +35,9 @@ const KW_PASSWORD = '1111';
 
     .kw-trigger-wrap {
       position: relative;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
     }
 
     .kw-trigger {
@@ -78,12 +81,54 @@ const KW_PASSWORD = '1111';
 
     .kw-chevron { color: #9CA3AF; flex-shrink: 0; margin-left: 2px; }
 
+    /* Workspace selector */
+    .kw-pill-sep { width: 1px; height: 16px; background: #E5E7EB; flex-shrink: 0; }
+    .kw-workspace-wrap {
+      position: relative;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+    }
+    .kw-workspace {
+      display: flex; align-items: center; gap: 5px;
+      padding: 2px 4px 2px 2px; border-radius: 6px;
+      font-size: 12px; font-weight: 500; color: #374151;
+      cursor: pointer; white-space: nowrap;
+      transition: background 0.12s;
+    }
+    .kw-workspace:hover { background: #F3F4F6; }
+    .kw-workspace-label { color: #374151; }
+    .kw-workspace-chevron { color: #9CA3AF; }
+    .kw-ws-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: -4px;
+      width: max-content;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.09);
+      padding: 4px;
+      z-index: 500;
+      display: none;
+    }
+    .kw-ws-dropdown.open { display: block; }
+    .kw-ws-item {
+      display: flex; align-items: center; gap: 5px;
+      padding: 7px 12px 7px 6px; font-size: 12px; font-weight: 500; color: #374151;
+      border-radius: 6px; border: none;
+      background: none; width: 100%; cursor: pointer; font-family: inherit;
+      text-align: left; white-space: nowrap;
+      transition: background 0.12s;
+    }
+    .kw-ws-item:hover { background: #F3F4F6; }
+
     /* Dropdown */
     .kw-dropdown {
       position: absolute;
       top: calc(100% + 6px);
       left: 0;
-      min-width: 120px;
+      width: max-content;
       background: #fff;
       border: 1px solid #E5E7EB;
       border-radius: 10px;
@@ -95,17 +140,18 @@ const KW_PASSWORD = '1111';
     .kw-dropdown.open { display: block; }
 
     .kw-drop-item {
-      display: flex; align-items: center;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
       padding: 7px 12px; font-size: 12px; font-weight: 500; color: #374151;
       text-decoration: none; border-radius: 6px; border: none;
       background: none; width: 100%; cursor: pointer; font-family: inherit;
-      transition: background 0.12s, color 0.12s;
+      transition: background 0.12s;
       white-space: nowrap;
     }
     .kw-drop-item:hover { background: #F3F4F6; }
     .kw-drop-item.danger { color: #EF4444; }
     .kw-drop-item.danger:hover { background: #FEF2F2; }
-    .kw-drop-sep { height: 1px; background: #F3F4F6; margin: 3px 0; }
+    .kw-drop-chevron { color: #9CA3AF; flex-shrink: 0; }
+    .kw-drop-item.danger .kw-drop-chevron { color: #EF4444; }
 
     /* Trial start modal toast */
     .kw-toast {
@@ -132,6 +178,7 @@ function kwSetUser(data) {
 
 function kwLogout() {
   localStorage.removeItem('kw_user');
+  sessionStorage.removeItem('kw_workspace');
   window.location.href = 'index.html';
 }
 
@@ -161,12 +208,33 @@ function kwShowToast(msg) {
 function kwToggleDropdown(e) {
   e.stopPropagation();
   const dd = document.getElementById('kwDropdown');
+  const wd = document.getElementById('kwWsDropdown');
+  if (wd) wd.classList.remove('open');
   if (dd) dd.classList.toggle('open');
+}
+
+function kwToggleWorkspace(e) {
+  e.stopPropagation();
+  const wd = document.getElementById('kwWsDropdown');
+  const dd = document.getElementById('kwDropdown');
+  if (dd) dd.classList.remove('open');
+  if (wd) wd.classList.toggle('open');
+}
+
+function kwSelectWorkspace(e, name) {
+  e.stopPropagation();
+  sessionStorage.setItem('kw_workspace', name);
+  const label = document.querySelector('.kw-workspace-label');
+  if (label) label.textContent = name;
+  const wd = document.getElementById('kwWsDropdown');
+  if (wd) wd.classList.remove('open');
 }
 
 document.addEventListener('click', function() {
   const dd = document.getElementById('kwDropdown');
   if (dd) dd.classList.remove('open');
+  const wd = document.getElementById('kwWsDropdown');
+  if (wd) wd.classList.remove('open');
 });
 
 /* ── 헤더 렌더링 ── */
@@ -225,6 +293,27 @@ function kwRenderHeader() {
     ? `<a href="#" class="kw-token-link" onclick="event.stopPropagation()">${tokenHTML}</a>`
     : '';
 
+  const savedWorkspace = sessionStorage.getItem('kw_workspace') || '워크스페이스';
+
+  const workspaceHTML = (type === 'paid' || type === 'trial') ? `
+    <div class="kw-pill-sep"></div>
+    <div class="kw-workspace-wrap">
+      <div class="kw-workspace" onclick="kwToggleWorkspace(event)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <path d="M8 21h8M12 17v4"/>
+        </svg>
+        <span class="kw-workspace-label">${savedWorkspace}</span>
+        <svg class="kw-workspace-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="kw-ws-dropdown" id="kwWsDropdown">
+        <button class="kw-ws-item" onclick="kwSelectWorkspace(event, '개인스페이스')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>개인스페이스</button>
+        <button class="kw-ws-item" onclick="kwSelectWorkspace(event, '워트인텔리전스')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>워트인텔리전스</button>
+        <button class="kw-ws-item" onclick="kwSelectWorkspace(event, 'OO법률사무소')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>OO법률사무소</button>
+      </div>
+    </div>
+  ` : '';
+
   container.innerHTML = `
     <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
     <div class="kw-user-wrap">
@@ -241,11 +330,11 @@ function kwRenderHeader() {
             <svg class="kw-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </div>
           <div class="kw-dropdown" id="kwDropdown">
-            <a href="#" class="kw-drop-item">마이페이지</a>
-            <div class="kw-drop-sep"></div>
-            <button class="kw-drop-item danger" onclick="kwLogout()">로그아웃</button>
+            <a href="#" class="kw-drop-item">마이페이지<svg class="kw-drop-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+            <button class="kw-drop-item danger" onclick="kwLogout()">로그아웃<svg class="kw-drop-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
           </div>
         </div>
+        ${workspaceHTML}
         ${tokenLinkHTML}
       </div>
     </div>
