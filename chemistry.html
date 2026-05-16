@@ -43,6 +43,19 @@
       transition: opacity 0.15s, transform 0.15s; z-index: 199;
     }
     .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar--fixed {
+      position: static;
+      opacity: 1;
+      pointer-events: all;
+      transform: none;
+      box-shadow: none;
+      border-bottom: none;
+      z-index: 0;
+      overflow: hidden;
+      max-height: 48px;
+      transition: max-height 0.15s ease, opacity 0.12s ease;
+    }
+    .mega-bar:not(.mega-bar--fixed) { top: 64px; }
     .mega-bar-inner { display: flex; align-items: center; height: 48px; }
     .mega-tabs { display: flex; align-items: center; gap: 4px; }
     .mega-tab {
@@ -218,7 +231,7 @@
   </div>
 
   <!-- 호버 바: Chemistry -->
-  <div class="mega-bar" id="megaChem"
+  <div class="mega-bar mega-bar--fixed" id="megaChem"
        onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
     <div class="container">
       <div class="mega-bar-inner">
@@ -310,13 +323,13 @@
     var _t = null;
     window.kwMegaShow = function(id) {
       clearTimeout(_t);
-      document.querySelectorAll('.mega-bar').forEach(function(b) { b.classList.remove('open'); });
+      document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
       var el = document.getElementById(id);
-      if (el) el.classList.add('open');
+      if (el && !el.classList.contains('mega-bar--fixed')) el.classList.add('open');
     };
     window.kwMegaHide = function() {
       _t = setTimeout(function() {
-        document.querySelectorAll('.mega-bar').forEach(function(b) { b.classList.remove('open'); });
+        document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
       }, 120);
     };
     window.kwMegaCancel = function() { clearTimeout(_t); };
