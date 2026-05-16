@@ -222,38 +222,38 @@
     .ai-modal-x:hover { background: #F3F4F6; color: #374151; }
 
     /* ── CHEMISTRY CHAT ── */
-    .chem-feed { flex: 1; overflow-y: auto; padding: 28px 48px 20px; display: flex; flex-direction: column; gap: 22px; }
+    /* Chemistry accent: #60A5FA (blue-400, slightly lighter than GNB #3B82F6) */
+    .chem-feed { flex: 1; overflow-y: auto; padding: 28px 0 20px; display: flex; flex-direction: column; align-items: center; }
+    .chem-inner { width: 890px; max-width: 100%; display: flex; flex-direction: column; gap: 20px; }
     .cc-row { display: flex; }
     .cc-row--user { justify-content: flex-end; }
     .cc-row--ai { flex-direction: column; }
     .cc-bubble-user { background: #F3F4F6; border-radius: 18px 18px 4px 18px; padding: 10px 16px; font-size: 14px; color: #111827; font-weight: 500; }
-    .cc-ai-text { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 14px; }
-    .chem-sel-wrap { display: flex; gap: 16px; align-items: flex-start; }
-    .chem-cards-col { flex: 1; min-width: 0; }
-    .chem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
-    .chem-card { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 10px 12px 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s; background: #fff; position: relative; user-select: none; }
-    .chem-card.checked { border-color: #0BB8C9; background: rgba(11,184,201,0.04); }
-    .cc-cb { position: absolute; top: 10px; left: 10px; width: 17px; height: 17px; border: 1.5px solid #D1D5DB; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; background: #fff; transition: all 0.15s; color: transparent; font-weight: 700; }
-    .chem-card.checked .cc-cb { background: #0BB8C9; border-color: #0BB8C9; color: #fff; }
-    .chem-img { height: 68px; background: #F8FAFB; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
-    .chem-card.checked .chem-img { background: #EBF8FA; }
-    .chem-name { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 3px; }
-    .chem-formula { font-size: 11px; color: #0BB8C9; font-weight: 500; }
+    .cc-ai-text { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 12px; }
+    .chem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+    .chem-card { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 8px 10px 10px; cursor: pointer; transition: border-color 0.15s, background 0.15s; background: #fff; position: relative; user-select: none; }
+    .chem-card.checked { border-color: #60A5FA; background: rgba(96,165,250,0.04); }
+    .cc-cb { position: absolute; top: 8px; left: 8px; width: 16px; height: 16px; border: 1.5px solid #D1D5DB; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; background: #fff; transition: all 0.15s; color: transparent; font-weight: 700; }
+    .chem-card.checked .cc-cb { background: #60A5FA; border-color: #60A5FA; color: #fff; }
+    .chem-img { height: 52px; background: #F8FAFB; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 7px; overflow: hidden; }
+    .chem-card.checked .chem-img { background: #EFF6FF; }
+    .chem-name { font-size: 12px; font-weight: 600; color: #111827; margin-bottom: 2px; }
+    .chem-formula { font-size: 11px; color: #60A5FA; font-weight: 500; }
     .chem-sel-bar { display: flex; align-items: center; gap: 8px; }
     .chem-sel-count { font-size: 12px; color: #6B7280; flex: 1; }
     .chem-btn-clear { padding: 5px 14px; font-size: 12px; font-weight: 500; border: 1.5px solid #D1D5DB; border-radius: 8px; background: #fff; color: #374151; cursor: pointer; font-family: inherit; transition: all 0.15s; }
     .chem-btn-clear:hover { border-color: #9CA3AF; }
-    .chem-btn-do { padding: 6px 16px; font-size: 13px; font-weight: 600; border: none; border-radius: 8px; background: #0BB8C9; color: #fff; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; }
-    .chem-btn-do:hover { background: #09A5B5; }
-    .chem-preview-card { width: 160px; flex-shrink: 0; border: 1.5px solid #E5E7EB; border-radius: 12px; background: #F8FAFB; display: flex; align-items: center; justify-content: center; min-height: 190px; }
+    .chem-btn-do { padding: 6px 16px; font-size: 13px; font-weight: 600; border: none; border-radius: 8px; background: #3B82F6; color: #fff; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; }
+    .chem-btn-do:hover { background: #2563EB; }
     .cc-sel-bubble { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
     .cc-sel-thumb { background: #F3F4F6; border: 1px solid #E5E7EB; border-radius: 10px; overflow: hidden; }
     .cc-sel-text { background: #F3F4F6; border-radius: 18px 18px 4px 18px; padding: 9px 16px; font-size: 14px; color: #111827; font-weight: 500; }
-    .chem-scope-box { border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 16px 20px; background: #fff; max-width: 520px; }
+    .chem-scope-box { border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 16px 20px; background: #fff; width: 100%; }
     .chem-scope-head { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 12px; }
     .chem-scope-query { font-size: 14px; font-weight: 600; color: #111827; margin-bottom: 10px; }
-    .chem-scope-tag { display: inline-flex; align-items: center; padding: 4px 12px; background: #D1FAE5; color: #059669; font-size: 12px; font-weight: 600; border-radius: 20px; }
-    .chem-input-wrap { flex-shrink: 0; padding: 10px 48px 20px; background: #fff; border-top: 1px solid #F3F4F6; }
+    .chem-scope-tag { display: inline-flex; align-items: center; padding: 4px 12px; background: #DBEAFE; color: #3B82F6; font-size: 12px; font-weight: 600; border-radius: 20px; }
+    .chem-input-wrap { flex-shrink: 0; padding: 10px 0 20px; background: #fff; border-top: 1px solid #F3F4F6; display: flex; justify-content: center; }
+    .chem-input-inner { width: 890px; max-width: 100%; }
     .chem-input-box { border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 10px 12px 10px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
     .chem-input { flex: 1; border: none; background: none; outline: none; font-size: 14px; font-family: inherit; color: #111827; }
     .chem-input::placeholder { color: #C4C8CE; }
@@ -480,6 +480,7 @@
 
       <!-- Chat Feed -->
       <div class="chem-feed">
+        <div class="chem-inner">
 
         <!-- User: query bubble -->
         <div class="cc-row cc-row--user">
@@ -489,26 +490,23 @@
         <!-- AI: compound selection -->
         <div class="cc-row cc-row--ai">
           <p class="cc-ai-text">항암제 관련 화합물입니다. 기준 구조를 선택해주세요.</p>
-          <div class="chem-sel-wrap">
 
-            <!-- Compound grid + selection bar -->
-            <div class="chem-cards-col">
-              <div class="chem-grid" id="chemGrid">
+          <div class="chem-grid" id="chemGrid">
 
                 <!-- 1. 시스플라틴 (checked) -->
                 <div class="chem-card checked" onclick="toggleChemCard(this)">
                   <span class="cc-cb">✓</span>
                   <div class="chem-img">
                     <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="50" y="35" text-anchor="middle" dominant-baseline="middle" font-size="9.5" fill="#4299A8" font-weight="700" font-family="sans-serif">Pt</text>
-                      <line x1="50" y1="25" x2="50" y2="13" stroke="#85C7D4" stroke-width="1.4"/>
-                      <text x="50" y="9" text-anchor="middle" font-size="8" fill="#85C7D4" font-family="sans-serif">H₃N</text>
-                      <line x1="50" y1="45" x2="50" y2="56" stroke="#85C7D4" stroke-width="1.4"/>
-                      <text x="50" y="62" text-anchor="middle" font-size="8" fill="#85C7D4" font-family="sans-serif">NH₃</text>
-                      <line x1="38" y1="32" x2="22" y2="32" stroke="#85C7D4" stroke-width="1.4"/>
-                      <text x="15" y="35" text-anchor="middle" font-size="8" fill="#85C7D4" font-family="sans-serif">Cl</text>
-                      <line x1="62" y1="32" x2="78" y2="32" stroke="#85C7D4" stroke-width="1.4"/>
-                      <text x="85" y="35" text-anchor="middle" font-size="8" fill="#85C7D4" font-family="sans-serif">Cl</text>
+                      <text x="50" y="35" text-anchor="middle" dominant-baseline="middle" font-size="9.5" fill="#60A5FA" font-weight="700" font-family="sans-serif">Pt</text>
+                      <line x1="50" y1="25" x2="50" y2="13" stroke="#93C5FD" stroke-width="1.4"/>
+                      <text x="50" y="9" text-anchor="middle" font-size="8" fill="#93C5FD" font-family="sans-serif">H₃N</text>
+                      <line x1="50" y1="45" x2="50" y2="56" stroke="#93C5FD" stroke-width="1.4"/>
+                      <text x="50" y="62" text-anchor="middle" font-size="8" fill="#93C5FD" font-family="sans-serif">NH₃</text>
+                      <line x1="38" y1="32" x2="22" y2="32" stroke="#93C5FD" stroke-width="1.4"/>
+                      <text x="15" y="35" text-anchor="middle" font-size="8" fill="#93C5FD" font-family="sans-serif">Cl</text>
+                      <line x1="62" y1="32" x2="78" y2="32" stroke="#93C5FD" stroke-width="1.4"/>
+                      <text x="85" y="35" text-anchor="middle" font-size="8" fill="#93C5FD" font-family="sans-serif">Cl</text>
                     </svg>
                   </div>
                   <div class="chem-name">시스플라틴</div>
@@ -520,18 +518,18 @@
                   <span class="cc-cb">✓</span>
                   <div class="chem-img">
                     <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g stroke="#85C7D4" stroke-width="1.3">
+                      <g stroke="#93C5FD" stroke-width="1.3">
                         <polygon points="26,18 38,12 50,18 50,32 38,38 26,32"/>
                         <polygon points="50,18 62,12 74,18 74,32 50,32"/>
                         <line x1="74" y1="25" x2="84" y2="25"/>
                         <line x1="26" y1="25" x2="16" y2="22"/>
                         <line x1="38" y1="38" x2="38" y2="50"/>
                         <line x1="50" y1="32" x2="50" y2="50"/>
-                        <text x="38" y="56" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">O</text>
-                        <text x="12" y="24" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">OH</text>
-                        <text x="86" y="28" font-size="7" fill="#85C7D4" font-family="sans-serif">O</text>
+                        <text x="38" y="56" text-anchor="middle" font-size="7" fill="#93C5FD" font-family="sans-serif">O</text>
+                        <text x="12" y="24" text-anchor="middle" font-size="7" fill="#93C5FD" font-family="sans-serif">OH</text>
+                        <text x="86" y="28" font-size="7" fill="#93C5FD" font-family="sans-serif">O</text>
                         <line x1="62" y1="12" x2="62" y2="4"/>
-                        <text x="62" y="2" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">O</text>
+                        <text x="62" y="2" text-anchor="middle" font-size="7" fill="#93C5FD" font-family="sans-serif">O</text>
                       </g>
                     </svg>
                   </div>
@@ -567,7 +565,7 @@
                   <span class="cc-cb">✓</span>
                   <div class="chem-img">
                     <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g stroke="#85C7D4" stroke-width="1.3">
+                      <g stroke="#93C5FD" stroke-width="1.3">
                         <polygon points="18,16 28,10 38,16 38,28 28,34 18,28"/>
                         <rect x="38" y="10" width="16" height="22" rx="0"/>
                         <line x1="54" y1="21" x2="64" y2="21"/>
@@ -577,10 +575,10 @@
                         <line x1="72" y1="27" x2="80" y2="23"/>
                         <line x1="80" y1="19" x2="80" y2="23"/>
                         <line x1="18" y1="22" x2="9" y2="18"/>
-                        <text x="5" y="17" font-size="7" fill="#85C7D4" font-family="sans-serif">F</text>
+                        <text x="5" y="17" font-size="7" fill="#93C5FD" font-family="sans-serif">F</text>
                         <line x1="28" y1="34" x2="28" y2="44"/>
-                        <text x="28" y="50" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">NH</text>
-                        <text x="46" y="57" text-anchor="middle" font-size="7" fill="#85C7D4" font-family="sans-serif">N</text>
+                        <text x="28" y="50" text-anchor="middle" font-size="7" fill="#93C5FD" font-family="sans-serif">NH</text>
+                        <text x="46" y="57" text-anchor="middle" font-size="7" fill="#93C5FD" font-family="sans-serif">N</text>
                       </g>
                     </svg>
                   </div>
@@ -615,57 +613,13 @@
                   <div class="chem-formula">C22H23ClN403</div>
                 </div>
 
-              </div><!-- /chem-grid -->
+          </div><!-- /chem-grid -->
 
-              <div class="chem-sel-bar">
-                <span class="chem-sel-count" id="chemSelCount">3개 선택됨 · 동시 검색 가능</span>
-                <button class="chem-btn-clear" onclick="clearChemCards()">해제</button>
-                <button class="chem-btn-do" id="chemBtnDo">선택한 3개로 검색</button>
-              </div>
-            </div><!-- /chem-cards-col -->
-
-            <!-- Preview card: gefitinib structure -->
-            <div class="chem-preview-card">
-              <svg viewBox="0 0 130 160" width="130" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="#7BBFCE" stroke-width="1.5" fill="none">
-                  <!-- quinazoline bicyclic core -->
-                  <polygon points="44,44 56,37 68,44 68,58 56,65 44,58"/>
-                  <rect x="68" y="38" width="20" height="26" />
-                  <!-- benzene ring fused (left) -->
-                  <polygon points="24,44 36,38 44,44 44,58 36,64 24,58"/>
-                  <!-- morpholine side chain (right) -->
-                  <line x1="88" y1="51" x2="100" y2="51"/>
-                  <line x1="100" y1="51" x2="106" y2="43"/>
-                  <line x1="106" y1="43" x2="115" y2="43"/>
-                  <line x1="115" y1="43" x2="120" y2="51"/>
-                  <line x1="120" y1="51" x2="120" y2="60"/>
-                  <line x1="120" y1="60" x2="115" y2="67"/>
-                  <line x1="115" y1="67" x2="106" y2="67"/>
-                  <line x1="106" y1="67" x2="100" y2="60"/>
-                  <line x1="100" y1="60" x2="100" y2="51"/>
-                  <text x="113" y="58" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">O</text>
-                  <!-- NH linker down -->
-                  <line x1="56" y1="65" x2="56" y2="77"/>
-                  <text x="56" y="85" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">NH</text>
-                  <!-- anilino ring -->
-                  <line x1="56" y1="87" x2="56" y2="96"/>
-                  <polygon points="44,96 56,90 68,96 68,110 56,116 44,110"/>
-                  <!-- Cl on anilino -->
-                  <line x1="44" y1="103" x2="33" y2="103"/>
-                  <text x="27" y="106" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">Cl</text>
-                  <!-- methoxy on quinazoline -->
-                  <line x1="68" y1="44" x2="78" y2="37"/>
-                  <!-- F on left ring -->
-                  <line x1="24" y1="51" x2="14" y2="47"/>
-                  <text x="9" y="46" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">F</text>
-                  <!-- OMe on anilino -->
-                  <line x1="56" y1="116" x2="56" y2="126"/>
-                  <text x="56" y="132" text-anchor="middle" font-size="8" fill="#7BBFCE" font-family="sans-serif">OMe</text>
-                </g>
-              </svg>
-            </div>
-
-          </div><!-- /chem-sel-wrap -->
+          <div class="chem-sel-bar">
+            <span class="chem-sel-count" id="chemSelCount">3개 선택됨 · 동시 검색 가능</span>
+            <button class="chem-btn-clear" onclick="clearChemCards()">해제</button>
+            <button class="chem-btn-do" id="chemBtnDo">선택한 3개로 검색</button>
+          </div>
         </div><!-- /cc-row--ai -->
 
         <!-- User: selected compounds -->
@@ -705,10 +659,12 @@
           </div>
         </div>
 
+        </div><!-- /chem-inner -->
       </div><!-- /chem-feed -->
 
       <!-- Follow-up input -->
       <div class="chem-input-wrap">
+        <div class="chem-input-inner">
         <div class="chem-input-box">
           <input class="chem-input" placeholder="후속 질문하기...">
           <button class="chem-send-btn">
@@ -726,6 +682,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
           </button>
         </div>
+        </div><!-- /chem-input-inner -->
       </div>
 
     </div><!-- /is-main -->
