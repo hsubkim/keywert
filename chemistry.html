@@ -102,7 +102,21 @@
     .placeholder-section h2 { font-size: 28px; font-weight: 700; color: #9CA3AF; margin-bottom: 12px; }
     .placeholder-section p { font-size: 15px; color: #D1D5DB; }
 
-    footer { background: #0C1222; padding: 40px 0; text-align: center; font-size: 13px; color: #334155; }
+    footer { background: #0C1222; padding: 64px 0 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 80px; margin-bottom: 48px; align-items: start; }
+    .footer-info h3 { font-size: 15px; font-weight: 700; color: #F1F5F9; margin-bottom: 10px; }
+    .footer-info p { font-size: 13px; color: #64748B; line-height: 1.85; }
+    .footer-info a { color: #64748B; text-decoration: none; transition: color 0.15s; }
+    .footer-info a:hover { color: #94A3B8; }
+    .footer-info .spacer { margin-top: 8px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-link-card { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 14px 20px; background: #1E293B; border-radius: 12px; text-decoration: none; min-width: 340px; transition: background 0.15s; }
+    .footer-link-card:hover { background: #334155; }
+    .flc-text { display: flex; flex-direction: column; gap: 2px; }
+    .flc-tag { font-size: 11px; font-weight: 600; color: #64748B; letter-spacing: 0.03em; }
+    .flc-name { font-size: 14px; font-weight: 600; color: #E2E8F0; }
+    .flc-arrow { color: #64748B; font-size: 18px; }
+    .footer-bottom { border-top: 1px solid #1E293B; padding-top: 24px; font-size: 13px; color: #334155; }
   </style>
 </head>
 <body>
@@ -221,7 +235,40 @@
 
 <footer>
   <div class="container">
-    <p>© 2024 keywert. All rights reserved. &nbsp;|&nbsp; <a href="index.html" style="color:#64748B;">홈으로 돌아가기</a></p>
+    <div class="footer-grid">
+      <div class="footer-info">
+        <h3>고객센터</h3>
+        <p>키워트에 대한 모든 자료를 고객지원연구소 CS LAB에서 제공합니다.</p>
+        <p class="spacer">
+          평일 09:00~12:00 / 13:00~18:00<br>
+          Tel : 02-521-0110
+        </p>
+        <p class="spacer">
+          고객문의 : <a href="mailto:cslab@keywert.com">cslab@keywert.com</a><br>
+          제휴비즈니스 문의 : <a href="mailto:cm@keywert.com">cm@keywert.com</a>
+        </p>
+        <p class="spacer">
+          대표 : 윤정호<br>
+          사업자등록번호 : 675-86-00133<br>
+          주소 : 서울시 서초구 강남대로 507, 68(반포동)
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">IP 데이터 인텔리전스</span><span class="flc-name">IP 데이터 인텔리전스 서비스 설계 전략</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">patspoon</span><span class="flc-name">IP 전문교육 플랫폼</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">❤ IP KINGKONG</span><span class="flc-name">특허전문 AI 번역</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2024 keywert. All rights reserved.</p></div>
   </div>
 </footer>
 
