@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert 고객센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+    }
+    header .container { max-width: none; }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 30px 0;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .logo-img { height: 24px; width: auto; display: block; }
+    .logo-fallback {
+      display: none; align-items: center; gap: 6px;
+      font-size: 17px; font-weight: 700; color: #29B8D8;
+    }
+    .logo-cs {
+      font-size: 14px; font-weight: 600; color: #6B7280;
+      padding-left: 10px; border-left: 1.5px solid #E5E7EB; margin-left: 2px;
+    }
+
+    /* Center nav */
+    .header-nav {
+      display: flex; align-items: center; gap: 0;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .hnav-item {
+      padding: 6px 20px; font-size: 14px; font-weight: 500; color: #374151;
+      text-decoration: none; border-radius: 6px; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .hnav-item:hover { color: #0BB8C9; background: #F0FDFF; }
+    .hnav-item.active { color: #0BB8C9; font-weight: 700; }
+
+    /* Right user area */
+    .header-user {
+      display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+    }
+    .user-info {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: #374151;
+    }
+    .user-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #E0F2F8; display: flex; align-items: center; justify-content: center;
+      color: #0BB8C9;
+    }
+    .user-days { color: #6B7280; font-size: 12px; }
+    .user-points {
+      font-size: 12px; color: #6B7280;
+    }
+    .user-tier {
+      padding: 3px 10px; background: #0BB8C9; color: #fff;
+      font-size: 12px; font-weight: 700; border-radius: 20px;
+    }
+    .btn-text {
+      padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px;
+      transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; flex-shrink: 0; }
+
+    /* ── HERO ── */
+    .hero {
+      background: #D9EEF5;
+      min-height: 360px;
+      display: flex; align-items: stretch;
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 60px;
+      gap: 40px;
+    }
+
+    /* Illustration */
+    .hero-illus { flex: 0 0 420px; display: flex; align-items: flex-end; }
+
+    /* Right content */
+    .hero-content { flex: 1; padding: 52px 0; }
+    .hero-title {
+      font-size: 44px; font-weight: 800; color: #111827;
+      letter-spacing: -0.03em; margin-bottom: 28px; line-height: 1.2;
+    }
+    .search-box {
+      display: flex; align-items: center; gap: 10px;
+      background: #fff; border: 1.5px solid #D1D5DB; border-radius: 10px;
+      padding: 14px 18px; margin-bottom: 18px;
+      max-width: 500px; transition: border-color 0.15s;
+    }
+    .search-box:focus-within { border-color: #0BB8C9; box-shadow: 0 0 0 3px rgba(11,184,201,0.12); }
+    .search-box input {
+      flex: 1; border: none; outline: none; font-size: 15px;
+      font-family: inherit; color: #111827; background: transparent;
+    }
+    .search-box input::placeholder { color: #9CA3AF; }
+    .search-icon { color: #9CA3AF; flex-shrink: 0; }
+
+    .faq-quick {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: #6B7280; margin-bottom: 36px; flex-wrap: wrap;
+    }
+    .faq-quick-label { font-weight: 600; white-space: nowrap; }
+    .faq-quick-arrow { color: #9CA3AF; }
+    .faq-tag {
+      color: #0BB8C9; text-decoration: underline; cursor: pointer;
+      transition: color 0.15s;
+    }
+    .faq-tag:hover { color: #0899A8; }
+
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-cs {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; background: #0BB8C9; color: #fff;
+      font-size: 14px; font-weight: 700; border-radius: 8px;
+      text-decoration: none; border: none; cursor: pointer; font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-cs:hover { background: #09A5B5; }
+    .btn-cs.outline {
+      background: #fff; color: #0BB8C9;
+      border: 1.5px solid #0BB8C9;
+    }
+    .btn-cs.outline:hover { background: #F0FDFF; }
+
+    /* ── CONTENT ── */
+    .content-section { padding: 60px 0 80px; }
+    .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+
+    .section-head {
+      display: flex; align-items: baseline; gap: 10px;
+      margin-bottom: 24px;
+    }
+    .section-head h2 { font-size: 18px; font-weight: 700; color: #111827; }
+    .section-more {
+      font-size: 13px; color: #9CA3AF; text-decoration: none;
+      transition: color 0.15s;
+    }
+    .section-more:hover { color: #0BB8C9; }
+
+    /* Notice list */
+    .notice-list { list-style: none; }
+    .notice-item {
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .notice-item a {
+      display: block; padding: 13px 0; font-size: 14px; color: #374151;
+      text-decoration: none; line-height: 1.55; transition: color 0.15s;
+    }
+    .notice-item a:hover { color: #0BB8C9; }
+    .notice-item a .tag {
+      color: #0BB8C9; font-weight: 600; margin-right: 2px;
+    }
+
+    /* FAQ list */
+    .faq-list { list-style: none; }
+    .faq-item {
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .faq-item a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 13px 0; font-size: 14px; color: #374151;
+      text-decoration: none; transition: color 0.15s;
+    }
+    .faq-item a:hover { color: #0BB8C9; }
+    .faq-item a::before {
+      content: 'Q';
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      background: #E0F2F8; color: #0BB8C9;
+      font-size: 11px; font-weight: 800;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Floating buttons */
+    .float-btns {
+      position: fixed; right: 28px; bottom: 28px;
+      display: flex; flex-direction: column; gap: 10px; z-index: 100;
+    }
+    .float-btn {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #0BB8C9; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none; transition: background 0.15s, transform 0.15s;
+      box-shadow: 0 4px 16px rgba(11,184,201,0.35);
+    }
+    .float-btn:hover { background: #09A5B5; transform: translateY(-2px); }
+    .float-btn.outline {
+      background: #fff; color: #0BB8C9;
+      border: 1.5px solid #D1D5DB;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .float-btn.outline:hover { background: #F0FDFF; }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="22" height="19" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span>keywert</span>
+        </span>
+        <span class="logo-cs">고객센터</span>
+      </a>
+
+      <!-- Center nav -->
+      <nav class="header-nav">
+        <a href="#" class="hnav-item active">주요기능 활용법</a>
+        <a href="#" class="hnav-item">무료체험 신청</a>
+        <a href="#" class="hnav-item">요금제 문의</a>
+        <a href="#" class="hnav-item">고객 문의</a>
+        <a href="#" class="hnav-item">공지사항</a>
+        <a href="#" class="hnav-item">블로그</a>
+      </nav>
+
+      <!-- User info -->
+      <div class="header-user" id="csHeaderUser"></div>
+
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <!-- Illustration -->
+    <div class="hero-illus">
+      <svg viewBox="0 0 420 320" width="420" height="320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Monitor -->
+        <rect x="80" y="60" width="240" height="170" rx="10" stroke="#0BB8C9" stroke-width="2.5"/>
+        <rect x="80" y="60" width="240" height="28" rx="10" fill="#C8E9F2" stroke="#0BB8C9" stroke-width="2.5"/>
+        <!-- monitor stand -->
+        <rect x="185" y="230" width="30" height="28" rx="3" fill="#C8E9F2" stroke="#0BB8C9" stroke-width="2"/>
+        <rect x="155" y="255" width="90" height="8" rx="4" fill="#C8E9F2" stroke="#0BB8C9" stroke-width="2"/>
+        <!-- screen lines -->
+        <rect x="100" y="108" width="160" height="8" rx="4" fill="#B0D8E8"/>
+        <rect x="100" y="124" width="120" height="6" rx="3" fill="#C8E9F2"/>
+        <rect x="100" y="138" width="140" height="6" rx="3" fill="#C8E9F2"/>
+        <rect x="100" y="152" width="100" height="6" rx="3" fill="#C8E9F2"/>
+        <!-- star rating -->
+        <rect x="100" y="172" width="80" height="24" rx="6" fill="#E0F5FA" stroke="#0BB8C9" stroke-width="1.5"/>
+        <text x="108" y="188" font-size="12" fill="#0BB8C9">★ ★ ★</text>
+
+        <!-- Person at desk -->
+        <!-- body -->
+        <ellipse cx="290" cy="190" rx="28" ry="36" fill="#E0F5FA" stroke="#0BB8C9" stroke-width="2"/>
+        <!-- head -->
+        <circle cx="290" cy="145" r="22" fill="#E0F5FA" stroke="#0BB8C9" stroke-width="2"/>
+        <!-- headset arc -->
+        <path d="M272 140 Q290 120 308 140" stroke="#0BB8C9" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <circle cx="272" cy="143" r="5" fill="#0BB8C9"/>
+        <circle cx="308" cy="143" r="5" fill="#0BB8C9"/>
+        <!-- mic -->
+        <path d="M272 148 L268 158 L264 158" stroke="#0BB8C9" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- face dots -->
+        <circle cx="284" cy="143" r="2" fill="#0BB8C9"/>
+        <circle cx="296" cy="143" r="2" fill="#0BB8C9"/>
+        <path d="M284 153 Q290 157 296 153" stroke="#0BB8C9" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <!-- arms -->
+        <path d="M268 185 Q250 200 240 210" stroke="#0BB8C9" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M312 185 Q330 200 340 215" stroke="#0BB8C9" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- keyboard area -->
+        <rect x="230" y="208" width="120" height="16" rx="5" fill="#C8E9F2" stroke="#0BB8C9" stroke-width="1.5"/>
+        <rect x="235" y="212" width="20" height="5" rx="2" fill="#0BB8C9" opacity="0.3"/>
+        <rect x="260" y="212" width="30" height="5" rx="2" fill="#0BB8C9" opacity="0.3"/>
+        <rect x="296" y="212" width="20" height="5" rx="2" fill="#0BB8C9" opacity="0.3"/>
+
+        <!-- Chat bubbles -->
+        <!-- left bubble -->
+        <rect x="18" y="70" width="130" height="48" rx="12" fill="#fff" stroke="#0BB8C9" stroke-width="1.8"/>
+        <path d="M40 118 L30 132 L55 118" fill="#fff" stroke="#0BB8C9" stroke-width="1.5" stroke-linejoin="round"/>
+        <rect x="30" y="82" width="80" height="6" rx="3" fill="#C8E9F2"/>
+        <rect x="30" y="95" width="60" height="5" rx="2.5" fill="#E0F5FA"/>
+        <!-- right bubble -->
+        <rect x="272" y="28" width="120" height="44" rx="12" fill="#0BB8C9"/>
+        <path d="M350 72 L360 84 L335 72" fill="#0BB8C9"/>
+        <rect x="284" y="40" width="72" height="6" rx="3" fill="rgba(255,255,255,0.6)"/>
+        <rect x="284" y="53" width="50" height="5" rx="2.5" fill="rgba(255,255,255,0.4)"/>
+        <!-- small bubble bottom left -->
+        <rect x="30" y="195" width="90" height="36" rx="10" fill="#fff" stroke="#0BB8C9" stroke-width="1.5"/>
+        <path d="M60 231 L52 244 L75 231" fill="#fff" stroke="#0BB8C9" stroke-width="1.5" stroke-linejoin="round"/>
+        <rect x="42" y="205" width="55" height="5" rx="2.5" fill="#C8E9F2"/>
+        <rect x="42" y="216" width="40" height="4" rx="2" fill="#E0F5FA"/>
+
+        <!-- Small person (bottom right) -->
+        <circle cx="368" cy="244" r="14" fill="#E0F5FA" stroke="#0BB8C9" stroke-width="1.8"/>
+        <circle cx="365" cy="242" r="2" fill="#0BB8C9"/>
+        <circle cx="372" cy="242" r="2" fill="#0BB8C9"/>
+        <path d="M364 250 Q368 253 372 250" stroke="#0BB8C9" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="368" cy="278" rx="18" ry="26" fill="#E0F5FA" stroke="#0BB8C9" stroke-width="1.8"/>
+        <path d="M354 268 Q344 278 340 290" stroke="#0BB8C9" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M382 268 Q392 278 396 290" stroke="#0BB8C9" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="hero-content">
+      <h1 class="hero-title">무엇을 도와드릴까요?</h1>
+
+      <div class="search-box">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" placeholder="도움말 검색" id="csSearch">
+      </div>
+
+      <div class="faq-quick">
+        <span class="faq-quick-label">자주 찾는 질문</span>
+        <span class="faq-quick-arrow">›</span>
+        <a class="faq-tag" href="#">체험아이디</a>
+        <a class="faq-tag" href="#">법적상태</a>
+        <a class="faq-tag" href="#">최적 PC 사양</a>
+      </div>
+
+      <div class="hero-btns">
+        <a href="#" class="btn-cs">
+          키워트 소개서
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+        <a href="#" class="btn-cs outline">
+          매뉴얼 다운로드
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CONTENT ── -->
+<section class="content-section">
+  <div class="container">
+    <div class="content-grid">
+
+      <!-- 공지사항 -->
+      <div>
+        <div class="section-head">
+          <h2>공지사항</h2>
+          <a href="#" class="section-more">전체보기</a>
+        </div>
+        <ul class="notice-list">
+          <li class="notice-item">
+            <a href="#"><span class="tag">[서비스]</span> 4/28 (화) 00:00~03:00 서버 점검 안내</a>
+          </li>
+          <li class="notice-item">
+            <a href="#"><span class="tag">[서비스]</span> "더 이상의 오역과 깨짐은 없습니다." 국내 최초 '3세대 LLM 특허 번역' 오픈</a>
+          </li>
+          <li class="notice-item">
+            <a href="#"><span class="tag">[서비스]</span> 3/27 (금) 22:00~00:00 서버 점검 안내</a>
+          </li>
+          <li class="notice-item">
+            <a href="#"><span class="tag">[서비스]</span> 여러 국가 특허를 한 번에, "번호 검색" 통합 업데이트!</a>
+          </li>
+          <li class="notice-item">
+            <a href="#"><span class="tag">[서비스]</span> 3/6 (금) 23:00~01:00 서버 점검 안내</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 자주 찾는 질문 -->
+      <div>
+        <div class="section-head">
+          <h2>자주 찾는 질문</h2>
+          <a href="#" class="section-more">전체보기</a>
+        </div>
+        <ul class="faq-list">
+          <li class="faq-item"><a href="#">슬라이딩뷰에 단축키가 있나요?</a></li>
+          <li class="faq-item"><a href="#">띄어쓰기는 어떤 연산자로 인식되나요?</a></li>
+          <li class="faq-item"><a href="#">회사에서 체험 아이디를 쓰고 싶습니다.</a></li>
+          <li class="faq-item"><a href="#">검색 결과 목록을 원하는 순서로 보고싶습니다.</a></li>
+          <li class="faq-item"><a href="#">회원정보를 변경하고 싶습니다.</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Floating action buttons -->
+<div class="float-btns">
+  <button class="float-btn outline" title="문의하기">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <button class="float-btn" title="채팅 상담">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  </button>
+</div>
+
+<script>
+  // GNB 유저 영역 렌더링
+  (function() {
+    var user;
+    try { user = JSON.parse(localStorage.getItem('kw_user')); } catch(e) { user = null; }
+    var el = document.getElementById('csHeaderUser');
+    if (!el) return;
+    if (user) {
+      el.style.cssText = 'display:flex;align-items:center;gap:0;';
+      el.innerHTML =
+        '<div class="user-info">' +
+          '<div class="user-icon">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
+          '</div>' +
+          '<span style="font-size:12px;font-weight:500;color:#374151;margin-left:6px;">김학민</span>' +
+        '</div>' +
+        '<div class="btn-divider" style="margin:0 4px;"></div>' +
+        '<button class="btn-text" style="background:none;border:none;cursor:pointer;font-family:inherit;" onclick="csLogout()">로그아웃</button>';
+    } else {
+      el.style.cssText = 'display:flex;align-items:center;gap:0;';
+      el.innerHTML =
+        '<a href="login.html" class="btn-text" onclick="sessionStorage.setItem(\'kw_redirect\',\'cslab.html\')">로그인</a>' +
+        '<div class="btn-divider"></div>' +
+        '<a href="signup.html" class="btn-text" onclick="sessionStorage.setItem(\'kw_redirect\',\'cslab.html\')">회원가입</a>';
+    }
+  })();
+
+  function csLogout() {
+    localStorage.removeItem('kw_user');
+    window.location.href = 'cslab.html';
+  }
+
+  // Search
+  document.getElementById('csSearch').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && this.value.trim()) {
+      alert('"' + this.value.trim() + '" 검색 결과 페이지로 이동 예정입니다.');
+    }
+  });
+
+  // Sub-nav active
+  document.querySelectorAll('.hnav-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.hnav-item').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

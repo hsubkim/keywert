@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+
+    /* ── GLOBAL HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+    }
+    header .container { max-width: none; }
+    .header-inner {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; height: 64px; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 28px; width: auto; display: block; }
+    .logo-fallback {
+      display: none; align-items: center; gap: 7px;
+      font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em;
+    }
+    nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .nav-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827;
+      cursor: pointer; border-radius: 8px; background: none; border: none;
+      font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s;
+    }
+    .nav-btn:hover { background: #F3F4F6; }
+    .nav-btn.active { color: #00AACB; }
+    .mega-bar {
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      opacity: 0; pointer-events: none; transform: translateY(-4px);
+      transition: opacity 0.15s, transform 0.15s; z-index: 199;
+    }
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar--fixed {
+      position: static;
+      opacity: 1;
+      pointer-events: all;
+      transform: none;
+      box-shadow: none;
+      border-bottom: none;
+      z-index: 0;
+      overflow: hidden;
+      max-height: 48px;
+      transition: max-height 0.15s ease, opacity 0.12s ease;
+    }
+    .mega-bar--fixed.sub-hidden { max-height: 0; opacity: 0; pointer-events: none; }
+    .mega-bar:not(.mega-bar--fixed) { top: 64px; }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
+    .mega-brand { font-size: 16px; font-weight: 800; flex-shrink: 0; letter-spacing: -0.01em; }
+    .mega-brand.insight { color: #0BB8C9; }
+    .mega-brand.pro     { color: #2563EB; }
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab {
+      padding: 6px 14px; font-size: 14px; font-weight: 500;
+      color: #6B7280; text-decoration: none;
+      border-radius: 6px; transition: all 0.15s; white-space: nowrap;
+    }
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab.ext { display: flex; align-items: center; gap: 3px; }
+    .mega-tab-util {
+      font-size: 12px; font-weight: 500; color: #6B7280;
+      padding: 3px 9px; border-radius: 6px;
+      border: 1.5px solid #D1D5DB;
+      text-decoration: none; white-space: nowrap;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-chemistry {
+      display: flex; align-items: center; gap: 5px; padding: 5px 11px;
+      border: 1.5px solid #3B82F6; border-radius: 7px; color: #3B82F6;
+      font-size: 16px; font-weight: 700; background: none; cursor: pointer;
+      text-decoration: none; font-family: inherit; transition: background 0.15s; line-height: 1;
+    }
+    .btn-chemistry:hover { background: #EFF6FF; }
+    .btn-text {
+      padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
+    .btn-primary {
+      padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600;
+      border-radius: 8px; text-decoration: none; border: none; cursor: pointer;
+      font-family: inherit; transition: background 0.15s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #008FA8; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 88px 0 72px; text-align: center;
+      background: #fff;
+    }
+    .deco {
+      position: absolute; border-radius: 50%; pointer-events: none;
+    }
+    .hero-eyebrow { font-size: 15px; color: #6B7280; margin-bottom: 14px; }
+    .hero-title {
+      font-size: 52px; font-weight: 800; letter-spacing: -0.03em;
+      color: #111827; margin-bottom: 16px; line-height: 1.15;
+    }
+    .hero-desc { font-size: 16px; color: #6B7280; margin-bottom: 40px; }
+    .hero-btns { display: flex; justify-content: center; gap: 12px; margin-bottom: 60px; }
+    .btn-hero-teal {
+      padding: 14px 40px; background: #0BB8C9; color: #fff;
+      font-size: 16px; font-weight: 700; border-radius: 10px;
+      text-decoration: none; border: none; cursor: pointer; font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-hero-teal:hover { background: #09A5B5; }
+    .btn-hero-outline {
+      padding: 14px 40px; background: #fff; color: #374151;
+      font-size: 16px; font-weight: 600; border-radius: 10px;
+      text-decoration: none; border: 1.5px solid #D1D5DB; cursor: pointer; font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-hero-outline:hover { border-color: #9CA3AF; }
+
+    /* UI Mockup */
+    .ui-mockup {
+      max-width: 900px; margin: 0 auto;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+      border: 1px solid #E5E7EB;
+      position: relative; z-index: 1;
+    }
+    .ui-mockup-bar {
+      background: #F3F4F6; padding: 10px 16px;
+      display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #E5E7EB;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.red { background: #FF5F57; }
+    .dot.yellow { background: #FFBD2E; }
+    .dot.green { background: #28CA41; }
+    .ui-mockup-body { display: flex; height: 280px; }
+    .ui-left {
+      width: 260px; flex-shrink: 0; border-right: 1px solid #E5E7EB;
+      background: #F9FAFB; padding: 20px;
+    }
+    .ui-left-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #1D4ED8; color: #fff; font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .ui-left h4 { font-size: 12px; font-weight: 700; color: #6B7280; margin-bottom: 10px; }
+    .ui-result {
+      background: #fff; border-radius: 8px; padding: 10px 12px;
+      margin-bottom: 6px; border: 1px solid #E5E7EB;
+    }
+    .ui-result-bar { height: 8px; background: #E5E7EB; border-radius: 4px; margin-bottom: 5px; }
+    .ui-result-bar.short { width: 60%; }
+    .ui-right { flex: 1; padding: 20px; }
+    .grade-card {
+      background: linear-gradient(135deg, #1D4ED8, #2563EB);
+      color: #fff; border-radius: 14px; padding: 20px 24px;
+      display: inline-block; margin-bottom: 16px; min-width: 180px;
+    }
+    .grade-label { font-size: 11px; font-weight: 600; opacity: 0.8; margin-bottom: 6px; }
+    .grade-value { font-size: 52px; font-weight: 900; line-height: 1; }
+    .grade-subs { display: flex; gap: 16px; margin-top: 10px; font-size: 11px; }
+    .grade-sub span { display: block; opacity: 0.7; }
+    .grade-sub strong { font-size: 15px; font-weight: 700; }
+    .copilot-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EF4444; color: #fff; font-size: 11px; font-weight: 700;
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;
+    }
+    .copilot-btns { display: flex; gap: 8px; }
+    .copilot-btn {
+      padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+      border: 1.5px solid #E5E7EB; background: #fff; color: #374151; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .copilot-btn.active { background: #2563EB; color: #fff; border-color: #2563EB; }
+
+    /* ── AI FEATURES ── */
+    .features-section { padding: 100px 0 80px; background: #fff; }
+    .features-title {
+      font-size: 36px; font-weight: 800; color: #111827;
+      text-align: center; letter-spacing: -0.02em; margin-bottom: 64px;
+    }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .feat-card {
+      border: 1.5px solid #E5E7EB; border-radius: 20px;
+      padding: 36px 36px 28px; overflow: hidden;
+      transition: box-shadow 0.2s; position: relative;
+    }
+    .feat-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.08); }
+    .feat-card.wide { grid-column: 1 / -1; }
+    .ai-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; background: #111827; border-radius: 8px;
+      color: #fff; font-size: 11px; font-weight: 800; margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .feat-card-title {
+      font-size: 22px; font-weight: 700; color: #111827;
+      line-height: 1.35; margin-bottom: 24px; letter-spacing: -0.01em;
+    }
+    .feat-learn {
+      font-size: 14px; font-weight: 600; color: #0BB8C9;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 4px;
+      margin-bottom: 28px; transition: gap 0.15s;
+    }
+    .feat-learn:hover { gap: 8px; }
+    .mini-mockup {
+      background: #F8FAFC; border-radius: 12px;
+      border: 1px solid #E5E7EB; overflow: hidden;
+      margin-top: 4px;
+    }
+    .mm-bar {
+      background: #F3F4F6; padding: 8px 12px;
+      border-bottom: 1px solid #E5E7EB;
+      display: flex; align-items: center; gap: 6px; font-size: 11px;
+    }
+    .mm-badge {
+      background: #1D4ED8; color: #fff; font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px; display: flex; align-items: center; gap: 4px;
+    }
+    .mm-badge.teal { background: #0BB8C9; }
+    .mm-badge.red  { background: #EF4444; }
+    .mm-badge.dark { background: #111827; }
+    .mm-body { padding: 12px 14px; }
+    .mm-row { height: 8px; background: #E5E7EB; border-radius: 4px; margin-bottom: 5px; }
+    .mm-row.short { width: 55%; }
+    .mm-row.mid   { width: 75%; }
+    .mm-search {
+      display: flex; align-items: center; gap: 8px;
+      background: #fff; border: 1.5px solid #E5E7EB; border-radius: 8px;
+      padding: 8px 12px; margin-bottom: 10px;
+    }
+    .mm-search-text { font-size: 11px; color: #9CA3AF; flex: 1; }
+    .mm-search-icon { color: #0BB8C9; }
+    .mm-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .mm-chip {
+      padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 500;
+      background: #F3F4F6; color: #374151; border: 1px solid #E5E7EB;
+    }
+    .mm-chip.active { background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE; }
+    .mm-translation {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 8px;
+      padding: 12px; font-size: 11px; line-height: 1.7; color: #374151;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #0C1222; padding: 48px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 80px; margin-bottom: 40px; align-items: start; }
+    .footer-info h3 { font-size: 15px; font-weight: 700; color: #F1F5F9; margin-bottom: 10px; }
+    .footer-info p { font-size: 13px; color: #64748B; line-height: 1.85; }
+    .footer-info a { color: #64748B; text-decoration: none; }
+    .footer-info .spacer { margin-top: 8px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-link-card {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px; padding: 14px 20px; background: #1E293B; border-radius: 12px;
+      text-decoration: none; min-width: 340px; transition: background 0.15s;
+    }
+    .footer-link-card:hover { background: #334155; }
+    .flc-text { display: flex; flex-direction: column; gap: 2px; }
+    .flc-tag { font-size: 11px; font-weight: 600; color: #64748B; }
+    .flc-name { font-size: 14px; font-weight: 600; color: #E2E8F0; }
+    .flc-arrow { color: #64748B; font-size: 18px; }
+    .footer-bottom { border-top: 1px solid #1E293B; padding-top: 24px; font-size: 13px; color: #334155; }
+  </style>
+</head>
+<body>
+
+<!-- ── GLOBAL HEADER ── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;letter-spacing:-0.02em;">keywert</span>
+        </span>
+      </a>
+
+      <nav>
+        <div onmouseenter="kwMegaShow('megaInsight')" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaPro')" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn active">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <a href="chemistry.html" class="btn-chemistry" style="margin-left:4px;">
+          <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
+            <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
+          Chemistry
+        </a>
+      </nav>
+
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
+        </div>
+        <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 호버 바: Insight -->
+  <div class="mega-bar" id="megaInsight"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">특허 검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="#" class="mega-tab">AI보고서</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="insight.html" class="mega-tab-util">플랜 안내</a>
+          <a href="insight.html" class="mega-tab-util">이용 가이드</a>
+          <a href="insight.html" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- 고정 바: Pro 현재 페이지 -->
+  <div class="mega-bar mega-bar--fixed" id="megaPro">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="pro_search.html" class="mega-tab">일반검색</a>
+          <a href="pro_search.html" class="mega-tab">선행조사용 검색</a>
+          <a href="pro_search.html" class="mega-tab">AI검색</a>
+          <a href="pro_search.html" class="mega-tab">번호검색</a>
+          <a href="pro_search.html" class="mega-tab">미국소송검색</a>
+          <a href="pro_search.html" class="mega-tab">K WORK</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="#" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <!-- Decorative circles -->
+  <div class="deco" style="width:180px;height:180px;background:rgba(11,184,201,0.06);top:-40px;right:120px;"></div>
+  <div class="deco" style="width:80px;height:80px;background:rgba(37,99,235,0.07);top:60px;right:360px;"></div>
+  <div class="deco" style="width:120px;height:120px;background:rgba(11,184,201,0.05);bottom:100px;left:80px;"></div>
+  <div class="deco" style="width:50px;height:50px;background:rgba(37,99,235,0.08);bottom:80px;right:200px;"></div>
+  <div class="deco" style="width:200px;height:200px;background:rgba(11,184,201,0.04);top:40px;left:-60px;"></div>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <p class="hero-eyebrow">특허, keywert로 AI를 만나다.</p>
+    <h1 class="hero-title">특허의 모든 것을 검색하세요.</h1>
+    <p class="hero-desc">특허 데이터를 만난 전용 AI 에이전트로 데이터, 팀, 비즈니스를 하나로 연결하세요.</p>
+
+    <div class="hero-btns">
+      <a href="pro_search.html" class="btn-hero-teal">무료체험</a>
+      <a href="#" class="btn-hero-outline">문의하기</a>
+    </div>
+
+    <!-- UI Mockup -->
+    <div class="ui-mockup">
+      <div class="ui-mockup-bar">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      <div class="ui-mockup-body">
+        <!-- Left panel: AI 검색식 -->
+        <div class="ui-left">
+          <div class="ui-left-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
+            AI 검색식
+          </div>
+          <h4>AI 추천 검색어</h4>
+          <div class="ui-result"><div class="ui-result-bar"></div><div class="ui-result-bar short"></div></div>
+          <div class="ui-result"><div class="ui-result-bar mid"></div><div class="ui-result-bar short"></div></div>
+          <div class="ui-result"><div class="ui-result-bar"></div></div>
+        </div>
+        <!-- Right panel -->
+        <div class="ui-right">
+          <div style="display:flex;gap:20px;align-items:flex-start;">
+            <div class="grade-card">
+              <p class="grade-label">특허평가등급</p>
+              <p class="grade-value">A+</p>
+              <div class="grade-subs">
+                <div class="grade-sub"><span>관리</span><strong>A+</strong></div>
+                <div class="grade-sub"><span>기술</span><strong>S</strong></div>
+                <div class="grade-sub"><span>활용</span><strong>B+</strong></div>
+              </div>
+            </div>
+            <div style="flex:1;">
+              <div class="copilot-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
+                AI 요약 Copilot
+              </div>
+              <div class="copilot-btns">
+                <button class="copilot-btn active">다른 특허 검색</button>
+                <button class="copilot-btn">다른 요약으로 검색</button>
+              </div>
+              <div style="margin-top:12px;">
+                <div class="ui-result-bar mid" style="height:8px;background:#E5E7EB;border-radius:4px;margin-bottom:5px;"></div>
+                <div class="ui-result-bar short" style="height:8px;background:#E5E7EB;border-radius:4px;margin-bottom:5px;width:55%"></div>
+                <div class="ui-result-bar" style="height:8px;background:#E5E7EB;border-radius:4px;margin-bottom:5px;width:80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AI FEATURES ── -->
+<section class="features-section">
+  <div class="container">
+    <h2 class="features-title">특허, keywert로 AI를 만나다.</h2>
+    <div class="features-grid">
+
+      <!-- 1 -->
+      <div class="feat-card">
+        <div class="ai-badge">AI</div>
+        <h3 class="feat-card-title">특허 검색식,<br>AI가 완성해드려요.</h3>
+        <a href="#" class="feat-learn">활용법 알아보기 →</a>
+        <div class="mini-mockup">
+          <div class="mm-bar"><div class="mm-badge teal"><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg> AI 검색식</div></div>
+          <div class="mm-body">
+            <div class="mm-search">
+              <span class="mm-search-text">특허 키워드를 입력하세요...</span>
+              <svg class="mm-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <div class="mm-chips">
+              <span class="mm-chip active">자율주행</span>
+              <span class="mm-chip">딥러닝</span>
+              <span class="mm-chip">센서 융합</span>
+              <span class="mm-chip">경로 계획</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="feat-card">
+        <div class="ai-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 9l3-3 3 3M9 15l3 3 3-3M4 12h16"/></svg>
+        </div>
+        <h3 class="feat-card-title">특허의 핵심,<br>AI가 읽기 쉽게 요약해요.</h3>
+        <a href="#" class="feat-learn">활용법 알아보기 →</a>
+        <div class="mini-mockup">
+          <div class="mm-bar"><div class="mm-badge red"><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg> AI 요약 Copilot</div></div>
+          <div class="mm-body">
+            <div style="display:flex;gap:6px;margin-bottom:8px;">
+              <span class="mm-chip active">다른 특허 검색</span>
+              <span class="mm-chip">다른 요약으로 검색</span>
+            </div>
+            <div class="mm-row"></div>
+            <div class="mm-row mid"></div>
+            <div class="mm-row short"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="feat-card">
+        <div class="ai-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16M4 10h16M4 14h16M4 18h7"/></svg>
+        </div>
+        <h3 class="feat-card-title">수 만 건의 특허,<br>AI가 몇 초만에 분류해요.</h3>
+        <a href="#" class="feat-learn">활용법 알아보기 →</a>
+        <div class="mini-mockup">
+          <div class="mm-bar"><div class="mm-badge dark">AI 분류C copilot</div></div>
+          <div class="mm-body">
+            <div style="font-size:11px;color:#6B7280;margin-bottom:8px;">다음 기준으로 분류할까요?</div>
+            <div class="mm-chips" style="flex-direction:column;gap:4px;">
+              <span class="mm-chip active" style="width:fit-content;">클라우드 기술</span>
+              <span class="mm-chip"       style="width:fit-content;">자율주행 기술</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="feat-card">
+        <div class="ai-badge">AI</div>
+        <h3 class="feat-card-title">외국 특허 문헌도 한글로,<br>특허 전문 AI가 바로 번역해요.</h3>
+        <a href="#" class="feat-learn">활용법 알아보기 →</a>
+        <div class="mini-mockup">
+          <div class="mm-bar" style="font-size:11px;color:#6B7280;font-weight:600;">EN → KO 특허 전문 번역</div>
+          <div class="mm-body">
+            <div class="mm-translation">
+              본 발명은 연료전지 전기 자동차의 자동차 기술 시스템에 관한 것으로서, 소수성 막 전지 화학 반응을 통해 전기 에너지를 생성하는 연료 전지 스택, 상기 연료전지 스택 ···
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="feat-card wide">
+        <div style="display:flex;gap:60px;align-items:center;">
+          <div style="flex:0 0 auto;max-width:420px;">
+            <div class="ai-badge">AI</div>
+            <h3 class="feat-card-title">AI인식으로 명세서&도면을<br>한 화면에서 분석하세요.</h3>
+            <a href="#" class="feat-learn">활용법 알아보기 →</a>
+          </div>
+          <div class="mini-mockup" style="flex:1;">
+            <div class="mm-bar"><div class="mm-badge dark">AI 특허 도면인식</div></div>
+            <div class="mm-body" style="display:flex;gap:12px;min-height:100px;align-items:center;">
+              <div style="flex:1;">
+                <div style="height:60px;background:#E5E7EB;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#9CA3AF;">도면 분석...</div>
+              </div>
+              <div style="flex:1;">
+                <div class="mm-row"></div>
+                <div class="mm-row mid"></div>
+                <div class="mm-row short"></div>
+                <div class="mm-row" style="width:85%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <h3>CS LAB</h3>
+        <p>키워트에 대한 모든 자료를 고객지원연구소 CS LAB에서 제공합니다.</p>
+        <p class="spacer">평일 09:00~12:00 / 13:00~18:00<br>Tel : 02-521-0110</p>
+        <p class="spacer">고객문의 : <a href="mailto:cslab@keywert.com">cslab@keywert.com</a><br>제휴비즈니스 문의 : <a href="mailto:cm@keywert.com">cm@keywert.com</a></p>
+        <p class="spacer">대표 : 윤정 &nbsp;|&nbsp; 사업자등록번호 : 675-86-00133<br>주소 : 서울시 서초구 강남대로 507, 68(반포동)</p>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">IP 데이터 인텔리전스</span><span class="flc-name">IP 데이터 인텔리전스 서비스 설계 전략</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">patspoon</span><span class="flc-name">IP 전문교육 플랫폼</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">❤ IP KINGKONG</span><span class="flc-name">특허전문 AI 번역</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2024 keywert. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<script>
+  // 2Depth 메뉴 Insight 버튼 좌측 정렬 동기화
+  (function() {
+    function alignSubMenu() {
+      var insightBtn = document.querySelector('nav .nav-btn');
+      var headerContainer = document.querySelector('header .container');
+      if (!insightBtn || !headerContainer) return;
+      var offset = Math.round(insightBtn.getBoundingClientRect().left - headerContainer.getBoundingClientRect().left) - 83;
+      document.querySelectorAll('.mega-bar-inner').forEach(function(el) {
+        el.style.paddingLeft = offset + 'px';
+      });
+    }
+    alignSubMenu();
+    window.addEventListener('resize', alignSubMenu);
+  })();
+
+  (function() {
+    var _t = null;
+    window.kwMegaShow = function(id) {
+      clearTimeout(_t);
+      document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
+      var el = document.getElementById(id);
+      if (el && !el.classList.contains('mega-bar--fixed')) el.classList.add('open');
+    };
+    window.kwMegaHide = function() {
+      _t = setTimeout(function() {
+        document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
+      }, 120);
+    };
+    window.kwMegaCancel = function() { clearTimeout(_t); };
+  })();
+
+  // 2Depth 메뉴 스크롤 자동 숨김/표시
+  (function() {
+    var subBar = document.querySelector('.mega-bar--fixed');
+    if (!subBar) return;
+    var lastY = Math.round(window.scrollY);
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function() {
+        var currentY = Math.round(window.scrollY);
+        var delta = currentY - lastY;
+        if (delta > 0 && currentY > 15) {
+          subBar.classList.add('sub-hidden');
+        } else if (delta < 0) {
+          subBar.classList.remove('sub-hidden');
+        }
+        lastY = currentY;
+        ticking = false;
+      });
+    }, { passive: true });
+  })();
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

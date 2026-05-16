@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > Insight</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+
+    /* ── GLOBAL HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+    }
+    header .container { max-width: none; }
+    .header-inner {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; height: 64px; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 28px; width: auto; display: block; }
+    .logo-fallback {
+      display: none; align-items: center; gap: 7px;
+      font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em;
+    }
+    nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .nav-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827;
+      cursor: pointer; border-radius: 8px; background: none; border: none;
+      font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s;
+    }
+    .nav-btn:hover { background: #F3F4F6; }
+    .nav-btn.active { color: #0BB8C9; }
+    .mega-bar {
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      opacity: 0; pointer-events: none; transform: translateY(-4px);
+      transition: opacity 0.15s, transform 0.15s; z-index: 199;
+    }
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar--fixed {
+      position: static;
+      opacity: 1;
+      pointer-events: all;
+      transform: none;
+      box-shadow: none;
+      border-bottom: none;
+      z-index: 0;
+      overflow: hidden;
+      max-height: 48px;
+      transition: max-height 0.15s ease, opacity 0.12s ease;
+    }
+    .mega-bar--fixed.sub-hidden { max-height: 0; opacity: 0; pointer-events: none; }
+    .mega-bar:not(.mega-bar--fixed) { top: 64px; }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
+    .mega-brand { font-size: 16px; font-weight: 800; flex-shrink: 0; letter-spacing: -0.01em; }
+    .mega-brand.insight { color: #0BB8C9; }
+    .mega-brand.pro     { color: #2563EB; }
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab {
+      padding: 6px 14px; font-size: 14px; font-weight: 500;
+      color: #6B7280; text-decoration: none;
+      border-radius: 6px; transition: all 0.15s; white-space: nowrap;
+    }
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab.ext { display: flex; align-items: center; gap: 3px; }
+    .mega-tab-util {
+      font-size: 12px; font-weight: 500; color: #6B7280;
+      padding: 3px 9px; border-radius: 6px;
+      border: 1.5px solid #D1D5DB;
+      text-decoration: none; white-space: nowrap;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-chemistry {
+      display: flex; align-items: center; gap: 5px; padding: 5px 11px;
+      border: 1.5px solid #3B82F6; border-radius: 7px; color: #3B82F6;
+      font-size: 16px; font-weight: 700; background: none; cursor: pointer;
+      text-decoration: none; font-family: inherit; transition: background 0.15s; line-height: 1;
+    }
+    .btn-chemistry:hover { background: #EFF6FF; }
+    .btn-text {
+      padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
+    .btn-primary {
+      padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600;
+      border-radius: 8px; text-decoration: none; border: none; cursor: pointer;
+      font-family: inherit; transition: background 0.15s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #008FA8; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 480px;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(11,184,201,0.13) 0%, transparent 55%),
+        radial-gradient(ellipse at 95% 80%, rgba(92,200,160,0.18) 0%, transparent 45%),
+        radial-gradient(ellipse at 15% 70%, rgba(220,250,240,0.4) 0%, transparent 40%),
+        linear-gradient(160deg, #FAFAF8 30%, #EFF8F6 100%);
+      display: flex; align-items: center;
+      padding: 88px 0 72px;
+    }
+    .hero-content { max-width: 680px; }
+    .hero-title {
+      font-size: 62px; font-weight: 800; line-height: 1.2;
+      color: #111827; letter-spacing: -0.03em; margin-bottom: 24px;
+    }
+    .hero-title .line1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .at-tag {
+      display: inline-flex; align-items: center;
+      background: rgba(11,184,201,0.15); border: 1px solid rgba(11,184,201,0.35);
+      color: #0899A8; padding: 4px 12px; border-radius: 20px;
+      font-size: 0.72em; font-weight: 700; letter-spacing: 0;
+    }
+    .hero-sub {
+      font-size: 16px; color: #6B7280; margin-bottom: 36px; font-weight: 400;
+    }
+    .btn-start {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 32px; background: #111827; color: #fff;
+      font-size: 16px; font-weight: 700; border-radius: 10px;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .btn-start:hover { background: #1F2937; }
+
+    /* ── FEATURE SECTION ── */
+    .feature-section {
+      padding: 100px 0 80px;
+      background: #fff;
+      text-align: center;
+    }
+    .feat-title {
+      font-size: 38px; font-weight: 800; color: #111827;
+      letter-spacing: -0.03em; margin-bottom: 16px;
+    }
+    .feat-desc {
+      font-size: 15px; color: #6B7280; line-height: 1.8; margin-bottom: 8px;
+    }
+    .feat-note { font-size: 12px; color: #9CA3AF; margin-bottom: 60px; }
+
+    /* Mockup wrap */
+    .mockup-wrap {
+      background: linear-gradient(140deg, #EBF6F7 0%, #E4F4EC 100%);
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .ai-panel {
+      background: #fff; border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 36px;
+    }
+    .ai-panel-header {
+      font-size: 15px; font-weight: 700; color: #111827;
+      padding-bottom: 14px; border-bottom: 1px solid #E5E7EB; margin-bottom: 16px;
+    }
+    .ai-panel-sub {
+      font-size: 13px; color: #6B7280; margin-bottom: 20px;
+    }
+    .ai-panel-title {
+      font-size: 20px; font-weight: 700; color: #111827;
+      margin-bottom: 28px; letter-spacing: -0.01em;
+    }
+    .ai-section { margin-bottom: 28px; }
+    .ai-section-title {
+      font-size: 14px; font-weight: 700; color: #111827;
+      margin-bottom: 10px;
+    }
+    .placeholder-bar {
+      height: 10px; background: #F3F4F6; border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    .placeholder-bar.short { width: 60%; }
+    .placeholder-bar.mid   { width: 80%; }
+
+    /* Similarity table */
+    .sim-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+    .sim-table th {
+      background: #F9FAFB; color: #6B7280; font-weight: 600;
+      padding: 8px 10px; text-align: left; border-bottom: 1px solid #E5E7EB;
+    }
+    .sim-table td {
+      padding: 9px 10px; border-bottom: 1px solid #F3F4F6;
+      color: #374151; vertical-align: top; line-height: 1.5;
+    }
+    .sim-table td a { color: #3B82F6; text-decoration: none; }
+    .sim-table td a:hover { text-decoration: underline; }
+
+    /* Doc buttons */
+    .doc-buttons { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .doc-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 9px 18px; border: 1.5px solid #0BB8C9; border-radius: 8px;
+      font-size: 13px; font-weight: 600; color: #0BB8C9;
+      background: none; cursor: pointer; text-decoration: none;
+      transition: all 0.15s;
+    }
+    .doc-btn:hover, .doc-btn.active { background: #0BB8C9; color: #fff; }
+
+    /* Prior art preview */
+    .prior-section { margin-top: 24px; padding: 20px 24px; background: #F9FAFB; border-radius: 12px; }
+    .prior-title { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 12px; }
+    .prior-item {
+      font-size: 12px; color: #374151; padding: 7px 0;
+      border-bottom: 1px solid #E5E7EB; display: flex; gap: 8px;
+    }
+    .prior-item:last-child { border-bottom: none; }
+    .prior-item .num { color: #6B7280; flex-shrink: 0; }
+    .prior-item a { color: #3B82F6; text-decoration: none; flex-shrink: 0; }
+    .prior-item a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer { background: #0C1222; padding: 48px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 80px; margin-bottom: 40px; align-items: start; }
+    .footer-info h3 { font-size: 15px; font-weight: 700; color: #F1F5F9; margin-bottom: 10px; }
+    .footer-info p { font-size: 13px; color: #64748B; line-height: 1.85; }
+    .footer-info a { color: #64748B; text-decoration: none; }
+    .footer-info .spacer { margin-top: 8px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-link-card {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px; padding: 14px 20px; background: #1E293B; border-radius: 12px;
+      text-decoration: none; min-width: 340px; transition: background 0.15s;
+    }
+    .footer-link-card:hover { background: #334155; }
+    .flc-text { display: flex; flex-direction: column; gap: 2px; }
+    .flc-tag { font-size: 11px; font-weight: 600; color: #64748B; }
+    .flc-name { font-size: 14px; font-weight: 600; color: #E2E8F0; }
+    .flc-arrow { color: #64748B; font-size: 18px; }
+    .footer-bottom { border-top: 1px solid #1E293B; padding-top: 24px; font-size: 13px; color: #334155; }
+  </style>
+</head>
+<body>
+
+<!-- ── GLOBAL HEADER ── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;letter-spacing:-0.02em;">keywert</span>
+        </span>
+      </a>
+
+      <nav>
+        <div onmouseenter="kwMegaShow('megaInsight')" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn active">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaPro')" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <a href="chemistry.html" class="btn-chemistry" style="margin-left:4px;">
+          <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
+            <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
+          Chemistry
+        </a>
+      </nav>
+
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
+        </div>
+        <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 고정 바: Insight 현재 페이지 -->
+  <div class="mega-bar mega-bar--fixed" id="megaInsight">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">특허 검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="#" class="mega-tab">AI보고서</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="#" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- 호버 바: Pro -->
+  <div class="mega-bar" id="megaPro"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="pro_search.html" class="mega-tab">일반검색</a>
+          <a href="pro_search.html" class="mega-tab">선행조사용 검색</a>
+          <a href="pro_search.html" class="mega-tab">AI검색</a>
+          <a href="pro_search.html" class="mega-tab">번호검색</a>
+          <a href="pro_search.html" class="mega-tab">미국소송검색</a>
+          <a href="pro_search.html" class="mega-tab">K WORK</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="pro.html" class="mega-tab-util">플랜 안내</a>
+          <a href="pro.html" class="mega-tab-util">이용 가이드</a>
+          <a href="pro.html" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="line1"><span class="at-tag">@미국</span> 특허에서</span><br>
+        여러번 접어도 변형이 없는<br>
+        폴더블 디스
+      </h1>
+      <p class="hero-sub">생각의 속도로 답하다. 키워트 인사이트</p>
+      <a href="insight_search.html" class="btn-start">시작하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURE: AI 문서 자동 생성 ── -->
+<section class="feature-section">
+  <div class="container">
+    <h2 class="feat-title">특허 기반 AI 문서 자동 생성</h2>
+    <p class="feat-desc">저장된 특허와 글로벌 상위·유사 특허를 기반으로 발명신고서, 선행기술조사보고서, 특허명세서를 작성합니다.</p>
+    <p class="feat-note">*실제 선행기술조사보고서 생성 기능을 통해 도출한 결과를 기반으로 구성되었습니다.</p>
+
+    <div class="mockup-wrap">
+      <div class="ai-panel">
+        <p class="ai-panel-header">인사이트 AI</p>
+        <p class="ai-panel-sub">프로젝트를 바탕으로 인사이트 분석을 해드릴게요.</p>
+        <p class="ai-panel-title">복잡한 도로 경로 인식 자율주행 기술</p>
+
+        <div class="ai-section">
+          <p class="ai-section-title">1. 나의 아이디어 요약</p>
+          <div class="placeholder-bar mid"></div>
+          <div class="placeholder-bar short"></div>
+          <div class="placeholder-bar" style="width:90%"></div>
+        </div>
+
+        <div class="ai-section">
+          <p class="ai-section-title">2. 유사성/ 차별성 정리표</p>
+          <table class="sim-table">
+            <thead>
+              <tr>
+                <th>내 아이디어</th>
+                <th>유사 특허</th>
+                <th>유사성</th>
+                <th>차별성</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>다중 센서 융합·기계학습 기반 경로 생성</td>
+                <td><a href="#">US 2019-0241183 A1</a><br><a href="#">US 11242056 A1</a></td>
+                <td>다중 센서 융합, 기계학습 경로 예측</td>
+                <td>복합 도로 상황을 실시간 종합 판단, 경로 재계산하는 프레임워크</td>
+              </tr>
+              <tr>
+                <td>실시간 고해상도 3D 지도 자동 생성</td>
+                <td><a href="#">US 2019-0367021 B2</a><br><a href="#">US 10569773 B2</a></td>
+                <td>디지털 트윈을 활용한 가상 도로 생성</td>
+                <td>주행 중 3D 지도와 경로 생성 로직 연동</td>
+              </tr>
+              <tr>
+                <td>에이전트 기반 적응형 내비게이션 엔진</td>
+                <td><a href="#">US 8775068 A1</a></td>
+                <td>에이전트 기반 내비게이션 경로 생성</td>
+                <td>복합 교통 상황을 독립 에이전트로 세분화하여 재계산 구현</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ai-section">
+          <p class="ai-section-title">3. AI 제안사항(기존특허 대비 차별성 확보)</p>
+          <div class="placeholder-bar" style="width:95%"></div>
+          <div class="placeholder-bar mid"></div>
+          <div class="placeholder-bar short"></div>
+        </div>
+
+        <div class="ai-section" style="margin-bottom:0;">
+          <p class="ai-section-title">4. 어떤 문서를 생성해드릴까요?</p>
+          <div class="doc-buttons">
+            <a href="#" class="doc-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              발명신고서
+            </a>
+            <a href="#" class="doc-btn active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              선행기술조사보고서
+            </a>
+            <a href="#" class="doc-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              특허명세서
+            </a>
+          </div>
+        </div>
+
+        <div class="prior-section">
+          <p class="prior-title">선행기술조사보고서</p>
+          <p style="font-size:12px;color:#6B7280;margin-bottom:10px;">⊙ 분석한 유사 선행 특허 20건</p>
+          <div class="prior-item">
+            <span class="num">JP 2025-134057 A</span>
+            <span>분류 처리 프로그램 및 방법</span>
+          </div>
+          <div class="prior-item">
+            <span class="num"><a href="#">US 2025-0348687 A1</a></span>
+            <span>AI TEXT ANALYSIS SYSTEM TO ACCELERATE ACADEMIC R...</span>
+          </div>
+          <div class="prior-item">
+            <span class="num"><a href="#">DE 20-2025-104955 Y</a></span>
+            <span>System for dynamic normalization of clinical terms and entit...</span>
+          </div>
+          <div class="prior-item">
+            <span class="num"><a href="#">KR 2024-0171028 A</a></span>
+            <span>데이터의 전처리 기반 의료 특징 파악 및 판단 데이터 생성 시스템 및 방법</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <h3>CS LAB</h3>
+        <p>키워트에 대한 모든 자료를 고객지원연구소 CS LAB에서 제공합니다.</p>
+        <p class="spacer">평일 09:00~12:00 / 13:00~18:00<br>Tel : 02-521-0110</p>
+        <p class="spacer">고객문의 : <a href="mailto:cslab@keywert.com">cslab@keywert.com</a><br>제휴비즈니스 문의 : <a href="mailto:cm@keywert.com">cm@keywert.com</a></p>
+        <p class="spacer">대표 : 윤정 &nbsp;|&nbsp; 사업자등록번호 : 675-86-00133<br>주소 : 서울시 서초구 강남대로 507, 68(반포동)</p>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">IP 데이터 인텔리전스</span><span class="flc-name">IP 데이터 인텔리전스 서비스 설계 전략</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">patspoon</span><span class="flc-name">IP 전문교육 플랫폼</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+        <a href="#" class="footer-link-card">
+          <div class="flc-text"><span class="flc-tag">❤ IP KINGKONG</span><span class="flc-name">특허전문 AI 번역</span></div>
+          <span class="flc-arrow">›</span>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2024 keywert. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<script>
+  // 2Depth 메뉴 Insight 버튼 좌측 정렬 동기화
+  (function() {
+    function alignSubMenu() {
+      var insightBtn = document.querySelector('nav .nav-btn');
+      var headerContainer = document.querySelector('header .container');
+      if (!insightBtn || !headerContainer) return;
+      var offset = Math.round(insightBtn.getBoundingClientRect().left - headerContainer.getBoundingClientRect().left) - 83;
+      document.querySelectorAll('.mega-bar-inner').forEach(function(el) {
+        el.style.paddingLeft = offset + 'px';
+      });
+    }
+    alignSubMenu();
+    window.addEventListener('resize', alignSubMenu);
+  })();
+
+  (function() {
+    var _t = null;
+    window.kwMegaShow = function(id) {
+      clearTimeout(_t);
+      document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
+      var el = document.getElementById(id);
+      if (el && !el.classList.contains('mega-bar--fixed')) el.classList.add('open');
+    };
+    window.kwMegaHide = function() {
+      _t = setTimeout(function() {
+        document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
+      }, 120);
+    };
+    window.kwMegaCancel = function() { clearTimeout(_t); };
+  })();
+
+  document.querySelectorAll('.doc-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.doc-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // 2Depth 메뉴 스크롤 자동 숨김/표시
+  (function() {
+    var subBar = document.querySelector('.mega-bar--fixed');
+    if (!subBar) return;
+    var lastY = Math.round(window.scrollY);
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function() {
+        var currentY = Math.round(window.scrollY);
+        var delta = currentY - lastY;
+        if (delta > 0 && currentY > 15) {
+          subBar.classList.add('sub-hidden');
+        } else if (delta < 0) {
+          subBar.classList.remove('sub-hidden');
+        }
+        lastY = currentY;
+        ticking = false;
+      });
+    }, { passive: true });
+  })();
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

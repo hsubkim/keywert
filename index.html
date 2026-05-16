@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #111827;
+      line-height: 1.6;
+      background: #fff;
+      min-width: 1280px;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 52px;
+    }
+
+    /* ── HEADER ─────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: #fff;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    header .container { max-width: none; }
+
+    .header-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      height: 64px;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-img {
+      height: 28px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-fallback {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #29B8D8;
+      letter-spacing: -0.02em;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      cursor: pointer;
+      border-radius: 8px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-btn:hover { background: #F3F4F6; }
+    .nav-btn.active { color: #0BB8C9; }
+
+    /* ── Mega-bar ── */
+    .mega-bar {
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 0.15s, transform 0.15s;
+      z-index: 199;
+    }
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
+
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab {
+      padding: 6px 14px; font-size: 14px; font-weight: 500;
+      color: #6B7280; text-decoration: none;
+      border-radius: 6px; transition: all 0.15s; white-space: nowrap;
+    }
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab.ext { display: flex; align-items: center; gap: 3px; }
+    .mega-tab-util {
+      font-size: 12px; font-weight: 500; color: #6B7280;
+      padding: 3px 9px; border-radius: 6px;
+      border: 1.5px solid #D1D5DB;
+      text-decoration: none; white-space: nowrap;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-chemistry {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border: 1.5px solid #3B82F6;
+      border-radius: 7px;
+      color: #3B82F6;
+      font-size: 16px;
+      font-weight: 700;
+      background: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+      transition: background 0.15s;
+      line-height: 1;
+    }
+
+    .btn-chemistry:hover { background: #EFF6FF; }
+
+    .btn-text {
+      padding: 5px 4px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6B7280;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+
+    .btn-divider {
+      width: 1px;
+      height: 12px;
+      background: #E5E7EB;
+      margin: 0 0px;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      padding: 8px 18px;
+      background: #00AACB;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover { background: #008FA8; }
+
+    /* ── HERO ─────────────────────────────────── */
+    .hero {
+      padding: 90px 0 80px;
+      text-align: center;
+      background: linear-gradient(180deg, #fff 0%, #F8FAFF 100%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #9CA3AF;
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+      color: #111827;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title em.em-data {
+      color: #111827;
+      background: linear-gradient(180deg, transparent 60%, #BBF7D0 60%);
+    }
+
+    .hero-title em.em-insight {
+      color: #2563EB;
+      background: linear-gradient(180deg, transparent 60%, #BFDBFE 60%);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: #6B7280;
+      margin-bottom: 18px;
+    }
+
+    .hero-features {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 40px;
+      font-size: 13px;
+      color: #9CA3AF;
+      flex-wrap: wrap;
+    }
+
+    .hero-features .feat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hero-features .feat-label { font-weight: 700; color: #374151; }
+    .hero-features .feat-check { color: #16A34A; font-weight: 700; font-size: 14px; }
+    .hero-features .sep { margin: 0 10px; color: #D1D5DB; }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 15px 30px;
+      background: #00AACB;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .btn-hero-primary:hover { background: #008FA8; transform: translateY(-1px); }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      padding: 15px 30px;
+      background: #fff;
+      color: #374151;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1.5px solid #D1D5DB;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .btn-hero-secondary:hover { border-color: #9CA3AF; transform: translateY(-1px); }
+
+    /* ── SERVICE SECTION ──────────────────────── */
+    .service-section {
+      padding: 88px 0;
+      background: #fff;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .section-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: #6B7280;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .service-card {
+      border: 1.5px solid #E5E7EB;
+      border-radius: 18px;
+      padding: 36px;
+      background: #fff;
+      cursor: pointer;
+      transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .service-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+
+    .service-card.active {
+      border-color: #3B82F6;
+      background: #F0F7FF;
+    }
+
+    .service-card.chemistry {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 36px;
+      gap: 40px;
+    }
+
+    .card-mode {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #3B82F6;
+      margin-bottom: 10px;
+    }
+
+    .card-mode.chem { color: #7C3AED; }
+
+    .card-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .card-icon-wrap.insight { background: #EFF6FF; }
+    .card-icon-wrap.pro     { background: #F0FDF4; }
+    .card-icon-wrap.chem    { background: #F5F3FF; }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: #6B7280;
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 11px;
+      background: #F3F4F6;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .card-actions { display: flex; gap: 8px; }
+
+    .btn-card-ghost {
+      padding: 8px 16px;
+      border: 1.5px solid #D1D5DB;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      background: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .btn-card-ghost:hover { border-color: #9CA3AF; background: #F9FAFB; }
+
+    .btn-card-solid {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      background: #00AACB;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+
+    .btn-card-solid:hover { background: #008FA8; }
+
+    .chemistry-left { flex: 0 0 auto; }
+    .chemistry-right { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+
+    /* ── LOGOS ─────────────────────────────────── */
+    .logos-section {
+      padding: 36px 0;
+      background: #111827;
+      overflow: hidden;
+    }
+
+    .logos-track {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      width: max-content;
+      animation: marquee 22s linear infinite;
+    }
+
+    .logos-section:hover .logos-track { animation-play-state: paused; }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .logo-brand {
+      font-size: 17px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+      user-select: none;
+    }
+
+    .logo-brand.kakao   { color: rgba(255,210,50,0.7); }
+    .logo-brand.samsung { font-weight: 900; }
+
+    /* ── NEWSLETTER ────────────────────────────── */
+    .newsletter-section {
+      padding: 64px 0;
+      background: #1D4ED8;
+    }
+
+    .newsletter-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+    }
+
+    .newsletter-text h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .newsletter-text p {
+      font-size: 14px;
+      color: #BFDBFE;
+      line-height: 1.7;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .newsletter-fields {
+      display: flex;
+      gap: 8px;
+    }
+
+    .newsletter-input {
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      width: 260px;
+      outline: none;
+      font-family: inherit;
+      color: #111827;
+    }
+
+    .newsletter-input::placeholder { color: #9CA3AF; }
+
+    .btn-submit {
+      padding: 12px 24px;
+      background: #111827;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+
+    .btn-submit:hover { background: #1F2937; }
+
+    .newsletter-hint {
+      font-size: 12px;
+      color: #93C5FD;
+    }
+
+    /* ── NEWS ──────────────────────────────────── */
+    .news-section {
+      padding: 88px 0;
+      background: #fff;
+    }
+
+    .news-inner {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .news-heading-dash {
+      font-size: 22px;
+      font-weight: 700;
+      color: #9CA3AF;
+      margin-bottom: 12px;
+    }
+
+    .news-heading h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.35;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .news-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      text-decoration: none;
+      border-bottom: 1.5px solid #374151;
+      padding-bottom: 2px;
+      transition: color 0.15s;
+    }
+
+    .news-more:hover { color: #2563EB; border-color: #2563EB; }
+
+    .news-list { list-style: none; border-top: 1px solid #E5E7EB; }
+
+    .news-item {
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .news-item a {
+      display: block;
+      padding: 15px 0;
+      font-size: 14px;
+      color: #374151;
+      text-decoration: none;
+      transition: color 0.15s;
+      line-height: 1.5;
+    }
+
+    .news-item a:hover { color: #2563EB; }
+    .news-item a.link-blue { color: #2563EB; }
+
+    /* ── STATS ─────────────────────────────────── */
+    .stats-section {
+      padding: 88px 0;
+      background: #0F172A;
+    }
+
+    .stats-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 64px;
+      letter-spacing: -0.02em;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 48px 24px;
+      border-right: 1px solid #1E293B;
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-label {
+      font-size: 14px;
+      color: #64748B;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    .stat-value {
+      font-size: 54px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── CONTENT CARDS ─────────────────────────── */
+    .content-section {
+      padding: 88px 0;
+      background: #F8FAFC;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .content-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 40px 32px;
+      text-align: center;
+      border: 1.5px solid #E5E7EB;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .content-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.08); transform: translateY(-2px); }
+
+    .content-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .content-icon.yt { background: #FF0000; color: #fff; }
+    .content-icon.notion { background: #111827; color: #fff; font-family: serif; letter-spacing: -1px; }
+    .content-icon.kw { background: #111827; color: #22C55E; border-radius: 50%; }
+
+    .content-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.55;
+      margin-bottom: 28px;
+    }
+
+    .btn-content {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 1.5px solid #D1D5DB;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .btn-content:hover { border-color: #9CA3AF; background: #F9FAFB; }
+
+    /* ── UNIFIED ACCOUNT ───────────────────────── */
+    .unified-section {
+      padding: 88px 0;
+      background: #1D4ED8;
+      text-align: center;
+    }
+
+    .unified-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      color: #93C5FD;
+      letter-spacing: 0.04em;
+      margin-bottom: 18px;
+    }
+
+    .unified-title {
+      font-size: 34px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .unified-sub {
+      font-size: 15px;
+      color: #BFDBFE;
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+
+    .unified-note {
+      font-size: 13px;
+      color: #93C5FD;
+      margin-bottom: 44px;
+    }
+
+    .unified-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn-unified-white {
+      padding: 14px 30px;
+      background: #fff;
+      color: #1D4ED8;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .btn-unified-white:hover { background: #EFF6FF; transform: translateY(-1px); }
+
+    .btn-unified-outline {
+      padding: 14px 30px;
+      background: transparent;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .btn-unified-outline:hover { background: rgba(255,255,255,0.12); }
+
+    /* ── FOOTER ────────────────────────────────── */
+    footer {
+      background: #0C1222;
+      padding: 64px 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 80px;
+      margin-bottom: 48px;
+      align-items: start;
+    }
+
+    .footer-info h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #F1F5F9;
+      margin-bottom: 10px;
+    }
+
+    .footer-info p {
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.85;
+    }
+
+    .footer-info a {
+      color: #64748B;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-info a:hover { color: #94A3B8; }
+
+    .footer-info .spacer { margin-top: 8px; }
+
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+
+    .footer-link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 14px 20px;
+      background: #1E293B;
+      border-radius: 12px;
+      text-decoration: none;
+      min-width: 340px;
+      transition: background 0.15s;
+    }
+
+    .footer-link-card:hover { background: #334155; }
+
+    .flc-text { display: flex; flex-direction: column; gap: 2px; }
+
+    .flc-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748B;
+      letter-spacing: 0.03em;
+    }
+
+    .flc-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #E2E8F0;
+    }
+
+    .flc-arrow { color: #64748B; font-size: 18px; }
+
+    .footer-bottom {
+      border-top: 1px solid #1E293B;
+      padding-top: 24px;
+      font-size: 13px;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+
+      <!-- LOGO -->
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9"  r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3"   fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8"   r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20"  r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8; font-size:20px; font-weight:700; letter-spacing:-0.02em;">keywert</span>
+        </span>
+      </a>
+
+      <!-- CENTER NAV -->
+      <nav>
+        <div onmouseenter="kwMegaShow('megaInsight')" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaPro')" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <a href="chemistry.html" class="btn-chemistry" style="margin-left:4px;">
+          <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
+            <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
+          Chemistry
+        </a>
+      </nav>
+
+      <!-- RIGHT ACTIONS -->
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
+        </div>
+        <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Mega-bar: Insight ── -->
+  <div class="mega-bar" id="megaInsight"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">특허 검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="#" class="mega-tab">AI보고서</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="#" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Mega-bar: Pro ── -->
+  <div class="mega-bar" id="megaPro"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="pro_search.html" class="mega-tab">일반검색</a>
+          <a href="pro_search.html" class="mega-tab">선행조사용 검색</a>
+          <a href="pro_search.html" class="mega-tab">AI검색</a>
+          <a href="pro_search.html" class="mega-tab">번호검색</a>
+          <a href="pro_search.html" class="mega-tab">미국소송검색</a>
+          <a href="pro_search.html" class="mega-tab">K WORK</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="pro.html" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="#" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <p class="hero-badge">One Platform for IP &amp; Tech Intelligence</p>
+    <h1 class="hero-title">
+      <em class="em-data">데이터</em>는 더 깊게,<br>
+      <em class="em-insight">인사이트</em>는 더 빠르게
+    </h1>
+    <p class="hero-sub">IP 데이터 검색부터 분석, 인사이트, 전략까지 키워트에서 완성하세요.</p>
+    <div class="hero-features">
+      <span class="feat"><span class="feat-label">Pro</span> | 데이터 검색부터 데이터통계까지</span>
+      <span class="sep">·</span>
+      <span class="feat"><span class="feat-check">✓</span>&nbsp;<span class="feat-label">Insight</span> | 빠르고 정확한 특허분석</span>
+      <span class="sep">·</span>
+      <span class="feat"><span class="feat-check">✓</span>&nbsp;<span class="feat-label">Chemistry</span> | 전문 영역까지 확장하세요</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#" class="btn-hero-primary">무료체험 시작하기 →</a>
+      <a href="#" class="btn-hero-secondary">기업용 도입 문의하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICE SECTION ────────────────────────────── -->
+<section class="service-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">목적에 맞는 모드를 선택하세요</h2>
+      <p class="section-sub">어느 모드로 시작하든, 하나의 계정으로 언제든지 전환할 수 있습니다.</p>
+    </div>
+
+    <div class="service-grid">
+
+      <!-- INSIGHT -->
+      <div class="service-card active" data-card>
+        <p class="card-mode">INSIGHT MODE</p>
+        <div class="card-icon-wrap insight">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            <path d="M11 8v6M8 11h6"/>
+          </svg>
+        </div>
+        <h3 class="card-title">키워트 인사이트</h3>
+        <p class="card-desc">AI가 결과를 바로 제공해주는<br>검색 중심 Gen AI 서비스</p>
+        <div class="card-tags">
+          <span class="tag">대기업/R&amp;D/전략</span>
+          <span class="tag">AI 결과 중심</span>
+          <span class="tag">빠른 리서치</span>
+        </div>
+        <div class="card-actions">
+          <a href="insight.html" class="btn-card-ghost">자세히 보기</a>
+          <a href="#" class="btn-card-solid">무료 체험 기능</a>
+        </div>
+      </div>
+
+      <!-- PRO -->
+      <div class="service-card" data-card>
+        <p class="card-mode">PROFESSIONAL MODE</p>
+        <div class="card-icon-wrap pro">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+          </svg>
+        </div>
+        <h3 class="card-title">키워트 프로</h3>
+        <p class="card-desc">사용자가 데이터를 통해 분석하는<br>전문가를 위한 인터페이스</p>
+        <div class="card-tags">
+          <span class="tag">IP 실무/특허 전문가</span>
+          <span class="tag">경제적 기반</span>
+          <span class="tag">정교 데이터 통계</span>
+        </div>
+        <div class="card-actions">
+          <a href="pro.html" class="btn-card-ghost">자세히 보기</a>
+          <a href="#" class="btn-card-ghost">바로 상담</a>
+        </div>
+      </div>
+
+      <!-- CHEMISTRY -->
+      <div class="service-card chemistry" data-card>
+        <div class="chemistry-left">
+          <p class="card-mode chem">CHEMISTRY MODE</p>
+          <div class="card-icon-wrap chem" style="margin-bottom:14px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 3h6M9 3v6L4 18h16L15 9V3"/>
+              <circle cx="8.5" cy="15.5" r="1" fill="#7C3AED" stroke="none"/>
+              <circle cx="14" cy="14" r="1" fill="#7C3AED" stroke="none"/>
+            </svg>
+          </div>
+          <h3 class="card-title">바이오·화학 특허 검색</h3>
+          <p class="card-desc" style="margin-bottom:0;">SMILES 구조식·서열(BLAST) 기반 특허 검색</p>
+        </div>
+        <div class="chemistry-right">
+          <div class="card-tags" style="margin-bottom:0;">
+            <span class="tag">바이오 화학 전문가</span>
+            <span class="tag">구조식 검색</span>
+            <span class="tag">서열 분석</span>
+          </div>
+          <a href="chemistry.html" class="btn-card-ghost">자세히 보기</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── LOGOS ──────────────────────────────────────── -->
+<section class="logos-section">
+  <div class="logos-track" id="logosTrack">
+    <span class="logo-brand samsung">SAMSUNG</span>
+    <span class="logo-brand">LG Display</span>
+    <span class="logo-brand">HYUNDAI</span>
+    <span class="logo-brand">WIA</span>
+    <span class="logo-brand kakao">kakao</span>
+    <span class="logo-brand">BORYUNG</span>
+    <span class="logo-brand">KIM &amp; CHANG</span>
+    <span class="logo-brand samsung">SAMSUNG</span>
+    <span class="logo-brand">LG Display</span>
+    <!-- duplicate for seamless loop -->
+    <span class="logo-brand samsung">SAMSUNG</span>
+    <span class="logo-brand">LG Display</span>
+    <span class="logo-brand">HYUNDAI</span>
+    <span class="logo-brand">WIA</span>
+    <span class="logo-brand kakao">kakao</span>
+    <span class="logo-brand">BORYUNG</span>
+    <span class="logo-brand">KIM &amp; CHANG</span>
+    <span class="logo-brand samsung">SAMSUNG</span>
+    <span class="logo-brand">LG Display</span>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ─────────────────────────────────── -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <h2>특허 업무를 획기적으로 바꿔보세요!</h2>
+        <p>특허 및 기술 데이터를 기반으로<br>검색부터 분석, 전략까지 연결되는 통합 IP/Tech SaaS 플랫폼</p>
+      </div>
+      <div class="newsletter-form">
+        <div class="newsletter-fields">
+          <input type="email" class="newsletter-input" placeholder="Enter your email" id="newsletterEmail">
+          <button class="btn-submit" onclick="handleSubscribe()">Submit</button>
+        </div>
+        <span class="newsletter-hint">Subscribe to our newsletter</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWS ───────────────────────────────────────── -->
+<section class="news-section">
+  <div class="container">
+    <div class="news-inner">
+      <div class="news-heading">
+        <p class="news-heading-dash">—</p>
+        <h2>키워트의 새로운 소식을<br>만나보세요</h2>
+        <a href="#" class="news-more">소식 전체보기 →</a>
+      </div>
+      <ul class="news-list">
+        <li class="news-item"><a href="#" class="link-blue">[유료] AI 요약 Copilot 전면 탑재</a></li>
+        <li class="news-item"><a href="#">[서비스] 전문 PDF 다운로드 파일링 선택 기능 업데이트</a></li>
+        <li class="news-item"><a href="#">[서비스] 전문 PDF 달성 다운로드 추가</a></li>
+        <li class="news-item"><a href="#">[교육] ChatGPT와 키워트, AI로 빠르게 끝나는 특허교육 교육!</a></li>
+        <li class="news-item"><a href="#">[이벤트] AI 요약 Copilot 주기 남기고 100% 선물 받아가세요!(~11/15)</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ──────────────────────────────────────── -->
+<section class="stats-section">
+  <div class="container">
+    <h2 class="stats-title">왜 keywert 일까요?</h2>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <p class="stat-label">특허데이터</p>
+        <p class="stat-value" data-target="3" data-suffix="억 +">3억 +</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-label">전문보유국가</p>
+        <p class="stat-value" data-target="15" data-suffix="개국">15개국</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-label">특허소정보(법원 수)</p>
+        <p class="stat-value" data-target="2953" data-suffix="+">2,953+</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-label">키워트 사용자</p>
+        <p class="stat-value" data-target="65000" data-suffix="+">65,000+</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTENT CARDS ──────────────────────────────── -->
+<section class="content-section">
+  <div class="container">
+    <div class="content-grid">
+
+      <div class="content-card">
+        <div class="content-icon yt">▶</div>
+        <h3>키워트 사용법과 소식,<br>고객 인터뷰 등<br>다양한 영상을 확인해보세요</h3>
+        <a href="#" class="btn-content">키워트 유튜브 바로가기</a>
+      </div>
+
+      <div class="content-card">
+        <div class="content-icon notion">N</div>
+        <h3>키워트와 특허에 대한<br>유익하고 재미있는 콘텐츠를<br>즐겨보세요</h3>
+        <a href="#" class="btn-content">키워트 블로그 바로가기</a>
+      </div>
+
+      <div class="content-card">
+        <div class="content-icon kw">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 21 Q12 10 17 21 Q22 32 27 21 Q29.5 15 32 21" stroke="#22C55E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <h3>뉴스레터로<br>키워트와 IP 트렌드정보를<br>매월 받아보세요</h3>
+        <a href="#" class="btn-content">키워트 뉴스레터 신청하기</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── UNIFIED ACCOUNT ────────────────────────────── -->
+<section class="unified-section">
+  <div class="container">
+    <p class="unified-eyebrow">하나의 계정으로 모든 모드를</p>
+    <h2 class="unified-title">이메일 인증 하나로 Insight · PRO · Chemistry<br>모두 접근 가능합니다.</h2>
+    <p class="unified-sub">기존 키워트 또는 키워트 인사이트 계정이 있다면 간단하게 통합됩니다.</p>
+    <p class="unified-note">&nbsp;</p>
+    <div class="unified-actions">
+      <a href="#" class="btn-unified-white">이메일로 무료 가입 →</a>
+      <a href="#" class="btn-unified-outline">기존 계정 로그인</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-info">
+        <h3>CS LAB</h3>
+        <p>키워트에 대한 모든 자료를 고객지원연구소 CS LAB에서 제공합니다.</p>
+        <p class="spacer">
+          평일 09:00~12:00 / 13:00~18:00<br>
+          Tel : 02-521-0110
+        </p>
+        <p class="spacer">
+          고객문의 : <a href="mailto:cslab@keywert.com">cslab@keywert.com</a><br>
+          제휴비즈니스 문의 : <a href="mailto:cm@keywert.com">cm@keywert.com</a>
+        </p>
+        <p class="spacer">
+          대표 : 윤정<br>
+          사업자등록번호 : 675-86-00133<br>
+          주소 : 서울시 서초구 강남대로 507, 68(반포동)
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#" class="footer-link-card">
+          <div class="flc-text">
+            <span class="flc-tag">IP 데이터 인텔리전스</span>
+            <span class="flc-name">IP 데이터 인텔리전스 서비스 설계 전략</span>
+          </div>
+          <span class="flc-arrow">›</span>
+        </a>
+        <a href="#" class="footer-link-card">
+          <div class="flc-text">
+            <span class="flc-tag">patspoon</span>
+            <span class="flc-name">IP 전문교육 플랫폼</span>
+          </div>
+          <span class="flc-arrow">›</span>
+        </a>
+        <a href="#" class="footer-link-card">
+          <div class="flc-text">
+            <span class="flc-tag">❤ IP KINGKONG</span>
+            <span class="flc-name">특허전문 AI 번역</span>
+          </div>
+          <span class="flc-arrow">›</span>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 keywert. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 2Depth 메뉴 Insight 버튼 좌측 정렬 동기화
+  (function() {
+    function alignSubMenu() {
+      var insightBtn = document.querySelector('nav .nav-btn');
+      var headerContainer = document.querySelector('header .container');
+      if (!insightBtn || !headerContainer) return;
+      var offset = Math.round(insightBtn.getBoundingClientRect().left - headerContainer.getBoundingClientRect().left) - 83;
+      document.querySelectorAll('.mega-bar-inner').forEach(function(el) {
+        el.style.paddingLeft = offset + 'px';
+      });
+    }
+    alignSubMenu();
+    window.addEventListener('resize', alignSubMenu);
+  })();
+
+  /* ── Mega-menu ── */
+  (function() {
+    let _t = null;
+    window.kwMegaShow = function(id) {
+      clearTimeout(_t);
+      document.querySelectorAll('.mega-bar').forEach(b => b.classList.remove('open'));
+      const el = document.getElementById(id);
+      if (el) el.classList.add('open');
+    };
+    window.kwMegaHide = function() {
+      _t = setTimeout(function() {
+        document.querySelectorAll('.mega-bar').forEach(b => b.classList.remove('open'));
+      }, 120);
+    };
+    window.kwMegaCancel = function() { clearTimeout(_t); };
+  })();
+
+  // Service card selection
+  document.querySelectorAll('[data-card]').forEach(card => {
+    card.addEventListener('click', function () {
+      document.querySelectorAll('[data-card]').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Newsletter subscribe
+  function handleSubscribe() {
+    const email = document.getElementById('newsletterEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      alert('유효한 이메일 주소를 입력해 주세요.');
+      return;
+    }
+    alert('구독 신청이 완료되었습니다!\n감사합니다 :)');
+    document.getElementById('newsletterEmail').value = '';
+  }
+
+  // Stats counter animation on scroll
+  let statsAnimated = false;
+  const statsSection = document.querySelector('.stats-section');
+
+  const counterObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !statsAnimated) {
+      statsAnimated = true;
+      document.querySelectorAll('.stat-value[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target, 10);
+        const suffix = el.dataset.suffix;
+        const duration = 1800;
+        const start = performance.now();
+
+        const animate = now => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.floor(eased * target);
+
+          if (target >= 1000) {
+            el.textContent = value.toLocaleString('ko-KR') + (suffix.startsWith('+') ? '+' : '');
+          } else if (suffix === '억 +') {
+            el.textContent = value + '억 +';
+          } else if (suffix === '개국') {
+            el.textContent = value + '개국';
+          } else {
+            el.textContent = value.toLocaleString('ko-KR') + '+';
+          }
+
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+
+        requestAnimationFrame(animate);
+      });
+    }
+  }, { threshold: 0.4 });
+
+  if (statsSection) counterObserver.observe(statsSection);
+
+  // Fade-in on scroll
+  const fadeEls = document.querySelectorAll('.service-card, .content-card, .stat-item');
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        fadeObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  fadeEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    fadeObserver.observe(el);
+  });
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

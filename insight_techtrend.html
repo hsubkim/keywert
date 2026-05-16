@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > Insight > 기술트렌드</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; overflow: hidden; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+
+    /* ── HEADER ── */
+    header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
+    header .container { max-width: none; }
+    .header-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; height: 64px; gap: 16px; }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 28px; width: auto; display: block; }
+    .logo-fallback { display: none; align-items: center; gap: 7px; font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em; }
+    nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .nav-btn { display: flex; align-items: center; gap: 4px; padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827; cursor: pointer; border-radius: 8px; background: none; border: none; font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s; }
+    .nav-btn:hover { background: #F3F4F6; }
+    .nav-btn.active { color: #0BB8C9; }
+    .mega-bar { position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #E5E7EB; box-shadow: 0 4px 16px rgba(0,0,0,0.07); opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity 0.15s, transform 0.15s; z-index: 199; }
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; z-index: 0; overflow: hidden; max-height: 48px; transition: max-height 0.15s ease, opacity 0.12s ease; }
+    .mega-bar--fixed.sub-hidden { max-height: 0; opacity: 0; pointer-events: none; }
+    .mega-bar:not(.mega-bar--fixed) { top: 64px; }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab { padding: 6px 14px; font-size: 14px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap; cursor: pointer; border: none; background: none; font-family: inherit; }
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab.active { color: #111827; font-weight: 700; background: #F3F4F6; }
+    .mega-tab-util { font-size: 12px; font-weight: 500; color: #6B7280; padding: 3px 9px; border-radius: 6px; border: 1.5px solid #D1D5DB; text-decoration: none; white-space: nowrap; transition: border-color 0.15s, background 0.15s, color 0.15s; }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-chemistry { display: flex; align-items: center; gap: 5px; padding: 5px 11px; border: 1.5px solid #3B82F6; border-radius: 7px; color: #3B82F6; font-size: 16px; font-weight: 700; background: none; cursor: pointer; text-decoration: none; font-family: inherit; transition: background 0.15s; line-height: 1; }
+    .btn-chemistry:hover { background: #EFF6FF; }
+    .btn-text { padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
+    .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
+    .btn-primary:hover { background: #15803D; }
+
+    /* ── INSIGHT LAYOUT ── */
+    .is-layout { display: flex; height: calc(100vh - 112px); overflow: hidden; position: relative; }
+    .is-sidebar { width: 240px; flex-shrink: 0; border-right: 1px solid #E5E7EB; background: #FAFAFA; display: flex; flex-direction: column; overflow-y: auto; }
+    .is-collapse-btn { position: absolute; left: calc(240px - 13px); top: 20px; display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border: 1px solid #E5E7EB; background: #fff; cursor: pointer; color: #9CA3AF; border-radius: 50%; z-index: 10; flex-shrink: 0; }
+    .is-collapse-btn:hover { background: #F3F4F6; color: #6B7280; border-color: #D1D5DB; }
+    .is-new-btn-outline { display: flex; align-items: center; gap: 6px; width: 100%; padding: 8px 14px; background: #fff; color: #374151; font-size: 13px; font-weight: 500; border: 1px solid #E5E7EB; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s, border-color 0.15s; }
+    .is-new-btn-outline:hover { background: #F9FAFB; border-color: #D1D5DB; }
+    .is-sec { padding: 14px 16px; border-bottom: 1px solid #F3F4F6; flex-shrink: 0; }
+    .is-sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .is-sec-label { font-size: 11px; font-weight: 700; color: #9CA3AF; letter-spacing: 0.04em; }
+    .is-sec-add { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: none; background: none; cursor: pointer; color: #9CA3AF; border-radius: 4px; }
+    .is-sec-add:hover { background: #F3F4F6; color: #6B7280; }
+    .is-search-list { display: flex; flex-direction: column; gap: 0; }
+    .is-search-li { font-size: 12px; color: #374151; padding: 5px 2px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-radius: 4px; line-height: 1.4; }
+    .is-search-li:hover { color: #0BB8C9; }
+    .is-viewall { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; color: #9CA3AF; cursor: pointer; margin-top: 6px; border: none; background: none; font-family: inherit; padding: 0; }
+    .is-viewall:hover { color: #0BB8C9; }
+    .is-proj-item { display: flex; align-items: center; gap: 7px; padding: 5px 2px; font-size: 12px; color: #374151; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .is-proj-item:hover { color: #111827; }
+    .is-proj-icon { flex-shrink: 0; color: #9CA3AF; }
+    .is-proj-icon--blue { color: #0BB8C9; }
+    .is-bottom-links { margin-top: auto; padding: 12px 16px 55px; border-top: 1px solid #F3F4F6; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+    .is-blog-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #6B7280; cursor: pointer; text-decoration: none; padding: 3px 0; }
+    .is-blog-link:hover { color: #374151; }
+    .is-sidebar-bottom { padding: 12px 16px; border-top: 1px solid #E5E7EB; display: flex; align-items: center; gap: 0; flex-shrink: 0; }
+    .is-avatar { width: 28px; height: 28px; border-radius: 50%; background: #E5E7EB; color: #6B7280; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+    .is-icon-btn-group { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+    .is-icon-btn { position: relative; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1.5px solid #D1D5DB; background: #fff; cursor: pointer; color: #6B7280; border-radius: 50%; padding: 0; }
+    .is-icon-btn:hover { border-color: #9CA3AF; background: #F9FAFB; }
+    .is-icon-btn .dot-indicator { position: absolute; top: 2px; right: 2px; width: 7px; height: 7px; border-radius: 50%; background: #3AA7C6; border: 1.5px solid #fff; }
+
+    /* ── MAIN ── */
+    .is-main { flex: 1; overflow-y: auto; padding: 0 48px; background: #fff; display: flex; flex-direction: column; align-items: center; }
+    .is-main-inner { width: 888px; max-width: 100%; }
+    .is-search-block { padding-top: 68px; display: flex; flex-direction: column; align-items: center; }
+    .is-search-block .is-search-box,
+    .is-search-block .is-trend-cards { width: 100%; }
+    .is-saved-block { padding-top: 68px; padding-bottom: 68px; }
+    .is-search-box { border: 2px solid #0BB8C9; border-radius: 14px; padding: 16px 20px 14px; margin-bottom: 14px; background: #fff; }
+    .is-search-textarea { width: 100%; border: none; background: none; outline: none; font-size: 15px; font-family: inherit; color: #111827; resize: none; min-height: 56px; line-height: 1.6; }
+    .is-search-textarea::placeholder { color: #C4C8CE; }
+    .is-search-foot { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+    .is-foot-btn { padding: 4px 12px; font-size: 13px; font-weight: 500; border: 1.5px solid #E5E7EB; border-radius: 7px; color: #6B7280; background: #fff; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .is-foot-btn:hover { border-color: #9CA3AF; color: #374151; }
+    .is-ai-btn { margin-left: auto; display: flex; align-items: center; gap: 6px; padding: 8px 18px; background: #0BB8C9; color: #fff; font-size: 14px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+    .is-ai-btn:hover { background: #09A5B5; }
+    .is-chips { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; justify-content: center; }
+    .is-chip2 { padding: 4px 12px; font-size: 12px; font-weight: 500; border: 0.75px solid #E5E7EB; border-radius: 20px; color: #6B7280; cursor: pointer; transition: all 0.15s; background: #fff; font-family: inherit; }
+    .is-chip2:hover { border-color: #9CA3AF; color: #374151; }
+    .is-chip2.active { border: 0.75px solid #E5E7EB; color: #111827; background: #FAFAFA; font-weight: 600; }
+    .is-trend-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 32px; }
+    .is-trend-card { position: relative; border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 16px 40px 16px 16px; cursor: pointer; transition: all 0.15s; background: #fff; }
+    .is-trend-card-text { font-size: 13px; color: #374151; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .is-trend-card:hover { border-color: #0BB8C9; box-shadow: 0 2px 10px rgba(11,184,201,0.10); }
+    .is-trend-card-icon { position: absolute; top: 14px; right: 14px; color: #C4C8CE; }
+    .is-saved-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; }
+    .is-saved-title { font-size: 16px; font-weight: 700; color: #111827; }
+    .is-saved-sort { font-size: 12px; color: #9CA3AF; }
+    .is-saved-btn { margin-left: auto; display: flex; align-items: center; gap: 5px; padding: 6px 12px; border: 1.5px solid #E5E7EB; border-radius: 8px; background: #fff; font-size: 12px; font-weight: 500; color: #6B7280; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .is-saved-btn:hover { border-color: #9CA3AF; color: #374151; }
+    .is-carousel { display: flex; align-items: center; gap: 0; }
+    .is-carousel-arrow { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1.5px solid #E5E7EB; border-radius: 50%; background: #fff; cursor: pointer; color: #9CA3AF; flex-shrink: 0; transition: all 0.15s; }
+    .is-carousel-arrow:hover { border-color: #9CA3AF; color: #374151; }
+    .is-carousel-track { display: flex; gap: 14px; flex: 1; overflow: hidden; padding: 0 14px; }
+    .is-tree-card { flex: 0 0 calc(50% - 7px); border: 1.5px solid #E5E7EB; border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.15s; }
+    .is-tree-card:hover { border-color: #0BB8C9; box-shadow: 0 2px 8px rgba(11,184,201,0.10); }
+    .is-tree-thumb { background: #F3F4F6; height: 110px; display: flex; align-items: center; justify-content: center; }
+    .is-tree-thumb-label { font-size: 13px; font-weight: 600; color: #9CA3AF; }
+    .is-tree-info { padding: 10px 14px; }
+    .is-tree-name { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 3px; }
+    .is-tree-date { font-size: 11px; color: #9CA3AF; }
+    .is-carousel-more { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 110px; flex-shrink: 0; cursor: pointer; }
+    .is-carousel-more-arrow { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1.5px solid #E5E7EB; border-radius: 50%; color: #9CA3AF; }
+    .is-carousel-more-text { font-size: 11px; color: #9CA3AF; text-align: center; }
+    .is-carousel-more:hover .is-carousel-more-arrow { border-color: #9CA3AF; color: #374151; }
+    .is-carousel-more:hover .is-carousel-more-text { color: #6B7280; }
+    .badge-beta { font-size: 10px; font-weight: 600; padding: 2px 6px; background: none; color: #0BB8C9; border-radius: 5px; letter-spacing: 0; font-style: italic; }
+    .badge-new { font-size: 10px; font-weight: 600; padding: 2px 6px; background: rgba(11,184,201,0.12); color: #0BB8C9; border-radius: 5px; letter-spacing: 0; }
+
+    /* ── AI 분석 모달 ── */
+    .ai-modal-overlay { position: fixed; inset: 0; background: rgba(17,24,39,0.55); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+    .ai-modal { background: #fff; border-radius: 16px; width: 460px; padding: 36px 32px 28px; box-shadow: 0 24px 64px rgba(0,0,0,0.18); position: relative; }
+    .ai-modal-title { font-size: 21px; font-weight: 800; color: #111827; margin-bottom: 8px; line-height: 1.35; }
+    .ai-modal-sub { font-size: 14px; color: #6B7280; line-height: 1.6; margin-bottom: 22px; }
+    .ai-token-box { background: rgba(11,184,201,0.08); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 24px; }
+    .ai-token-label { font-size: 19px; font-weight: 800; color: #0BB8C9; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .ai-token-desc { font-size: 13px; color: #6B7280; }
+    .ai-features { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px; }
+    .ai-features li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #374151; line-height: 1.5; }
+    .ai-feat-icon { flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; color: #9CA3AF; }
+    .ai-feat-sub { font-size: 12px; color: #9CA3AF; }
+    .ai-modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .ai-btn-gray { padding: 14px; background: #F3F4F6; color: #374151; font-size: 14px; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+    .ai-btn-gray:hover { background: #E5E7EB; }
+    .ai-btn-green { padding: 14px; background: #0BB8C9; color: #fff; font-size: 14px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+    .ai-btn-green:hover { background: #09A3B2; }
+    .ai-modal-x { position: absolute; top: 16px; right: 16px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: none; background: none; cursor: pointer; color: #9CA3AF; border-radius: 6px; transition: background 0.15s, color 0.15s; }
+    .ai-modal-x:hover { background: #F3F4F6; color: #374151; }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;letter-spacing:-0.02em;">keywert</span>
+        </span>
+      </a>
+
+      <nav>
+        <div onmouseenter="kwMegaShow('megaInsightHover')" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn active">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaProHover')" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <a href="chemistry.html" class="btn-chemistry" style="margin-left:4px;">
+          <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
+            <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
+          Chemistry
+        </a>
+      </nav>
+
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
+        </div>
+        <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 고정 바: Insight 현재 페이지 -->
+  <div class="mega-bar mega-bar--fixed" style="border-bottom: 1px solid #E5E7EB;">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">특허 검색</a>
+          <a href="insight_techtrend.html" class="mega-tab active">기술트렌드</a>
+          <a href="#" class="mega-tab">AI보고서</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="#" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- 호버 바: Insight -->
+  <div class="mega-bar" id="megaInsightHover"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">특허 검색</a>
+          <a href="insight_techtrend.html" class="mega-tab active">기술트렌드</a>
+          <a href="#" class="mega-tab">AI보고서</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="#" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- 호버 바: Pro -->
+  <div class="mega-bar" id="megaProHover"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="pro_search.html" class="mega-tab">일반검색</a>
+          <a href="pro_search.html" class="mega-tab">선행조사용 검색</a>
+          <a href="pro_search.html" class="mega-tab">AI검색</a>
+          <a href="pro_search.html" class="mega-tab">번호검색</a>
+          <a href="pro_search.html" class="mega-tab">미국소송검색</a>
+          <a href="pro_search.html" class="mega-tab">K WORK</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="pro.html" class="mega-tab-util">플랜 안내</a>
+          <a href="pro.html" class="mega-tab-util">이용 가이드</a>
+          <a href="pro.html" class="mega-tab-util">설정</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── MAIN LAYOUT ── -->
+<div class="is-layout">
+
+  <!-- 접기 버튼 -->
+  <button class="is-collapse-btn" title="사이드바 접기">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+
+  <!-- SIDEBAR -->
+  <div class="is-sidebar">
+    <div style="padding:14px 16px; flex-shrink:0;">
+      <a href="insight_search.html" class="is-new-btn-outline" style="text-decoration:none;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        새 검색
+      </a>
+    </div>
+
+    <!-- 내 검색 -->
+    <div class="is-sec">
+      <div class="is-sec-head">
+        <span class="is-sec-label">내 검색</span>
+      </div>
+      <div class="is-search-list">
+        <div class="is-search-li">전기차 배터리 고속 충전</div>
+        <div class="is-search-li">EV 배터리 급속 충전 열 관리 및 냉각 기술</div>
+        <div class="is-search-li">AI 기반 배터리 충전 최적화 및 수명 연장</div>
+      </div>
+      <button class="is-viewall">전체보기
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- 프로젝트 -->
+    <div class="is-sec">
+      <div class="is-sec-head">
+        <span class="is-sec-label">프로젝트</span>
+        <button class="is-sec-add">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+      <div class="is-proj-item">
+        <svg class="is-proj-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">배터리 셀 내부 열 관리 기술 전략화</span>
+      </div>
+      <div class="is-proj-item">
+        <svg class="is-proj-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">wert 빅데이터 분석 - 하이브리드...</span>
+      </div>
+      <div class="is-proj-item">
+        <svg class="is-proj-icon is-proj-icon--blue" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">하이브리드 자동차 : 배터리 냉각</span>
+      </div>
+    </div>
+
+    <!-- 하단 링크 + 유저 -->
+    <div class="is-bottom-links">
+      <a href="#" class="is-blog-link">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7"/></svg>
+        블로그
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+    <div class="is-sidebar-bottom">
+      <div class="is-avatar" id="isSidebarAvatar">김</div>
+      <div class="is-icon-btn-group">
+        <button class="is-icon-btn" title="도움말">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="dot-indicator"></span>
+        </button>
+        <button class="is-icon-btn" title="알림">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="is-main">
+    <div class="is-main-inner">
+
+      <!-- 검색 영역 -->
+      <div class="is-search-block">
+
+      <!-- 검색 박스 -->
+      <div class="is-search-box">
+        <textarea class="is-search-textarea" rows="2" placeholder="분석할 기술 트렌드를 입력하세요. 예: 차세대 디스플레이 기술 동향">차세대 디스플레이 기술 동향</textarea>
+        <div class="is-search-foot">
+          <button class="is-foot-btn">@</button>
+          <button class="is-foot-btn">#</button>
+          <button class="is-ai-btn" onclick="showAiModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            AI 분석
+            <span class="badge-beta">Beta</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 카테고리 칩 -->
+      <div class="is-chips">
+        <button class="is-chip2 active">디스플레이</button>
+        <button class="is-chip2">로보틱스</button>
+        <button class="is-chip2">모빌리티</button>
+        <button class="is-chip2">제약·바이오</button>
+        <button class="is-chip2">AI</button>
+        <button class="is-chip2">에너지</button>
+      </div>
+
+      <!-- 트렌드 카드 3열 -->
+      <div class="is-trend-cards">
+        <div class="is-trend-card">
+          <span class="is-trend-card-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </span>
+          <p class="is-trend-card-text">OLED, MicroLED, 퀀텀닷 디스플레이를 포함한 차세대 디스플레이 기술 및 관련 특허 동향</p>
+        </div>
+        <div class="is-trend-card">
+          <span class="is-trend-card-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </span>
+          <p class="is-trend-card-text">폴더블 디스플레이, 롤러블 디스플레이, UTG(초박막 유리) 기술을 중심으로 한 특허 분석</p>
+        </div>
+        <div class="is-trend-card">
+          <span class="is-trend-card-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </span>
+          <p class="is-trend-card-text">AR/VR용 마이크로 OLED, 실리콘 기반 MicroLED, 광학 웨이브가이드 특허 현황 및 기술 트렌드</p>
+        </div>
+      </div>
+      </div><!-- /is-search-block -->
+
+      <!-- 저장한 기술트리 -->
+      <div class="is-saved-block">
+      <div class="is-saved-header">
+        <span class="is-saved-title">저장한 기술트리</span>
+        <span class="is-saved-sort">최근 사용순</span>
+        <button class="is-saved-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          기술트리 보관함
+        </button>
+      </div>
+
+      <div class="is-carousel">
+        <button class="is-carousel-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="is-carousel-track">
+          <div class="is-tree-card">
+            <div class="is-tree-thumb">
+              <span class="is-tree-thumb-label">차세대 디스플레이</span>
+            </div>
+            <div class="is-tree-info">
+              <div class="is-tree-name">차세대 디스플레이 기술트리</div>
+              <div class="is-tree-date">3일전</div>
+            </div>
+          </div>
+          <div class="is-tree-card">
+            <div class="is-tree-thumb">
+              <span class="is-tree-thumb-label">배터리 기술</span>
+            </div>
+            <div class="is-tree-info">
+              <div class="is-tree-name">배터리 열관리 기술트리</div>
+              <div class="is-tree-date">2주전</div>
+            </div>
+          </div>
+        </div>
+        <div class="is-carousel-more">
+          <div class="is-carousel-more-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+          <span class="is-carousel-more-text">보관함에서 더보기</span>
+        </div>
+      </div>
+      </div><!-- /is-saved-block -->
+
+    </div><!-- /is-main-inner -->
+  </div>
+
+</div>
+
+<script>
+  // 2Depth 메뉴 Insight 버튼 좌측 정렬 동기화
+  (function() {
+    function alignSubMenu() {
+      var insightBtn = document.querySelector('nav .nav-btn');
+      var headerContainer = document.querySelector('header .container');
+      if (!insightBtn || !headerContainer) return;
+      var offset = Math.round(insightBtn.getBoundingClientRect().left - headerContainer.getBoundingClientRect().left) - 83;
+      document.querySelectorAll('.mega-bar-inner').forEach(function(el) {
+        el.style.paddingLeft = offset + 'px';
+      });
+    }
+    alignSubMenu();
+    window.addEventListener('resize', alignSubMenu);
+  })();
+
+  (function() {
+    var _t = null;
+    window.kwMegaShow = function(id) {
+      clearTimeout(_t);
+      document.querySelectorAll('.mega-bar').forEach(function(b) { b.classList.remove('open'); });
+      var el = document.getElementById(id);
+      if (el) el.classList.add('open');
+    };
+    window.kwMegaHide = function() {
+      _t = setTimeout(function() {
+        document.querySelectorAll('.mega-bar').forEach(function(b) { b.classList.remove('open'); });
+      }, 120);
+    };
+    window.kwMegaCancel = function() { clearTimeout(_t); };
+  })();
+
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('is-chip2')) {
+      document.querySelectorAll('.is-chip2').forEach(c => c.classList.remove('active'));
+      e.target.classList.add('active');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    try {
+      var u = JSON.parse(localStorage.getItem('kw_user'));
+      if (u) {
+        var av = document.getElementById('isSidebarAvatar');
+        if (av) av.textContent = u.name ? u.name.charAt(0) : '김';
+        if (av) {
+          if (u.type === 'paid') { av.style.background = '#D0F5F9'; av.style.color = '#29B8D8'; }
+          else if (u.type === 'free') { av.style.background = '#F3F4F6'; av.style.color = '#6B7280'; }
+        }
+      }
+    } catch(e) {}
+  });
+</script>
+<script src="auth.js"></script>
+
+<!-- ── AI 분석 모달 ── -->
+<div id="aiModal" class="ai-modal-overlay" style="display:none;" onclick="handleOverlayClick(event)">
+  <div class="ai-modal">
+    <button class="ai-modal-x" onclick="closeAiModal()" title="닫기">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2 class="ai-modal-title"><span style="color:#0BB8C9;">Insight</span><span style="font-weight:400;"> 플랜 구매 후 이용해 주세요</span></h2>
+    <p class="ai-modal-sub">AI 특허 검색, 분석, 결과 생성까지 Insight에서 가능해요.</p>
+
+    <div class="ai-token-box">
+      <div class="ai-token-label">✦ 온보딩 토큰 추가 지급</div>
+      <div class="ai-token-desc">유효기간 7일 이내에 사용하세요.</div>
+    </div>
+
+    <ul class="ai-features">
+      <li>
+        <svg class="ai-feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>자연어 기반 AI 특허 검색</span>
+      </li>
+      <li>
+        <svg class="ai-feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        <span>단건·다건 특허 AI 분석</span>
+      </li>
+      <li>
+        <svg class="ai-feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>문헌상세 AI 특허 요약 및 다국어 AI 번역</span>
+      </li>
+      <li>
+        <svg class="ai-feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="13" y1="17" x2="8" y2="17"/></svg>
+        <div>
+          <div>특허·보고서 자동 작성</div>
+          <div class="ai-feat-sub">(발명신고서·특허명세서·선행기술조사보고서)</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="ai-modal-btns">
+      <button class="ai-btn-gray">플랜 자세히 보기</button>
+      <button class="ai-btn-green">토큰 한 번 더 받기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showAiModal() {
+    document.getElementById('aiModal').style.display = 'flex';
+  }
+  function closeAiModal() {
+    document.getElementById('aiModal').style.display = 'none';
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('aiModal')) closeAiModal();
+  }
+
+  // 2Depth 메뉴 스크롤 자동 숨김/표시
+  (function() {
+    var subBar = document.querySelector('.mega-bar--fixed');
+    var scrollEl = document.querySelector('.is-main') || window;
+    if (!subBar) return;
+    var lastY = Math.round(scrollEl.scrollTop || 0);
+    var ticking = false;
+    scrollEl.addEventListener('scroll', function() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function() {
+        var currentY = Math.round(scrollEl.scrollTop || 0);
+        var delta = currentY - lastY;
+        if (delta > 0 && currentY > 15) {
+          subBar.classList.add('sub-hidden');
+        } else if (delta < 0) {
+          subBar.classList.remove('sub-hidden');
+        }
+        lastY = currentY;
+        ticking = false;
+      });
+    }, { passive: true });
+  })();
+</script>
+</body>
+</html>
