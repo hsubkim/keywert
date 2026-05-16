@@ -907,17 +907,17 @@
 
       <!-- CENTER NAV -->
       <nav>
-        <div onmouseenter="kwMegaShow('megaInsight')" onmouseleave="kwMegaHide()">
+        <div onmouseenter="kwMegaShow('megaInsight', this)" onmouseleave="kwMegaHide()">
           <a href="insight.html" class="nav-btn">Insight
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
         </div>
-        <div onmouseenter="kwMegaShow('megaPro')" onmouseleave="kwMegaHide()">
+        <div onmouseenter="kwMegaShow('megaPro', this)" onmouseleave="kwMegaHide()">
           <a href="pro.html" class="nav-btn">Pro
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
         </div>
-        <div onmouseenter="kwMegaShow('megaChemHover')" onmouseleave="kwMegaHide()" style="margin-left:4px;">
+        <div onmouseenter="kwMegaShow('megaChemHover', this)" onmouseleave="kwMegaHide()" style="margin-left:4px;">
           <a href="chemistry.html" class="btn-chemistry">
             <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
@@ -1295,29 +1295,37 @@
 </footer>
 
 <script>
-  // 2Depth 메뉴 Insight 버튼 좌측 정렬 동기화
-  (function() {
-    function alignSubMenu() {
-      var insightBtn = document.querySelector('nav .nav-btn');
-      var headerContainer = document.querySelector('header .container');
-      if (!insightBtn || !headerContainer) return;
-      var offset = Math.round(insightBtn.getBoundingClientRect().left - headerContainer.getBoundingClientRect().left) - 83;
-      document.querySelectorAll('.mega-bar-inner').forEach(function(el) {
-        el.style.paddingLeft = offset + 'px';
-      });
-    }
-    alignSubMenu();
-    window.addEventListener('resize', alignSubMenu);
-  })();
+  // 2Depth 메뉴 각 버튼 위치에 맞춰 개별 정렬
+  function kwNavOffset(el) {
+    var hc = document.querySelector('header .container');
+    if (!el || !hc) return 0;
+    return Math.max(0, el.getBoundingClientRect().left - hc.getBoundingClientRect().left);
+  }
+  function alignFixedBar() {
+    var fixedBar = document.querySelector('.mega-bar--fixed');
+    if (!fixedBar) return;
+    var inner = fixedBar.querySelector('.mega-bar-inner');
+    if (!inner) return;
+    var navDivs = document.querySelectorAll('nav > div[onmouseenter]');
+    var activeDiv = null;
+    navDivs.forEach(function(div) { if (div.querySelector('.nav-btn.active')) activeDiv = div; });
+    if (!activeDiv) navDivs.forEach(function(div) { if (div.querySelector('.btn-chemistry')) activeDiv = div; });
+    if (activeDiv) inner.style.paddingLeft = kwNavOffset(activeDiv) + 'px';
+  }
+  alignFixedBar();
+  window.addEventListener('resize', alignFixedBar);
 
   /* ── Mega-menu ── */
   (function() {
     let _t = null;
-    window.kwMegaShow = function(id) {
+    window.kwMegaShow = function(id, triggerEl) {
       clearTimeout(_t);
-      document.querySelectorAll('.mega-bar').forEach(b => b.classList.remove('open'));
+      document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(b => b.classList.remove('open'));
       const el = document.getElementById(id);
-      if (el) el.classList.add('open');
+      if (el) {
+        if (triggerEl) { const inner = el.querySelector('.mega-bar-inner'); if (inner) inner.style.paddingLeft = kwNavOffset(triggerEl) + 'px'; }
+        el.classList.add('open');
+      }
     };
     window.kwMegaHide = function() {
       _t = setTimeout(function() {
