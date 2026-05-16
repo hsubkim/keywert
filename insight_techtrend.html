@@ -141,6 +141,23 @@
     .ai-btn-green:hover { background: #09A3B2; }
     .ai-modal-x { position: absolute; top: 16px; right: 16px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: none; background: none; cursor: pointer; color: #9CA3AF; border-radius: 6px; transition: background 0.15s, color 0.15s; }
     .ai-modal-x:hover { background: #F3F4F6; color: #374151; }
+    /* ── FOOTER ── */
+    .kw-footer { background: #0C1222; padding: 64px 0 40px; }
+    .kw-footer .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+    .kw-footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 80px; margin-bottom: 48px; align-items: start; }
+    .kw-footer-info h3 { font-size: 15px; font-weight: 700; color: #F1F5F9; margin-bottom: 10px; }
+    .kw-footer-info p { font-size: 13px; color: #64748B; line-height: 1.85; }
+    .kw-footer-info a { color: #64748B; text-decoration: none; transition: color 0.15s; }
+    .kw-footer-info a:hover { color: #94A3B8; }
+    .kw-footer-info .spacer { margin-top: 8px; }
+    .kw-footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .kw-footer-link-card { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 14px 20px; background: #1E293B; border-radius: 12px; text-decoration: none; min-width: 340px; transition: background 0.15s; }
+    .kw-footer-link-card:hover { background: #334155; }
+    .kw-flc-text { display: flex; flex-direction: column; gap: 2px; }
+    .kw-flc-tag { font-size: 11px; font-weight: 600; color: #64748B; letter-spacing: 0.03em; }
+    .kw-flc-name { font-size: 14px; font-weight: 600; color: #E2E8F0; }
+    .kw-flc-arrow { color: #64748B; font-size: 18px; }
+    .kw-footer-bottom { border-top: 1px solid #1E293B; padding-top: 24px; font-size: 13px; color: #334155; }
   </style>
 </head>
 <body>
@@ -570,5 +587,44 @@
     }, { passive: true });
   })();
 </script>
+
+<footer class="kw-footer">
+  <div class="container">
+    <div class="kw-footer-grid">
+      <div class="kw-footer-info">
+        <h3>CS LAB</h3>
+        <p>키워트에 대한 모든 자료를 고객지원연구소 CS LAB에서 제공합니다.</p>
+        <p class="spacer">
+          평일 09:00~12:00 / 13:00~18:00<br>
+          Tel : 02-521-0110
+        </p>
+        <p class="spacer">
+          고객문의 : <a href="mailto:cslab@keywert.com">cslab@keywert.com</a><br>
+          제휴비즈니스 문의 : <a href="mailto:cm@keywert.com">cm@keywert.com</a>
+        </p>
+        <p class="spacer">
+          대표 : 윤정<br>
+          사업자등록번호 : 675-86-00133<br>
+          주소 : 서울시 서초구 강남대로 507, 68(반포동)
+        </p>
+      </div>
+      <div class="kw-footer-links">
+        <a href="#" class="kw-footer-link-card">
+          <div class="kw-flc-text"><span class="kw-flc-tag">IP 데이터 인텔리전스</span><span class="kw-flc-name">IP 데이터 인텔리전스 서비스 설계 전략</span></div>
+          <span class="kw-flc-arrow">›</span>
+        </a>
+        <a href="#" class="kw-footer-link-card">
+          <div class="kw-flc-text"><span class="kw-flc-tag">patspoon</span><span class="kw-flc-name">IP 전문교육 플랫폼</span></div>
+          <span class="kw-flc-arrow">›</span>
+        </a>
+        <a href="#" class="kw-footer-link-card">
+          <div class="kw-flc-text"><span class="kw-flc-tag">❤ IP KINGKONG</span><span class="kw-flc-name">특허전문 AI 번역</span></div>
+          <span class="kw-flc-arrow">›</span>
+        </a>
+      </div>
+    </div>
+    <div class="kw-footer-bottom"><p>© 2024 keywert. All rights reserved.</p></div>
+  </div>
+</footer>
 </body>
 </html>
