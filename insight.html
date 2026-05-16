@@ -36,8 +36,9 @@
     }
     .nav-btn:hover { background: #F3F4F6; }
     .nav-btn.active { color: #0BB8C9; }
+    .nav-item { position: relative; height: 64px; display: flex; align-items: center; }
     .mega-bar {
-      position: absolute; top: 64px; left: 0; right: 0;
+      position: absolute; top: 64px; left: 0; right: auto; width: auto; min-width: 240px;
       background: #fff; border-bottom: 1px solid #E5E7EB;
       box-shadow: 0 4px 16px rgba(0,0,0,0.07);
       opacity: 0; pointer-events: none; transform: translateY(-4px);
@@ -265,17 +266,28 @@
       </a>
 
       <nav>
-        <div onmouseenter="kwMegaShow('megaInsight')" onmouseleave="kwMegaHide()">
+        <div class="nav-item" onmouseenter="kwMegaShow('megaInsight')" onmouseleave="kwMegaHide()">
           <a href="insight.html" class="nav-btn active">Insight
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
         </div>
-        <div onmouseenter="kwMegaShow('megaPro')" onmouseleave="kwMegaHide()">
+        <div class="nav-item" onmouseenter="kwMegaShow('megaPro')" onmouseleave="kwMegaHide()">
           <a href="pro.html" class="nav-btn">Pro
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
+          <div class="mega-bar" id="megaPro" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+            <div class="mega-bar-inner" style="padding: 0 16px;">
+              <nav class="mega-tabs">
+                <a href="pro_search.html" class="mega-tab">일반검색</a>
+                <a href="#" class="mega-tab">선행조사용 검색</a>
+                <a href="#" class="mega-tab">번호검색</a>
+                <a href="#" class="mega-tab">미국소송검색</a>
+                <a href="#" class="mega-tab">K WORK</a>
+              </nav>
+            </div>
+          </div>
         </div>
-        <div onmouseenter="kwMegaShow('megaChemHover')" onmouseleave="kwMegaHide()" style="margin-left:4px;">
+        <div class="nav-item" onmouseenter="kwMegaShow('megaChemHover')" onmouseleave="kwMegaHide()" style="margin-left:4px;">
           <a href="chemistry.html" class="btn-chemistry">
             <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
@@ -284,6 +296,14 @@
             </svg>
             Chemistry
           </a>
+          <div class="mega-bar" id="megaChemHover" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+            <div class="mega-bar-inner" style="padding: 0 16px;">
+              <nav class="mega-tabs">
+                <a href="chemistry_search.html" class="mega-tab">화합물 검색</a>
+                <a href="#" class="mega-tab">화합물 범위 검색</a>
+              </nav>
+            </div>
+          </div>
         </div>
       </nav>
 
@@ -318,42 +338,6 @@
     </div>
   </div>
 
-  <!-- 호버 바: Pro -->
-  <div class="mega-bar" id="megaPro"
-       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
-    <div class="container">
-      <div class="mega-bar-inner">
-        <nav class="mega-tabs">
-          <a href="pro_search.html" class="mega-tab">일반검색</a>
-          <a href="#" class="mega-tab">선행조사용 검색</a>
-          <a href="#" class="mega-tab">번호검색</a>
-          <a href="#" class="mega-tab">미국소송검색</a>
-          <a href="#" class="mega-tab">K WORK</a>
-        </nav>
-        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="pro.html" class="mega-tab-util">플랜 안내</a>
-          <a href="pro.html" class="mega-tab-util">이용 가이드</a>
-          <a href="pro.html" class="mega-tab-util">설정</a>
-        </nav>
-      </div>
-    </div>
-  </div>
-  <div class="mega-bar" id="megaChemHover"
-       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
-    <div class="container">
-      <div class="mega-bar-inner">
-        <nav class="mega-tabs">
-          <a href="chemistry_search.html" class="mega-tab">화합물 검색</a>
-          <a href="#" class="mega-tab">화합물 범위 검색</a>
-        </nav>
-        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="chemistry.html" class="mega-tab-util">플랜 안내</a>
-          <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
-        </nav>
-      </div>
-    </div>
-  </div>
 </header>
 
 <!-- ── HERO ── -->
@@ -516,21 +500,6 @@
 </footer>
 
 <script>
-  // 2Depth 메뉴 Insight 버튼 좌측 정렬 동기화
-  (function() {
-    function alignSubMenu() {
-      var insightBtn = document.querySelector('nav .nav-btn');
-      var headerContainer = document.querySelector('header .container');
-      if (!insightBtn || !headerContainer) return;
-      var offset = Math.round(insightBtn.getBoundingClientRect().left - headerContainer.getBoundingClientRect().left) - 83;
-      document.querySelectorAll('.mega-bar-inner').forEach(function(el) {
-        el.style.paddingLeft = offset + 'px';
-      });
-    }
-    alignSubMenu();
-    window.addEventListener('resize', alignSubMenu);
-  })();
-
   (function() {
     var _t = null;
     window.kwMegaShow = function(id) {
