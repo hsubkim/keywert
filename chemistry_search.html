@@ -239,10 +239,8 @@
     .chem-card.checked .chem-img { background: #EFF6FF; }
     .chem-name { font-size: 12px; font-weight: 600; color: #111827; margin-bottom: 2px; }
     .chem-formula { font-size: 11px; color: #60A5FA; font-weight: 500; }
-    .chem-sel-bar { display: flex; align-items: center; gap: 8px; }
-    .chem-sel-count { font-size: 12px; color: #6B7280; flex: 1; }
-    .chem-btn-clear { padding: 5px 14px; font-size: 12px; font-weight: 500; border: 1.5px solid #D1D5DB; border-radius: 8px; background: #fff; color: #374151; cursor: pointer; font-family: inherit; transition: all 0.15s; }
-    .chem-btn-clear:hover { border-color: #9CA3AF; }
+    .chem-sel-bar { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+    .chem-sel-count { font-size: 12px; color: #6B7280; }
     .chem-btn-do { padding: 6px 16px; font-size: 13px; font-weight: 600; border: none; border-radius: 8px; background: #3B82F6; color: #fff; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; }
     .chem-btn-do:hover { background: #2563EB; }
     .cc-sel-bubble { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
@@ -254,13 +252,14 @@
     .chem-scope-tag { display: inline-flex; align-items: center; padding: 4px 12px; background: #DBEAFE; color: #3B82F6; font-size: 12px; font-weight: 600; border-radius: 20px; }
     .chem-input-wrap { flex-shrink: 0; padding: 10px 0 20px; background: #fff; border-top: 1px solid #F3F4F6; display: flex; justify-content: center; }
     .chem-input-inner { width: 890px; max-width: 100%; }
-    .chem-input-box { border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 10px 12px 10px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .chem-input-box { border: 2px solid #60A5FA; border-radius: 14px; padding: 10px 12px 10px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .chem-input-row { display: flex; align-items: center; gap: 8px; }
     .chem-input { flex: 1; border: none; background: none; outline: none; font-size: 14px; font-family: inherit; color: #111827; }
     .chem-input::placeholder { color: #C4C8CE; }
-    .chem-send-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: #F3F4F6; border-radius: 8px; border: none; cursor: pointer; color: #9CA3AF; flex-shrink: 0; transition: background 0.15s; }
-    .chem-send-btn:hover { background: #E5E7EB; color: #374151; }
-    .chem-input-tools { display: flex; align-items: center; gap: 4px; }
-    .chem-tool-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1.5px solid #E5E7EB; border-radius: 8px; background: #fff; cursor: pointer; color: #6B7280; transition: all 0.15s; }
+    .chem-input-foot { display: flex; align-items: center; gap: 4px; }
+    .chem-send-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: #3B82F6; border-radius: 8px; border: none; cursor: pointer; color: #fff; flex-shrink: 0; transition: background 0.15s; margin-left: auto; }
+    .chem-send-btn:hover { background: #2563EB; }
+    .chem-tool-btn { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 1.5px solid #E5E7EB; border-radius: 7px; background: #fff; cursor: pointer; color: #6B7280; transition: all 0.15s; }
     .chem-tool-btn:hover { border-color: #9CA3AF; color: #374151; }
   </style>
 </head>
@@ -617,7 +616,6 @@
 
           <div class="chem-sel-bar">
             <span class="chem-sel-count" id="chemSelCount">3개 선택됨 · 동시 검색 가능</span>
-            <button class="chem-btn-clear" onclick="clearChemCards()">해제</button>
             <button class="chem-btn-do" id="chemBtnDo">선택한 3개로 검색</button>
           </div>
         </div><!-- /cc-row--ai -->
@@ -666,21 +664,23 @@
       <div class="chem-input-wrap">
         <div class="chem-input-inner">
         <div class="chem-input-box">
-          <input class="chem-input" placeholder="후속 질문하기...">
-          <button class="chem-send-btn">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-        </div>
-        <div class="chem-input-tools">
-          <button class="chem-tool-btn" title="공유">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-          </button>
-          <button class="chem-tool-btn" title="저장">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          </button>
-          <button class="chem-tool-btn" title="첨부">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-          </button>
+          <div class="chem-input-row">
+            <input class="chem-input" placeholder="후속 질문하기...">
+            <button class="chem-send-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="chem-input-foot">
+            <button class="chem-tool-btn" title="공유">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            </button>
+            <button class="chem-tool-btn" title="저장">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            </button>
+            <button class="chem-tool-btn" title="첨부">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            </button>
+          </div>
         </div>
         </div><!-- /chem-input-inner -->
       </div>
