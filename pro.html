@@ -257,11 +257,12 @@
     }
 
     /* ── FOOTER ── */
-    footer { background: #0C1222; padding: 48px 0 32px; }
-    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 80px; margin-bottom: 40px; align-items: start; }
+    footer { background: #0C1222; padding: 64px 0 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 80px; margin-bottom: 48px; align-items: start; }
     .footer-info h3 { font-size: 15px; font-weight: 700; color: #F1F5F9; margin-bottom: 10px; }
     .footer-info p { font-size: 13px; color: #64748B; line-height: 1.85; }
-    .footer-info a { color: #64748B; text-decoration: none; }
+    .footer-info a { color: #64748B; text-decoration: none; transition: color 0.15s; }
+    .footer-info a:hover { color: #94A3B8; }
     .footer-info .spacer { margin-top: 8px; }
     .footer-links { display: flex; flex-direction: column; gap: 10px; }
     .footer-link-card {
@@ -271,7 +272,7 @@
     }
     .footer-link-card:hover { background: #334155; }
     .flc-text { display: flex; flex-direction: column; gap: 2px; }
-    .flc-tag { font-size: 11px; font-weight: 600; color: #64748B; }
+    .flc-tag { font-size: 11px; font-weight: 600; color: #64748B; letter-spacing: 0.03em; }
     .flc-name { font-size: 14px; font-weight: 600; color: #E2E8F0; }
     .flc-arrow { color: #64748B; font-size: 18px; }
     .footer-bottom { border-top: 1px solid #1E293B; padding-top: 24px; font-size: 13px; color: #334155; }
