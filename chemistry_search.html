@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
-  <title>keywert > Insight > 기술트렌드</title>
+  <title>keywert > Chemistry > 화학식 검색</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,7 +24,7 @@
     .nav-btn.active { color: #0BB8C9; }
     .mega-bar { position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #E5E7EB; box-shadow: 0 4px 16px rgba(0,0,0,0.07); opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity 0.15s, transform 0.15s; z-index: 199; }
     .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; z-index: 0; overflow: hidden; max-height: 48px; transition: max-height 0.15s ease, opacity 0.12s ease; }
+    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; border-bottom: none; z-index: 0; overflow: hidden; max-height: 48px; transition: max-height 0.15s ease, opacity 0.12s ease; }
     .mega-bar--fixed.sub-hidden { max-height: 0; opacity: 0; pointer-events: none; }
     .mega-bar:not(.mega-bar--fixed) { top: 64px; }
     .mega-bar-inner { display: flex; align-items: center; height: 48px; }
@@ -43,13 +43,81 @@
     .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
     .btn-primary:hover { background: #15803D; }
 
-    /* ── INSIGHT LAYOUT ── */
+    /* ── INSIGHT SEARCH ── */
     .is-layout { display: flex; height: calc(100vh - 112px); overflow: hidden; position: relative; }
     .is-sidebar { width: 240px; flex-shrink: 0; border-right: 1px solid #E5E7EB; background: #FAFAFA; display: flex; flex-direction: column; overflow-y: auto; }
-    .is-collapse-btn { position: absolute; left: calc(240px - 13px); top: 20px; display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border: 1px solid #E5E7EB; background: #fff; cursor: pointer; color: #9CA3AF; border-radius: 50%; z-index: 10; flex-shrink: 0; }
-    .is-collapse-btn:hover { background: #F3F4F6; color: #6B7280; border-color: #D1D5DB; }
+    .is-sidebar-brand { padding: 20px 20px 16px; border-bottom: 1px solid #E5E7EB; flex-shrink: 0; }
+    .is-brand-label { font-size: 13px; font-weight: 800; color: #0BB8C9; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .is-new-btn { display: flex; align-items: center; gap: 6px; width: 100%; padding: 9px 14px; background: #0BB8C9; color: #fff; font-size: 13px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+    .is-new-btn:hover { background: #09A5B5; }
     .is-new-btn-outline { display: flex; align-items: center; gap: 6px; width: 100%; padding: 8px 14px; background: #fff; color: #374151; font-size: 13px; font-weight: 500; border: 1px solid #E5E7EB; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s, border-color 0.15s; }
     .is-new-btn-outline:hover { background: #F9FAFB; border-color: #D1D5DB; }
+    .is-sidebar-section { padding: 14px 20px; border-bottom: 1px solid #E5E7EB; flex-shrink: 0; }
+    .is-section-title { font-size: 10px; font-weight: 700; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+    .is-recent-item { display: flex; align-items: flex-start; gap: 6px; padding: 5px 0; border-bottom: 1px solid #F3F4F6; }
+    .is-recent-item:last-child { border-bottom: none; }
+    .is-recent-meta { flex: 1; }
+    .is-recent-time { font-size: 10px; color: #9CA3AF; margin-bottom: 2px; }
+    .is-recent-text { font-size: 12px; color: #374151; line-height: 1.4; }
+    .is-del-btn { color: #D1D5DB; cursor: pointer; font-size: 14px; line-height: 1; flex-shrink: 0; padding: 2px; border: none; background: none; }
+    .is-del-btn:hover { color: #9CA3AF; }
+    .is-project-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 12px; color: #374151; cursor: pointer; }
+    .is-project-item:hover { color: #111827; }
+    .is-project-icon { color: #9CA3AF; flex-shrink: 0; }
+    .is-add-project { display: flex; align-items: center; gap: 5px; padding: 6px 0; font-size: 12px; color: #9CA3AF; cursor: pointer; margin-top: 4px; border: none; background: none; font-family: inherit; width: 100%; }
+    .is-add-project:hover { color: #0BB8C9; }
+    .is-sidebar-links { padding: 14px 20px; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+    .is-sidebar-link { font-size: 11px; color: #9CA3AF; text-decoration: none; transition: color 0.15s; }
+    .is-sidebar-link:hover { color: #374151; }
+    .is-sidebar-user { margin-top: auto; padding: 14px 20px; border-top: 1px solid #E5E7EB; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .is-user-avatar { width: 28px; height: 28px; border-radius: 50%; background: #DCFCE7; color: #16A34A; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .is-user-name { font-size: 12px; font-weight: 600; color: #111827; }
+    .is-user-plan { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: #DCFCE7; color: #16A34A; display: block; margin-top: 2px; }
+    .is-main { flex: 1; overflow-y: auto; padding: 0 48px; background: #fff; display: flex; flex-direction: column; align-items: center; }
+    .is-main-inner { width: 888px; max-width: 100%; }
+    .is-search-block { padding-top: 68px; display: flex; flex-direction: column; align-items: center; }
+    .is-search-block .is-search-box,
+    .is-search-block .is-trend-cards { width: 100%; }
+    .is-saved-block { padding-top: 68px; padding-bottom: 68px; }
+    .is-search-tabs { display: flex; margin-bottom: 24px; border-bottom: 2px solid #E5E7EB; }
+    .is-search-tab { padding: 8px 20px; font-size: 14px; font-weight: 600; color: #9CA3AF; cursor: pointer; border: none; background: none; font-family: inherit; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.15s; }
+    .is-search-tab:hover { color: #374151; }
+    .is-search-tab.active { color: #0BB8C9; border-bottom-color: #0BB8C9; }
+    .is-beta-badge { font-size: 9px; font-weight: 700; padding: 1px 5px; background: #FEF9C3; color: #CA8A04; border-radius: 4px; margin-left: 4px; }
+    .is-search-area { background: #F8FAFB; border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 16px 20px 14px; margin-bottom: 12px; }
+    .is-search-input { width: 100%; border: none; background: none; outline: none; font-size: 15px; font-family: inherit; color: #111827; resize: none; min-height: 60px; line-height: 1.6; }
+    .is-search-input::placeholder { color: #C4C8CE; }
+    .is-search-actions { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+    .is-tag-btn { padding: 3px 10px; font-size: 12px; font-weight: 600; border: 1.5px solid #D1D5DB; border-radius: 6px; color: #6B7280; background: #fff; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .is-tag-btn:hover { border-color: #9CA3AF; color: #374151; }
+    .is-analyze-btn { margin-left: auto; display: flex; align-items: center; gap: 6px; padding: 8px 20px; background: #111827; color: #fff; font-size: 14px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+    .is-analyze-btn:hover { background: #1F2937; }
+    .is-chip-row { display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap; }
+    .is-chip { padding: 5px 14px; font-size: 12px; font-weight: 500; border: 1.5px solid #E5E7EB; border-radius: 20px; color: #6B7280; cursor: pointer; transition: all 0.15s; background: #fff; font-family: inherit; }
+    .is-chip:hover { border-color: #0BB8C9; color: #0BB8C9; }
+    .is-chip.active { border-color: #0BB8C9; color: #0BB8C9; background: rgba(11,184,201,0.06); }
+    .is-section-header { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 14px; }
+    .is-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 32px; }
+    .is-card { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: all 0.15s; background: #fff; }
+    .is-card:hover { border-color: #0BB8C9; box-shadow: 0 2px 8px rgba(11,184,201,0.1); }
+    .is-card-label { font-size: 10px; font-weight: 600; color: #9CA3AF; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .is-card-title { font-size: 13px; font-weight: 600; color: #111827; line-height: 1.4; }
+    .is-card-count { font-size: 10px; color: #9CA3AF; margin-top: 6px; }
+    .is-tree-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1.5px solid #E5E7EB; border-radius: 8px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s; }
+    .is-tree-item:hover { border-color: #0BB8C9; background: rgba(11,184,201,0.03); }
+    .is-tree-icon { color: #9CA3AF; flex-shrink: 0; }
+    .is-tree-name { font-size: 13px; font-weight: 500; color: #374151; flex: 1; }
+    .is-tree-count { font-size: 11px; color: #9CA3AF; }
+    .is-tree-arrow { color: #D1D5DB; }
+
+    /* placeholder panel */
+    .is-placeholder { padding: 80px 48px; color: #9CA3AF; font-size: 14px; text-align: center; }
+
+    /* ── SIDEBAR v2 ── */
+    .is-sidebar-top { display: flex; align-items: center; justify-content: space-between; padding: 20px 16px 14px; border-bottom: 1px solid #E5E7EB; flex-shrink: 0; }
+    .is-brand-name { font-size: 17px; font-weight: 800; color: #0BB8C9; letter-spacing: -0.01em; }
+    .is-collapse-btn { position: absolute; left: calc(240px - 13px); top: 20px; display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border: 1px solid #E5E7EB; background: #fff; cursor: pointer; color: #9CA3AF; border-radius: 50%; z-index: 10; flex-shrink: 0; }
+    .is-collapse-btn:hover { background: #F3F4F6; color: #6B7280; border-color: #D1D5DB; }
     .is-sec { padding: 14px 16px; border-bottom: 1px solid #F3F4F6; flex-shrink: 0; }
     .is-sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
     .is-sec-label { font-size: 11px; font-weight: 700; color: #9CA3AF; letter-spacing: 0.04em; }
@@ -74,13 +142,13 @@
     .is-icon-btn:hover { border-color: #9CA3AF; background: #F9FAFB; }
     .is-icon-btn .dot-indicator { position: absolute; top: 2px; right: 2px; width: 7px; height: 7px; border-radius: 50%; background: #3AA7C6; border: 1.5px solid #fff; }
 
-    /* ── MAIN ── */
-    .is-main { flex: 1; overflow-y: auto; padding: 0 48px; background: #fff; display: flex; flex-direction: column; align-items: center; }
-    .is-main-inner { width: 888px; max-width: 100%; }
-    .is-search-block { padding-top: 68px; display: flex; flex-direction: column; align-items: center; }
-    .is-search-block .is-search-box,
-    .is-search-block .is-trend-cards { width: 100%; }
-    .is-saved-block { padding-top: 68px; padding-bottom: 68px; }
+    /* ── MAIN v2 ── */
+    .is-seg-tabs { display: inline-grid; grid-template-columns: 1fr 1fr; background: #F3F4F6; border-radius: 10px; padding: 3px; margin-bottom: 20px; }
+    .is-seg-tab { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 7px 18px; font-size: 14px; font-weight: 500; color: #9CA3AF; border: none; background: none; border-radius: 7px; cursor: pointer; font-family: inherit; transition: all 0.15s; white-space: nowrap; }
+    .is-seg-tab.active { background: #fff; color: #111827; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.10); }
+    .is-seg-tab:not(.active):hover { color: #374151; }
+    .badge-beta { font-size: 10px; font-weight: 600; padding: 2px 6px; background: none; color: #0BB8C9; border-radius: 5px; letter-spacing: 0; font-style: italic; }
+    .badge-new { font-size: 10px; font-weight: 600; padding: 2px 6px; background: rgba(11,184,201,0.12); color: #0BB8C9; border-radius: 5px; letter-spacing: 0; }
     .is-search-box { border: 2px solid #0BB8C9; border-radius: 14px; padding: 16px 20px 14px; margin-bottom: 14px; background: #fff; }
     .is-search-textarea { width: 100%; border: none; background: none; outline: none; font-size: 15px; font-family: inherit; color: #111827; resize: none; min-height: 56px; line-height: 1.6; }
     .is-search-textarea::placeholder { color: #C4C8CE; }
@@ -95,7 +163,9 @@
     .is-chip2.active { border: 0.75px solid #E5E7EB; color: #111827; background: #FAFAFA; font-weight: 600; }
     .is-trend-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 32px; }
     .is-trend-card { position: relative; border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 16px 40px 16px 16px; cursor: pointer; transition: all 0.15s; background: #fff; }
-    .is-trend-card-text { font-size: 13px; color: #374151; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .is-trend-card-text { font-size: 13px; color: #374151; line-height: 1.8; }
+    .is-tag-hash { color: #0BB8C9; }
+    .is-tag-at { color: #0BB8C9; }
     .is-trend-card:hover { border-color: #0BB8C9; box-shadow: 0 2px 10px rgba(11,184,201,0.10); }
     .is-trend-card-icon { position: absolute; top: 14px; right: 14px; color: #C4C8CE; }
     .is-saved-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; }
@@ -119,8 +189,17 @@
     .is-carousel-more-text { font-size: 11px; color: #9CA3AF; text-align: center; }
     .is-carousel-more:hover .is-carousel-more-arrow { border-color: #9CA3AF; color: #374151; }
     .is-carousel-more:hover .is-carousel-more-text { color: #6B7280; }
-    .badge-beta { font-size: 10px; font-weight: 600; padding: 2px 6px; background: none; color: #0BB8C9; border-radius: 5px; letter-spacing: 0; font-style: italic; }
-    .badge-new { font-size: 10px; font-weight: 600; padding: 2px 6px; background: rgba(11,184,201,0.12); color: #0BB8C9; border-radius: 5px; letter-spacing: 0; }
+
+    /* ── AI 보고서 바로 시작하기 ── */
+    .is-report-block { padding-top: 40px; padding-bottom: 68px; width: 100%; }
+    .is-report-header { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 400; color: #9CA3AF; margin-bottom: 16px; }
+    .is-report-header::before, .is-report-header::after { content: ''; flex: 1; height: 1px; background: #E5E7EB; }
+    .is-report-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .is-report-card { display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1.5px solid #E5E7EB; border-radius: 12px; background: #fff; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+    .is-report-card:hover { border-color: #0BB8C9; box-shadow: 0 2px 10px rgba(11,184,201,0.10); }
+    .is-report-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 8px; background: #F0FBFC; flex-shrink: 0; }
+    .is-report-title { font-size: 14px; font-weight: 700; color: #111827; }
+    .is-report-desc { font-size: 12px; color: #6B7280; line-height: 1.6; }
 
     /* ── AI 분석 모달 ── */
     .ai-modal-overlay { position: fixed; inset: 0; background: rgba(17,24,39,0.55); z-index: 9999; display: flex; align-items: center; justify-content: center; }
@@ -166,7 +245,7 @@
 
       <nav>
         <div onmouseenter="kwMegaShow('megaInsightHover')" onmouseleave="kwMegaHide()">
-          <a href="insight.html" class="nav-btn active">Insight
+          <a href="insight.html" class="nav-btn">Insight
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
         </div>
@@ -176,7 +255,7 @@
           </a>
         </div>
         <div onmouseenter="kwMegaShow('megaChemHover')" onmouseleave="kwMegaHide()" style="margin-left:4px;">
-          <a href="chemistry.html" class="btn-chemistry">
+          <a href="chemistry_search.html" class="btn-chemistry" style="background:#EFF6FF;">
             <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
               <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
@@ -200,17 +279,16 @@
     </div>
   </div>
 
-  <!-- 고정 바: Insight 현재 페이지 -->
+  <!-- 고정 바: Chemistry 현재 페이지 -->
   <div class="mega-bar mega-bar--fixed" style="border-bottom: 1px solid #E5E7EB;">
     <div class="container">
       <div class="mega-bar-inner">
         <nav class="mega-tabs">
-          <a href="insight_search.html" class="mega-tab">특허 검색</a>
-          <a href="insight_techtrend.html" class="mega-tab active">기술트렌드</a>
-          <a href="#" class="mega-tab">AI보고서</a>
+          <a href="chemistry_search.html" class="mega-tab active">화학식 검색</a>
+          <a href="#" class="mega-tab">AI 보고서</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="chemistry.html" class="mega-tab-util">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
           <a href="#" class="mega-tab-util">설정</a>
         </nav>
@@ -225,11 +303,11 @@
       <div class="mega-bar-inner">
         <nav class="mega-tabs">
           <a href="insight_search.html" class="mega-tab">특허 검색</a>
-          <a href="insight_techtrend.html" class="mega-tab active">기술트렌드</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
           <a href="#" class="mega-tab">AI보고서</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="insight.html" class="mega-tab-util">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
           <a href="#" class="mega-tab-util">설정</a>
         </nav>
@@ -259,13 +337,13 @@
     </div>
   </div>
 
-  <!-- 호버 바: Chemistry -->
+  <!-- 호버 바: Chemistry (자기 자신 위에 덮기용) -->
   <div class="mega-bar" id="megaChemHover"
        onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
     <div class="container">
       <div class="mega-bar-inner">
         <nav class="mega-tabs">
-          <a href="chemistry_search.html" class="mega-tab">화학식 검색</a>
+          <a href="chemistry_search.html" class="mega-tab active">화학식 검색</a>
           <a href="#" class="mega-tab">AI 보고서</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
@@ -278,183 +356,172 @@
   </div>
 </header>
 
-<!-- ── MAIN LAYOUT ── -->
-<div class="is-layout">
+<!-- ── 새 검색 패널 ── -->
+<div id="panelSearch">
+  <div class="is-layout">
 
-  <!-- 접기 버튼 -->
-  <button class="is-collapse-btn" title="사이드바 접기">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
-  </button>
+    <!-- 접기 버튼 (사이드바 border 위) -->
+    <button class="is-collapse-btn" title="사이드바 접기">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
 
-  <!-- SIDEBAR -->
-  <div class="is-sidebar">
-    <div style="padding:14px 16px; flex-shrink:0;">
-      <a href="insight_search.html" class="is-new-btn-outline" style="text-decoration:none;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        새 검색
-      </a>
-    </div>
-
-    <!-- 내 검색 -->
-    <div class="is-sec">
-      <div class="is-sec-head">
-        <span class="is-sec-label">내 검색</span>
-      </div>
-      <div class="is-search-list">
-        <div class="is-search-li">전기차 배터리 고속 충전</div>
-        <div class="is-search-li">EV 배터리 급속 충전 열 관리 및 냉각 기술</div>
-        <div class="is-search-li">AI 기반 배터리 충전 최적화 및 수명 연장</div>
-      </div>
-      <button class="is-viewall">전체보기
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
-    </div>
-
-    <!-- 프로젝트 -->
-    <div class="is-sec">
-      <div class="is-sec-head">
-        <span class="is-sec-label">프로젝트</span>
-        <button class="is-sec-add">
+    <!-- SIDEBAR -->
+    <div class="is-sidebar">
+      <div style="padding:14px 16px; flex-shrink:0;">
+        <button class="is-new-btn-outline">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          새 검색
         </button>
       </div>
-      <div class="is-proj-item">
-        <svg class="is-proj-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">배터리 셀 내부 열 관리 기술 전략화</span>
+
+      <!-- 내 검색 -->
+      <div class="is-sec">
+        <div class="is-sec-head">
+          <span class="is-sec-label">내 검색</span>
+        </div>
+        <div class="is-search-list">
+          <div class="is-search-li">전기차 배터리 고속 충전</div>
+          <div class="is-search-li">EV 배터리 급속 충전 열 관리 및 냉각 기술</div>
+          <div class="is-search-li">AI 기반 배터리 충전 최적화 및 수명 연장</div>
+        </div>
+        <button class="is-viewall">전체보기
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
-      <div class="is-proj-item">
-        <svg class="is-proj-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">wert 빅데이터 분석 - 하이브리드...</span>
+
+      <!-- 프로젝트 -->
+      <div class="is-sec">
+        <div class="is-sec-head">
+          <span class="is-sec-label">프로젝트</span>
+          <button class="is-sec-add">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+        <div class="is-proj-item">
+          <svg class="is-proj-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">배터리 셀 내부 열 관리 기술 전략화</span>
+        </div>
+        <div class="is-proj-item">
+          <svg class="is-proj-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">wert 빅데이터 분석 - 하이브리드...</span>
+        </div>
+        <div class="is-proj-item">
+          <svg class="is-proj-icon is-proj-icon--blue" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">하이브리드 자동차 : 배터리 냉각</span>
+        </div>
       </div>
-      <div class="is-proj-item">
-        <svg class="is-proj-icon is-proj-icon--blue" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">하이브리드 자동차 : 배터리 냉각</span>
+
+      <!-- 서비스 -->
+      <!-- 하단 링크 그룹 + 유저 -->
+      <div class="is-bottom-links">
+        <a href="#" class="is-blog-link">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7"/></svg>
+          블로그
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="is-sidebar-bottom">
+        <div class="is-avatar" id="isSidebarAvatar">김</div>
+        <div class="is-icon-btn-group">
+          <button class="is-icon-btn" title="도움말">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span class="dot-indicator"></span>
+          </button>
+          <button class="is-icon-btn" title="알림">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- 하단 링크 + 유저 -->
-    <div class="is-bottom-links">
-      <a href="#" class="is-blog-link">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7"/></svg>
-        블로그
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </a>
-    </div>
-    <div class="is-sidebar-bottom">
-      <div class="is-avatar" id="isSidebarAvatar">김</div>
-      <div class="is-icon-btn-group">
-        <button class="is-icon-btn" title="도움말">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <span class="dot-indicator"></span>
-        </button>
-        <button class="is-icon-btn" title="알림">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MAIN -->
-  <div class="is-main">
-    <div class="is-main-inner">
-
+    <!-- MAIN -->
+    <div class="is-main">
+      <div class="is-main-inner">
       <!-- 검색 영역 -->
       <div class="is-search-block">
 
       <!-- 검색 박스 -->
       <div class="is-search-box">
-        <textarea class="is-search-textarea" rows="2" placeholder="분석할 기술 트렌드를 입력하세요. 예: 차세대 디스플레이 기술 동향">차세대 디스플레이 기술 동향</textarea>
+        <textarea class="is-search-textarea" rows="2" placeholder="검색할 특허 내용을 입력하세요. 예: EGFR 억제제 골격 특허">EGFR 억제제 골격 특허</textarea>
         <div class="is-search-foot">
           <button class="is-foot-btn">@</button>
           <button class="is-foot-btn">#</button>
           <button class="is-ai-btn" onclick="showAiModal()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             AI 분석
-            <span class="badge-beta">Beta</span>
           </button>
         </div>
       </div>
 
-      <!-- 카테고리 칩 -->
-      <div class="is-chips">
-        <button class="is-chip2 active">디스플레이</button>
-        <button class="is-chip2">로보틱스</button>
-        <button class="is-chip2">모빌리티</button>
-        <button class="is-chip2">제약·바이오</button>
-        <button class="is-chip2">AI</button>
-        <button class="is-chip2">에너지</button>
-      </div>
-
-      <!-- 트렌드 카드 3열 -->
+      <!-- 예시 문장 카드 -->
       <div class="is-trend-cards">
         <div class="is-trend-card">
-          <span class="is-trend-card-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </span>
-          <p class="is-trend-card-text">OLED, MicroLED, 퀀텀닷 디스플레이를 포함한 차세대 디스플레이 기술 및 관련 특허 동향</p>
+          <p class="is-trend-card-text">
+            <span class="is-tag-hash">#자동 충전 촉매 기술</span>과 관련된 <span class="is-tag-at">@최근 5년</span> 특허 문헌을 찾아줘
+          </p>
         </div>
         <div class="is-trend-card">
-          <span class="is-trend-card-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </span>
-          <p class="is-trend-card-text">폴더블 디스플레이, 롤러블 디스플레이, UTG(초박막 유리) 기술을 중심으로 한 특허 분석</p>
+          <p class="is-trend-card-text">
+            <span class="is-tag-hash">#화상인식로봇제어 기술</span>과 관련된 <span class="is-tag-at">@한국</span>, <span class="is-tag-at">@미국</span> 특허 문헌을 보여줘
+          </p>
         </div>
         <div class="is-trend-card">
-          <span class="is-trend-card-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </span>
-          <p class="is-trend-card-text">AR/VR용 마이크로 OLED, 실리콘 기반 MicroLED, 광학 웨이브가이드 특허 현황 및 기술 트렌드</p>
+          <p class="is-trend-card-text">
+            <span class="is-tag-hash">#3D 비디오 디스플레이 기술</span>과 관련된 <span class="is-tag-at">@삼성전자 주식회사</span> 특허 문헌을 알려줘
+          </p>
         </div>
       </div>
       </div><!-- /is-search-block -->
 
-      <!-- 저장한 기술트리 -->
-      <div class="is-saved-block">
-      <div class="is-saved-header">
-        <span class="is-saved-title">저장한 기술트리</span>
-        <span class="is-saved-sort">최근 사용순</span>
-        <button class="is-saved-btn">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-          기술트리 보관함
-        </button>
-      </div>
-
-      <div class="is-carousel">
-        <button class="is-carousel-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="is-carousel-track">
-          <div class="is-tree-card">
-            <div class="is-tree-thumb">
-              <span class="is-tree-thumb-label">차세대 디스플레이</span>
+      <!-- AI 보고서 바로 시작하기 -->
+      <div class="is-report-block">
+        <div class="is-report-header">AI 보고서 바로 시작하기</div>
+        <div class="is-report-cards">
+          <div class="is-report-card">
+            <div class="is-report-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0BB8C9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
             </div>
-            <div class="is-tree-info">
-              <div class="is-tree-name">차세대 디스플레이 기술트리</div>
-              <div class="is-tree-date">3일전</div>
-            </div>
+            <div class="is-report-title">발명신고서</div>
+            <div class="is-report-desc">연구 내용을 분석해 형식에 맞춰 구체화합니다.</div>
           </div>
-          <div class="is-tree-card">
-            <div class="is-tree-thumb">
-              <span class="is-tree-thumb-label">배터리 기술</span>
+          <div class="is-report-card">
+            <div class="is-report-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0BB8C9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <line x1="10" y1="9" x2="8" y2="9"/>
+              </svg>
             </div>
-            <div class="is-tree-info">
-              <div class="is-tree-name">배터리 열관리 기술트리</div>
-              <div class="is-tree-date">2주전</div>
+            <div class="is-report-title">선행기술조사보고서</div>
+            <div class="is-report-desc">유사 특허를 분석해 출원 가능성을 검토합니다.</div>
+          </div>
+          <div class="is-report-card">
+            <div class="is-report-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0BB8C9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="12" y1="17" x2="8" y2="17"/>
+              </svg>
             </div>
+            <div class="is-report-title">특허명세서</div>
+            <div class="is-report-desc">법적 형식에 맞춰 명세서 초안을 작성합니다.</div>
           </div>
         </div>
-        <div class="is-carousel-more">
-          <div class="is-carousel-more-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-          </div>
-          <span class="is-carousel-more-text">보관함에서 더보기</span>
-        </div>
-      </div>
-      </div><!-- /is-saved-block -->
+      </div><!-- /is-report-block -->
 
-    </div><!-- /is-main-inner -->
+      </div><!-- /is-main-inner -->
+    </div>
+
   </div>
-
 </div>
 
 <script>
@@ -477,13 +544,13 @@
     var _t = null;
     window.kwMegaShow = function(id) {
       clearTimeout(_t);
-      document.querySelectorAll('.mega-bar').forEach(function(b) { b.classList.remove('open'); });
+      document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
       var el = document.getElementById(id);
       if (el) el.classList.add('open');
     };
     window.kwMegaHide = function() {
       _t = setTimeout(function() {
-        document.querySelectorAll('.mega-bar').forEach(function(b) { b.classList.remove('open'); });
+        document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
       }, 120);
     };
     window.kwMegaCancel = function() { clearTimeout(_t); };
@@ -500,8 +567,16 @@
     try {
       var u = JSON.parse(localStorage.getItem('kw_user'));
       if (u) {
+        var nm = document.getElementById('isSidebarName');
+        var pl = document.getElementById('isSidebarPlan');
         var av = document.getElementById('isSidebarAvatar');
+        if (nm) nm.textContent = u.name;
         if (av) av.textContent = u.name ? u.name.charAt(0) : '김';
+        if (pl) {
+          if (u.type === 'paid') { pl.textContent = '유료'; pl.style.background = '#D0F5F9'; pl.style.color = '#29B8D8'; }
+          else if (u.type === 'free') { pl.textContent = '무료'; pl.style.background = '#F3F4F6'; pl.style.color = '#6B7280'; }
+          else { pl.textContent = '무료체험 D-10'; }
+        }
         if (av) {
           if (u.type === 'paid') { av.style.background = '#D0F5F9'; av.style.color = '#29B8D8'; }
           else if (u.type === 'free') { av.style.background = '#F3F4F6'; av.style.color = '#6B7280'; }
