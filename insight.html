@@ -520,7 +520,8 @@
   function kwNavOffset(el) {
     var hc = document.querySelector('header .container');
     if (!el || !hc) return 0;
-    return Math.max(0, el.getBoundingClientRect().left - hc.getBoundingClientRect().left);
+    var pl = parseFloat(getComputedStyle(hc).paddingLeft) || 0;
+    return Math.max(0, el.getBoundingClientRect().left - hc.getBoundingClientRect().left - pl);
   }
   function alignFixedBar() {
     var fixedBar = document.querySelector('.mega-bar--fixed');
