@@ -692,25 +692,31 @@
 
 <script>
   // 2Depth 메뉴 각 버튼 위치에 맞춰 개별 정렬
-  function kwNavOffset(el) {
+  function alignMegaBar(bar, navDiv) {
+    if (!bar || !navDiv) return;
     var hc = document.querySelector('header .container');
-    if (!el || !hc) return 0;
-    var pl = parseFloat(getComputedStyle(hc).paddingLeft) || 0;
-    return Math.max(0, el.getBoundingClientRect().left - hc.getBoundingClientRect().left - pl);
+    if (!hc) return;
+    var offset = Math.max(0, Math.round(navDiv.getBoundingClientRect().left - hc.getBoundingClientRect().left));
+    var ct = bar.querySelector('.container');
+    if (ct) { ct.style.paddingLeft = offset + 'px'; var inn = ct.querySelector('.mega-bar-inner'); if (inn) inn.style.paddingLeft = ''; }
   }
-  function alignFixedBar() {
+  function syncAllMegaBars() {
+    document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) {
+      var m = (div.getAttribute('onmouseenter') || '').match(/kwMegaShow\('([^']+)'/);
+      if (m) alignMegaBar(document.getElementById(m[1]), div);
+    });
     var fixedBar = document.querySelector('.mega-bar--fixed');
-    if (!fixedBar) return;
-    var inner = fixedBar.querySelector('.mega-bar-inner');
-    if (!inner) return;
-    var navDivs = document.querySelectorAll('nav > div[onmouseenter]');
-    var activeDiv = null;
-    navDivs.forEach(function(div) { if (div.querySelector('.nav-btn.active')) activeDiv = div; });
-    if (!activeDiv) navDivs.forEach(function(div) { if (div.querySelector('.btn-chemistry')) activeDiv = div; });
-    if (activeDiv) inner.style.paddingLeft = kwNavOffset(activeDiv) + 'px';
+    if (fixedBar) {
+      var activeDiv = null;
+      document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) { if (!activeDiv && div.querySelector('.nav-btn.active')) activeDiv = div; });
+      if (!activeDiv) document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) { if (!activeDiv && div.querySelector('.btn-chemistry')) activeDiv = div; });
+      alignMegaBar(fixedBar, activeDiv);
+    }
   }
-  alignFixedBar();
-  window.addEventListener('resize', alignFixedBar);
+  syncAllMegaBars();
+  document.fonts && document.fonts.ready && document.fonts.ready.then(syncAllMegaBars);
+  window.addEventListener('load', syncAllMegaBars);
+  window.addEventListener('resize', syncAllMegaBars);
 
   (function() {
     var _t = null;
@@ -719,7 +725,7 @@
       document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
       var el = document.getElementById(id);
       if (el) {
-        if (triggerEl) { var inner = el.querySelector('.mega-bar-inner'); if (inner) inner.style.paddingLeft = kwNavOffset(triggerEl) + 'px'; }
+        alignMegaBar(el, triggerEl);
         el.classList.add('open');
       }
     };
