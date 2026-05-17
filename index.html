@@ -1330,7 +1330,7 @@
       document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(b => b.classList.remove('open'));
       const el = document.getElementById(id);
       if (el) {
-        if (triggerEl) { const inner = el.querySelector('.mega-bar-inner'); if (inner) inner.style.paddingLeft = kwNavOffset(triggerEl) + 'px'; }
+        alignMegaBar(el, triggerEl);
         el.classList.add('open');
       }
     };
