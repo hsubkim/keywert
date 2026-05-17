@@ -343,7 +343,7 @@ function kwRenderHeader() {
 }
 
 /* ── 접근 제한 페이지 ── */
-const KW_RESTRICTED = ['pro_search.html', 'insight_search.html', 'insight_techtrend.html'];
+const KW_RESTRICTED = ['pro_search.html', 'insight_search.html', 'insight_techtrend.html', 'chemistry_search.html'];
 
 /* ── 현재 페이지 직접 접근 가드 ── */
 function kwPageGuard() {
