@@ -538,7 +538,7 @@
 
                 <!-- 3. 이마티닙 (unchecked) -->
                 <div class="chem-card" onclick="toggleChemCard(this)">
-                  <span class="cc-cb"></span>
+                  <span class="cc-cb">✓</span>
                   <div class="chem-img">
                     <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g stroke="#C4CDD4" stroke-width="1.3">
@@ -587,7 +587,7 @@
 
                 <!-- 5. 엘로티닙 (unchecked) -->
                 <div class="chem-card" onclick="toggleChemCard(this)">
-                  <span class="cc-cb"></span>
+                  <span class="cc-cb">✓</span>
                   <div class="chem-img">
                     <svg viewBox="0 0 100 64" width="100%" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g stroke="#C4CDD4" stroke-width="1.3">
@@ -771,11 +771,11 @@
     updateChemSel();
   }
   function clearChemCards() {
-    document.querySelectorAll('.chem-card').forEach(function(c) { c.classList.remove('checked'); });
+    document.querySelectorAll('.chem-feed .chem-card').forEach(function(c) { c.classList.remove('checked'); });
     updateChemSel();
   }
   function updateChemSel() {
-    var n = document.querySelectorAll('.chem-card.checked').length;
+    var n = document.querySelectorAll('.chem-feed .chem-card.checked').length;
     var countEl = document.getElementById('chemSelCount');
     var btnEl = document.getElementById('chemBtnDo');
     if (countEl) countEl.textContent = n > 0 ? n + '개 선택됨 · 동시 검색 가능' : '선택된 화합물 없음';
