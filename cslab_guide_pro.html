@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert 고객센터 > 이용가이드 > Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+    header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
+    header .container { max-width: none; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 30px 0; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 24px; width: auto; display: block; }
+    .logo-fallback { display: none; align-items: center; gap: 6px; font-size: 17px; font-weight: 700; color: #29B8D8; }
+    .logo-cs { font-size: 14px; font-weight: 600; color: #6B7280; padding-left: 10px; border-left: 1.5px solid #E5E7EB; margin-left: 2px; }
+    .header-nav { display: flex; align-items: center; gap: 0; position: absolute; left: 50%; transform: translateX(-50%); }
+    .hnav-item { padding: 6px 20px; font-size: 14px; font-weight: 500; color: #374151; text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap; }
+    .hnav-item:hover { color: #0BB8C9; background: #F0FDFF; }
+    .hnav-item.active { color: #0BB8C9; font-weight: 700; }
+    .header-user { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .btn-text { padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; flex-shrink: 0; }
+    /* 2Depth 서브메뉴 */
+    .subnav {
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+      position: sticky; top: 85px; z-index: 190;
+    }
+    .subnav-inner { display: flex; align-items: center; gap: 0; padding: 0 60px; height: 48px; }
+    .subnav-label { font-size: 13px; font-weight: 600; color: #9CA3AF; margin-right: 16px; flex-shrink: 0; }
+    .subnav-tab {
+      padding: 6px 16px; font-size: 14px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap;
+      border-bottom: 2px solid transparent; border-radius: 0; padding-bottom: 4px; margin-bottom: -2px;
+    }
+    .subnav-tab:hover { color: #0BB8C9; }
+    .subnav-tab.active { color: #0BB8C9; border-bottom-color: #0BB8C9; font-weight: 700; }
+    /* 가이드 콘텐츠 */
+    .guide-layout { display: flex; min-height: calc(100vh - 85px - 48px); }
+    .guide-side {
+      width: 240px; flex-shrink: 0; border-right: 1px solid #E5E7EB;
+      padding: 32px 0;
+    }
+    .guide-side-title { font-size: 11px; font-weight: 700; color: #9CA3AF; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 24px 12px; }
+    .guide-side ul { list-style: none; }
+    .guide-side ul li a {
+      display: block; padding: 9px 24px; font-size: 13px; font-weight: 500;
+      color: #374151; text-decoration: none; transition: color 0.15s, background 0.15s;
+    }
+    .guide-side ul li a:hover { color: #0BB8C9; background: #F0FDFF; }
+    .guide-side ul li a.active { color: #0BB8C9; font-weight: 700; background: #F0FDFF; }
+    .guide-content { flex: 1; padding: 48px 60px; }
+    .guide-page-title { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .guide-page-desc { font-size: 14px; color: #6B7280; margin-bottom: 40px; }
+    .placeholder-area {
+      border: 2px dashed #E5E7EB; border-radius: 12px;
+      padding: 80px 24px; text-align: center; color: #9CA3AF; font-size: 14px; background: #FAFAFA;
+    }
+    .placeholder-area span { display: block; font-size: 12px; margin-top: 6px; color: #D1D5DB; }
+  </style>
+</head>
+<body>
+
+<!-- GNB (cslab 동일) -->
+<header>
+  <div class="container" style="max-width:none;padding:0 60px;">
+    <div class="header-inner">
+      <a href="cslab.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="logo-fallback">keywert</span>
+        <span class="logo-cs">고객센터</span>
+      </a>
+      <nav class="header-nav">
+        <a href="cslab.html" class="hnav-item">주요기능 활용법</a>
+        <a href="#" class="hnav-item active">이용가이드</a>
+        <a href="#" class="hnav-item">무료체험 신청</a>
+        <a href="#" class="hnav-item">요금제 문의</a>
+        <a href="#" class="hnav-item">고객 문의</a>
+        <a href="#" class="hnav-item">공지사항</a>
+      </nav>
+      <div class="header-user" id="csHeaderUser"></div>
+    </div>
+  </div>
+</header>
+
+<!-- 2Depth 서브메뉴 -->
+<div class="subnav">
+  <div class="subnav-inner">
+    <span class="subnav-label">이용가이드</span>
+    <a href="cslab_guide_insight.html" class="subnav-tab">Insight</a>
+    <a href="cslab_guide_pro.html" class="subnav-tab active">Pro</a>
+  </div>
+</div>
+
+<!-- 가이드 본문 -->
+<div class="guide-layout">
+  <aside class="guide-side">
+    <div class="guide-side-title">목차</div>
+    <ul>
+      <li><a href="#" class='active'>Pro 검색 기본 가이드</a></li>
+        <li><a href="#">고급 필터 활용법</a></li>
+        <li><a href="#">AI Pro 분석 기능</a></li>
+        <li><a href="#">데이터 내보내기</a></li>
+        
+    </ul>
+  </aside>
+  <div class="guide-content">
+    <h1 class="guide-page-title">Pro 이용가이드</h1>
+    <p class="guide-page-desc">keywert Pro의 주요 기능을 단계별로 안내합니다.</p>
+    <div class="placeholder-area">
+      콘텐츠 영역
+      <span>피그마 디자인 연결 예정</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var user; try { user = JSON.parse(localStorage.getItem('kw_user')); } catch(e) { user = null; }
+    var el = document.getElementById('csHeaderUser');
+    if (!el) return;
+    if (user) {
+      el.style.cssText = 'display:flex;align-items:center;gap:0;';
+      el.innerHTML = '<span style="font-size:12px;font-weight:500;color:#374151;">' + user.name + '</span><div class="btn-divider" style="margin:0 4px;"></div><button class="btn-text" style="background:none;border:none;cursor:pointer;font-family:inherit;" onclick="localStorage.removeItem('kw_user');location.href='cslab.html'">로그아웃</button>';
+    } else {
+      el.style.cssText = 'display:flex;align-items:center;gap:0;';
+      el.innerHTML = '<a href="login.html" class="btn-text">로그인</a><div class="btn-divider"></div><a href="signup.html" class="btn-text">회원가입</a>';
+    }
+  })();
+  document.querySelectorAll('.hnav-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      if (this.getAttribute('href') === '#') e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>

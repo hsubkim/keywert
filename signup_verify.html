@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > 회원가입 > 인증번호 입력</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff; color: #111827; min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    header { padding: 20px 32px; flex-shrink: 0; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo-img { height: 26px; width: auto; display: block; }
+    .logo-fallback {
+      display: none; align-items: center; gap: 7px;
+      font-size: 18px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em;
+    }
+    main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 40px 20px 80px;
+    }
+    .form-wrap { width: 100%; max-width: 400px; }
+    .form-step {
+      font-size: 12px; font-weight: 600; color: #0BB8C9;
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .form-title {
+      font-size: 26px; font-weight: 700; color: #111827;
+      margin-bottom: 32px; letter-spacing: -0.02em; line-height: 1.3;
+    }
+    .placeholder-area {
+      border: 2px dashed #E5E7EB; border-radius: 12px;
+      padding: 48px 24px; text-align: center; color: #9CA3AF; font-size: 14px;
+      background: #FAFAFA;
+    }
+    .placeholder-area span { display: block; font-size: 12px; margin-top: 6px; color: #D1D5DB; }
+  </style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="keywert" class="logo-img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <span class="logo-fallback">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#29B8D8" stroke-width="2.5"/><path d="M8 12h8M12 8l4 4-4 4" stroke="#29B8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      keywert
+    </span>
+  </a>
+</header>
+<main>
+  <div class="form-wrap">
+    <div class="form-step">회원가입 > 인증번호 입력</div>
+    <div class="form-title"><!-- 타이틀 --></div>
+    <div class="placeholder-area">
+      콘텐츠 영역
+      <span>피그마 디자인 연결 예정</span>
+    </div>
+  </div>
+</main>
+<script src="auth.js"></script>
+</body>
+</html>
