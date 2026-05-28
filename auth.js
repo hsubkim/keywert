@@ -254,7 +254,7 @@ function kwRenderHeader() {
         <div class="btn-divider"></div>
         <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
       </div>
-      <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      <a href="free_trial.html" class="btn-primary">무료체험 시작하기</a>
     `;
     return;
   }
@@ -286,7 +286,7 @@ function kwRenderHeader() {
 
   // 무료체험 버튼 (무료회원만)
   const trialBtn = type === 'free'
-    ? `<button class="btn-primary" onclick="kwUpgradeToTrial()" style="cursor:pointer;font-family:inherit;border:none;">무료체험 시작하기</button>`
+    ? `<a href="free_trial.html" class="btn-primary">무료체험 시작하기</a>`
     : '';
 
   const tokenLinkHTML = tokenHTML
