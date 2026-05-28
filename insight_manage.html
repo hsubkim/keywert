@@ -11,8 +11,9 @@
     body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
 
     /* ── GNB ── */
-    .container { max-width: none; padding: 0 52px; }
-    header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+    header .container { max-width: none; }
+    header { position: sticky; top: 0; z-index: 200; background: #fff; }
     .header-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; height: 64px; gap: 16px; }
     .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .logo-img { height: 28px; width: auto; display: block; }
@@ -23,7 +24,7 @@
     .nav-btn.active { color: #0BB8C9; }
     .mega-bar { position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #E5E7EB; box-shadow: 0 4px 16px rgba(0,0,0,0.07); opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity 0.15s, transform 0.15s; z-index: 199; }
     .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; border-bottom: none; z-index: 0; overflow: hidden; max-height: 48px; }
+    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; border-bottom: none; z-index: 0; overflow: hidden; max-height: 48px; transition: max-height 0.15s ease, opacity 0.12s ease; }
     .mega-bar:not(.mega-bar--fixed) { top: 64px; }
     .mega-bar-inner { display: flex; align-items: center; height: 48px; }
     .mega-tabs { display: flex; align-items: center; gap: 4px; }
