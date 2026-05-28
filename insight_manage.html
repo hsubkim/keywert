@@ -11,7 +11,7 @@
     body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
 
     /* ── GNB ── */
-    .container { max-width: none; padding: 0 40px; }
+    .container { max-width: none; padding: 0 52px; }
     header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
     .header-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; height: 64px; gap: 16px; }
     .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
@@ -23,9 +23,9 @@
     .nav-btn.active { color: #0BB8C9; }
     .mega-bar { position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #E5E7EB; box-shadow: 0 4px 16px rgba(0,0,0,0.07); opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity 0.15s, transform 0.15s; z-index: 199; }
     .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; border-bottom: 1px solid #E5E7EB; z-index: 0; }
+    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; border-bottom: none; z-index: 0; overflow: hidden; max-height: 48px; }
     .mega-bar:not(.mega-bar--fixed) { top: 64px; }
-    .mega-bar-inner { display: flex; align-items: center; height: 48px; padding: 0 40px; }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
     .mega-tabs { display: flex; align-items: center; gap: 4px; }
     .mega-tab { padding: 6px 14px; font-size: 14px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap; cursor: pointer; border: none; background: none; font-family: inherit; }
     .mega-tab:hover { color: #111827; background: #F3F4F6; }
@@ -160,53 +160,59 @@
   </div>
 
   <!-- 고정 바: Insight -->
-  <div class="mega-bar mega-bar--fixed">
-    <div class="mega-bar-inner">
-      <nav class="mega-tabs">
-        <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
-        <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
-        <a href="#" class="mega-tab">AI보고서</a>
-      </nav>
-      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-        <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
-        <a href="#" class="mega-tab-util">이용 가이드</a>
-        <a href="insight_manage.html" class="mega-tab-util active">관리</a>
-      </nav>
+  <div class="mega-bar mega-bar--fixed" style="border-bottom: 1px solid #E5E7EB;">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="#" class="mega-tab">AI보고서</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="insight_manage.html" class="mega-tab-util active">관리</a>
+        </nav>
+      </div>
     </div>
   </div>
 
   <!-- 호버 바: Insight -->
   <div class="mega-bar" id="megaInsightHover" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
-    <div class="mega-bar-inner">
-      <nav class="mega-tabs">
-        <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
-        <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
-        <a href="#" class="mega-tab">AI보고서</a>
-      </nav>
-      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-        <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
-        <a href="#" class="mega-tab-util">이용 가이드</a>
-        <a href="insight_manage.html" class="mega-tab-util">관리</a>
-      </nav>
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="#" class="mega-tab">AI보고서</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="insight_manage.html" class="mega-tab-util">관리</a>
+        </nav>
+      </div>
     </div>
   </div>
 
   <!-- 호버 바: Pro -->
   <div class="mega-bar" id="megaProHover" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
-    <div class="mega-bar-inner">
-      <nav class="mega-tabs">
-        <a href="pro_search.html" class="mega-tab">일반검색</a>
-        <a href="#" class="mega-tab">선행조사용 검색</a>
-        <a href="#" class="mega-tab">AI검색</a>
-        <a href="#" class="mega-tab">번호검색</a>
-        <a href="#" class="mega-tab">미국소송검색</a>
-        <a href="#" class="mega-tab">K WORK</a>
-      </nav>
-      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-        <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
-        <a href="#" class="mega-tab-util">이용 가이드</a>
-        <a href="pro_manage.html" class="mega-tab-util">관리</a>
-      </nav>
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="pro_search.html" class="mega-tab">일반검색</a>
+          <a href="#" class="mega-tab">선행조사용 검색</a>
+          <a href="#" class="mega-tab">AI검색</a>
+          <a href="#" class="mega-tab">번호검색</a>
+          <a href="#" class="mega-tab">미국소송검색</a>
+          <a href="#" class="mega-tab">K WORK</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="pro_manage.html" class="mega-tab-util">관리</a>
+        </nav>
+      </div>
     </div>
   </div>
 </header>
