@@ -539,13 +539,6 @@
       var m = (div.getAttribute('onmouseenter') || '').match(/kwMegaShow\('([^']+)'/);
       if (m) alignMegaBar(document.getElementById(m[1]), div);
     });
-    var fixedBar = document.querySelector('.mega-bar--fixed');
-    if (fixedBar) {
-      var activeDiv = null;
-      document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) { if (!activeDiv && div.querySelector('.nav-btn.active')) activeDiv = div; });
-      if (!activeDiv) document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) { if (!activeDiv && div.querySelector('.btn-chemistry')) activeDiv = div; });
-      alignMegaBar(fixedBar, activeDiv);
-    }
   }
   syncAllMegaBars();
   document.fonts && document.fonts.ready && document.fonts.ready.then(syncAllMegaBars);
