@@ -17,7 +17,6 @@
       flex-direction: column;
     }
 
-    /* ── HEADER ── */
     header {
       padding: 20px 32px;
       flex-shrink: 0;
@@ -45,7 +44,6 @@
       letter-spacing: -0.02em;
     }
 
-    /* ── MAIN ── */
     main {
       flex: 1;
       display: flex;
@@ -62,7 +60,6 @@
       gap: 48px;
     }
 
-    /* ── 상단 텍스트 영역 ── */
     .title-area {
       display: flex;
       flex-direction: column;
@@ -102,7 +99,6 @@
       line-height: 150%;
     }
 
-    /* ── 인증번호 입력 영역 ── */
     .input-section {
       display: flex;
       flex-direction: column;
@@ -134,7 +130,6 @@
       border-width: 1.5px;
     }
 
-    /* ── 버튼 영역 ── */
     .btn-row {
       display: flex;
       gap: 10px;
@@ -154,9 +149,7 @@
       transition: background 0.15s;
     }
 
-    .btn-resend:hover {
-      background: rgba(90, 90, 90, 0.14);
-    }
+    .btn-resend:hover { background: rgba(90, 90, 90, 0.14); }
 
     .btn-verify {
       flex: 1;
@@ -172,9 +165,7 @@
       transition: background 0.15s;
     }
 
-    .btn-verify:hover {
-      background: #09A5B5;
-    }
+    .btn-verify:hover { background: #09A5B5; }
   </style>
 </head>
 <body>
@@ -203,7 +194,7 @@
       <div class="title-texts">
         <h1 class="form-title">이메일 인증</h1>
         <p class="form-desc">
-          <strong id="email-display">user123@wert.co.kr</strong>(으)로 인증번호를 전송했습니다.<br>
+          <strong id="email-display">wertie@wert.co.kr</strong>(으)로 인증번호를 전송했습니다.<br>
           인증번호가 오지 않았다면 스팸함을 확인해주세요.
         </p>
       </div>
@@ -230,11 +221,9 @@
 </main>
 
 <script>
-  /* 이메일 표시 */
-  const saved = sessionStorage.getItem('signup_email');
-  document.getElementById('email-display').textContent = saved || 'wert_free@wert.co.kr';
+  const saved = sessionStorage.getItem('id_issue_email');
+  document.getElementById('email-display').textContent = saved || 'wertie@wert.co.kr';
 
-  /* 타이머 */
   let seconds = 300;
   const timerEl = document.getElementById('timer');
 
@@ -256,7 +245,7 @@
   }
 
   function handleVerify() {
-    location.href = 'signup_input.html';
+    location.href = 'login_id_complete.html';
   }
 </script>
 </body>

@@ -331,7 +331,7 @@
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
           <a href="chemistry.html" class="mega-tab-util">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="#" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -348,9 +348,9 @@
           <a href="#" class="mega-tab">AI보고서</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="insight.html" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="insight_manage.html" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -369,9 +369,9 @@
           <a href="#" class="mega-tab">K WORK</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="pro.html" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
           <a href="pro.html" class="mega-tab-util">이용 가이드</a>
-          <a href="pro.html" class="mega-tab-util">설정</a>
+          <a href="pro_manage.html" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -389,7 +389,7 @@
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
           <a href="chemistry.html" class="mega-tab-util">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="#" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -782,6 +782,8 @@
     if (btnEl) btnEl.textContent = n > 0 ? '선택한 ' + n + '개로 검색' : '검색';
   }
 </script>
+<script src="plan_pro_modal.js"></script>
+<script src="plan_insight_modal.js"></script>
 <script src="auth.js"></script>
 
 <!-- ── AI 분석 모달 ── -->

@@ -290,7 +290,7 @@ function kwRenderHeader() {
     : '';
 
   const tokenLinkHTML = tokenHTML
-    ? `<a href="#" class="kw-token-link" onclick="event.stopPropagation()">${tokenHTML}</a>`
+    ? `<a href="mypage_subscription.html" class="kw-token-link" onclick="event.stopPropagation()">${tokenHTML}</a>`
     : '';
 
   const savedWorkspace = sessionStorage.getItem('kw_workspace') || '워크스페이스';
@@ -330,7 +330,7 @@ function kwRenderHeader() {
             <svg class="kw-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </div>
           <div class="kw-dropdown" id="kwDropdown">
-            <a href="#" class="kw-drop-item">마이페이지<svg class="kw-drop-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+            <a href="mypage_subscription.html" class="kw-drop-item">마이페이지<svg class="kw-drop-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
             <button class="kw-drop-item danger" onclick="kwLogout()">로그아웃<svg class="kw-drop-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
           </div>
         </div>

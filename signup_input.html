@@ -3,64 +3,455 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
-  <title>keywert > 회원가입_입력</title>
+  <title>keywert > 회원가입</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #fff; color: #111827; min-height: 100vh;
-      display: flex; flex-direction: column;
+      background: #fff;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    header { padding: 20px 32px; flex-shrink: 0; }
-    .logo { display: flex; align-items: center; text-decoration: none; }
-    .logo-img { height: 26px; width: auto; display: block; }
+
+    /* ── HEADER ── */
+    header {
+      padding: 20px 32px;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
     .logo-fallback {
-      display: none; align-items: center; gap: 7px;
-      font-size: 18px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em;
+      display: none;
+      align-items: center;
+      gap: 7px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #29B8D8;
+      letter-spacing: -0.02em;
     }
+
+    /* ── MAIN ── */
     main {
-      flex: 1; display: flex; align-items: center; justify-content: center;
+      flex: 1;
+      display: flex;
+      justify-content: center;
       padding: 40px 20px 80px;
     }
-    .form-wrap { width: 100%; max-width: 400px; }
-    .form-step {
-      font-size: 12px; font-weight: 600; color: #0BB8C9;
-      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;
+
+    .page-wrap {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 58px;
     }
-    .form-title {
-      font-size: 26px; font-weight: 700; color: #111827;
-      margin-bottom: 32px; letter-spacing: -0.02em; line-height: 1.3;
+
+    /* ── 공통 섹션 ── */
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
     }
-    .placeholder-area {
-      border: 2px dashed #E5E7EB; border-radius: 12px;
-      padding: 48px 24px; text-align: center; color: #9CA3AF; font-size: 14px;
-      background: #FAFAFA;
+
+    .title-area {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
-    .placeholder-area span { display: block; font-size: 12px; margin-top: 6px; color: #D1D5DB; }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      line-height: 136%;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(30, 30, 30, 0.69);
+      line-height: 150%;
+    }
+
+    /* ── 이름 입력 ── */
+    .field-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(5, 23, 45, 0.72);
+      display: flex;
+      gap: 2px;
+    }
+
+    .field-required {
+      color: #F04452;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-family: inherit;
+      font-weight: 400;
+      color: rgba(5, 23, 45, 0.84);
+      background: #fff;
+      border: 1px solid rgba(25, 31, 40, 0.12);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .field-input::placeholder {
+      color: rgba(5, 23, 45, 0.26);
+    }
+
+    .field-input:focus {
+      border-color: #00A08C;
+      box-shadow: 0 0 0 3px rgba(0, 160, 140, 0.1);
+    }
+
+    /* ── 약관 동의 ── */
+    .terms-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .terms-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* 모두 동의 박스 */
+    .agree-all-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      background: rgba(90, 90, 90, 0.03);
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .agree-all-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: rgba(30, 30, 30, 0.84);
+    }
+
+    /* 개별 약관 리스트 */
+    .terms-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0 12px;
+    }
+
+    .term-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .term-item-inner {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      padding-right: 6px;
+    }
+
+    .term-label {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(30, 30, 30, 0.69);
+      flex: 1;
+    }
+
+    /* 선택 항목 sub-group */
+    .term-optional-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .term-sub-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 38px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .term-sub-label {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(30, 30, 30, 0.69);
+    }
+
+    /* 커스텀 체크박스 */
+    .cb-wrap {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .cb-wrap input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .cb-box {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(30, 30, 30, 0.12);
+      border-radius: 4px;
+      background: #fff;
+      transition: border-color 0.15s, background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cb-wrap input:checked + .cb-box {
+      background: #00A08C;
+      border-color: #00A08C;
+    }
+
+    .cb-box::after {
+      content: '';
+      display: none;
+      width: 5px;
+      height: 9px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translateY(-1px);
+    }
+
+    .cb-wrap input:checked + .cb-box::after {
+      display: block;
+    }
+
+    /* 화살표 아이콘 */
+    .arrow-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: rgba(90, 90, 90, 0.26);
+    }
+
+    /* 가입 완료 버튼 */
+    .btn-submit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 14px 16px;
+      background: #00A08C;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-submit:hover {
+      background: #009080;
+    }
   </style>
 </head>
 <body>
+
 <header>
   <a href="index.html" class="logo">
     <img src="logo.png" alt="keywert" class="logo-img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
     <span class="logo-fallback">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#29B8D8" stroke-width="2.5"/><path d="M8 12h8M12 8l4 4-4 4" stroke="#29B8D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      keywert
+      <svg width="24" height="20" viewBox="0 0 34 28" fill="none">
+        <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+        <circle cx="7.5" cy="9"  r="4.5" fill="#29B8D8" opacity="0.85"/>
+        <circle cx="7.5" cy="20" r="3"   fill="#29B8D8" opacity="0.7"/>
+        <circle cx="27" cy="8"   r="3.5" fill="#29B8D8" opacity="0.8"/>
+        <circle cx="28" cy="20"  r="2.5" fill="#29B8D8" opacity="0.6"/>
+      </svg>
+      <span>keywert</span>
     </span>
   </a>
 </header>
+
 <main>
-  <div class="form-wrap">
-    <div class="form-step">회원가입_입력</div>
-    <div class="form-title"><!-- 타이틀 --></div>
-    <div class="placeholder-area">
-      콘텐츠 영역
-      <span>피그마 디자인 연결 예정</span>
+  <div class="page-wrap">
+
+    <!-- ① 이름 입력 -->
+    <div class="section">
+      <div class="title-area">
+        <h1 class="section-title">이름 입력</h1>
+        <p class="section-desc">함께 일하는 동료들에게 표시될 이름을 입력해주세요.</p>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="name">
+          이름 <span class="field-required">*</span>
+        </label>
+        <input id="name" type="text" class="field-input" value="김워트" autocomplete="name">
+      </div>
     </div>
+
+    <!-- ② 약관 동의 -->
+    <div class="section">
+      <div class="title-area">
+        <h1 class="section-title">약관 동의</h1>
+        <p class="section-desc">계정 정보와 서비스 이용 데이터는<br>워크스페이스의 자산으로 관리됩니다.</p>
+      </div>
+
+      <div class="terms-wrap">
+        <div class="terms-inner">
+
+          <!-- 모두 동의 -->
+          <div class="agree-all-box" onclick="toggleAll()">
+            <label class="cb-wrap">
+              <input type="checkbox" id="cb-all">
+              <span class="cb-box"></span>
+            </label>
+            <span class="agree-all-label">모두 동의합니다</span>
+          </div>
+
+          <!-- 개별 약관 -->
+          <div class="terms-list">
+
+            <div class="term-item" onclick="toggleCb('cb-age')">
+              <label class="cb-wrap">
+                <input type="checkbox" id="cb-age" class="term-cb" onchange="syncAll()">
+                <span class="cb-box"></span>
+              </label>
+              <div class="term-item-inner">
+                <span class="term-label">[필수] 만 14세 이상입니다.</span>
+              </div>
+            </div>
+
+            <div class="term-item" onclick="toggleCb('cb-service')">
+              <label class="cb-wrap">
+                <input type="checkbox" id="cb-service" class="term-cb" onchange="syncAll()">
+                <span class="cb-box"></span>
+              </label>
+              <div class="term-item-inner">
+                <span class="term-label">[필수] 서비스 이용약관</span>
+                <svg class="arrow-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="term-item" onclick="toggleCb('cb-privacy')">
+              <label class="cb-wrap">
+                <input type="checkbox" id="cb-privacy" class="term-cb" onchange="syncAll()">
+                <span class="cb-box"></span>
+              </label>
+              <div class="term-item-inner">
+                <span class="term-label">[필수] 개인정보 수집 및 이용</span>
+                <svg class="arrow-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- 선택 그룹 -->
+            <div class="term-optional-group">
+              <div class="term-item" onclick="toggleCb('cb-optional')">
+                <label class="cb-wrap">
+                  <input type="checkbox" id="cb-optional" class="term-cb" onchange="syncAll()">
+                  <span class="cb-box"></span>
+                </label>
+                <div class="term-item-inner">
+                  <span class="term-label">[선택] 개인정보 수집 및 이용</span>
+                  <svg class="arrow-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="term-sub-item">
+                <span class="term-sub-label">이벤트 및 혜택 정보 수신</span>
+                <svg class="arrow-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="btn-submit" type="button" onclick="handleComplete()">가입 완료</button>
+      </div>
+    </div>
+
   </div>
 </main>
-<script src="auth.js"></script>
+
+<script>
+  /* 페이지 로드 시 전체 동의 체크 */
+  window.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('cb-all').checked = true;
+    document.querySelectorAll('.term-cb').forEach(cb => cb.checked = true);
+  });
+
+  function toggleAll() {
+    const all = document.getElementById('cb-all');
+    const cbs = document.querySelectorAll('.term-cb');
+    all.checked = !all.checked;
+    cbs.forEach(cb => cb.checked = all.checked);
+  }
+
+  function toggleCb(id) {
+    const cb = document.getElementById(id);
+    cb.checked = !cb.checked;
+    syncAll();
+  }
+
+  function syncAll() {
+    const cbs = document.querySelectorAll('.term-cb');
+    const all = document.getElementById('cb-all');
+    all.checked = Array.from(cbs).every(cb => cb.checked);
+  }
+
+  function handleComplete() {
+    localStorage.setItem('kw_user', JSON.stringify({ name: '김워트', type: 'free' }));
+    location.href = 'index.html';
+  }
+</script>
 </body>
 </html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > 이메일 아이디 발급 완료</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 20px 32px;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-fallback {
+      display: none;
+      align-items: center;
+      gap: 7px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #29B8D8;
+      letter-spacing: -0.02em;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 80px;
+    }
+
+    .form-wrap {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .form-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.02em;
+      line-height: 136%;
+    }
+
+    .form-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(30,30,30,0.55);
+      line-height: 150%;
+      margin-top: -12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .field-value {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      color: #111827;
+      background: #F9FAFB;
+      border: 1.5px solid #D1D5DB;
+      border-radius: 8px;
+    }
+
+    .info-card {
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      background: #EEF4FF;
+      border: 1px solid #BCD4FE;
+      border-radius: 10px;
+      gap: 0;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .info-item + .info-item {
+      border-left: 1px solid #EAEBF0;
+      padding-left: 14px;
+      margin-left: 14px;
+    }
+
+    .info-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .info-badge {
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .info-badge.pro { color: #1A6FF4; }
+    .info-badge.insight { color: #00A08C; }
+
+    .info-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1;
+    }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      background: #0BB8C9;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-submit:hover { background: #09A5B5; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="keywert" class="logo-img"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <span class="logo-fallback">
+      <svg width="24" height="20" viewBox="0 0 34 28" fill="none">
+        <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+        <circle cx="7.5" cy="9"  r="4.5" fill="#29B8D8" opacity="0.85"/>
+        <circle cx="7.5" cy="20" r="3"   fill="#29B8D8" opacity="0.7"/>
+        <circle cx="27" cy="8"   r="3.5" fill="#29B8D8" opacity="0.8"/>
+        <circle cx="28" cy="20"  r="2.5" fill="#29B8D8" opacity="0.6"/>
+      </svg>
+      <span>keywert</span>
+    </span>
+  </a>
+</header>
+
+<main>
+  <div class="form-wrap">
+
+    <h1 class="form-title">이메일 아이디가<br>발급되었습니다.</h1>
+    <p class="form-desc">통합계정 아이디가 발급되었습니다.</p>
+
+    <div class="field">
+      <span class="field-label">이메일 아이디</span>
+      <div class="field-value" id="issuedEmail">wertie@wert.co.kr</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1A6FF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <div class="info-text">
+          <span class="info-badge pro">Pro 무료체험</span>
+          <span class="info-value">30일 남음</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <div class="info-text">
+          <span class="info-badge insight">Insight 토큰</span>
+          <span class="info-value">1,500개</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-submit" type="button" onclick="location.href='index.html'">확인</button>
+
+  </div>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const email = sessionStorage.getItem('id_issue_email');
+    if (email) document.getElementById('issuedEmail').textContent = email;
+  });
+</script>
+</body>
+</html>

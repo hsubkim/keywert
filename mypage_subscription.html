@@ -3,110 +3,967 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
-  <title>keywert > 마이페이지_구독</title>
+  <title>keywert > 마이페이지</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; scroll-behavior: smooth; }
-    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
-    header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1E1E1E;
+      background: #fff;
+      min-width: 1280px;
+    }
+
+    /* ── HEADER (공통) ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: #fff;
+      border-bottom: 1px solid #E5E7EB;
+    }
     header .container { max-width: none; }
-    .header-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; height: 64px; gap: 16px; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+    .header-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      height: 64px;
+      gap: 16px;
+    }
     .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .logo-img { height: 28px; width: auto; display: block; }
-    .logo-fallback { display: none; align-items: center; gap: 7px; font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em; }
+    .logo-fallback {
+      display: none; align-items: center; gap: 8px;
+      font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em;
+    }
     nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
     .nav-btn {
       display: flex; align-items: center; gap: 4px;
       padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827;
       cursor: pointer; border-radius: 8px; background: none; border: none;
-      font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s;
+      font-family: inherit; text-decoration: none; transition: background 0.15s;
     }
     .nav-btn:hover { background: #F3F4F6; }
-    .nav-btn.active { color: #0BB8C9; }
+    .btn-chemistry {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 11px; border: 1.5px solid #3B82F6; border-radius: 7px;
+      color: #3B82F6; font-size: 16px; font-weight: 700; background: none;
+      cursor: pointer; text-decoration: none; font-family: inherit;
+      transition: background 0.15s; line-height: 1;
+    }
+    .btn-chemistry:hover { background: #EFF6FF; }
     .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-    .btn-text { padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .btn-text {
+      padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px; white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
     .btn-text:hover { background: #F3F4F6; color: #374151; }
-    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
-    .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; flex-shrink: 0; }
+    .btn-primary {
+      padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px;
+      font-weight: 600; border-radius: 8px; text-decoration: none; border: none;
+      cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap;
+    }
     .btn-primary:hover { background: #008FA8; }
-    .mypage-layout { display: flex; min-height: calc(100vh - 64px); }
-    .mypage-side {
-      width: 240px; flex-shrink: 0;
-      border-right: 1px solid #E5E7EB;
-      padding: 40px 0;
+
+    /* mega-bar */
+    .mega-bar {
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      opacity: 0; pointer-events: none; transform: translateY(-4px);
+      transition: opacity 0.15s, transform 0.15s; z-index: 199;
     }
-    .side-nav-title { font-size: 11px; font-weight: 700; color: #9CA3AF; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 24px 12px; }
-    .side-nav ul { list-style: none; }
-    .side-nav ul li a {
-      display: block; padding: 10px 24px; font-size: 14px; font-weight: 500;
-      color: #374151; text-decoration: none; border-radius: 0;
-      transition: color 0.15s, background 0.15s;
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab {
+      padding: 6px 14px; font-size: 14px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap;
     }
-    .side-nav ul li a:hover { color: #0BB8C9; background: #F0FDFF; }
-    .side-nav ul li a.active { color: #0BB8C9; font-weight: 700; background: #F0FDFF; }
-    .mypage-content { flex: 1; padding: 48px 60px; }
-    .page-title { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 32px; letter-spacing: -0.02em; }
-    .placeholder-area {
-      border: 2px dashed #E5E7EB; border-radius: 12px;
-      padding: 80px 24px; text-align: center; color: #9CA3AF; font-size: 14px;
-      background: #FAFAFA;
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab-util {
+      font-size: 12px; font-weight: 500; color: #6B7280;
+      padding: 3px 9px; border-radius: 6px; border: 1.5px solid #D1D5DB;
+      text-decoration: none; white-space: nowrap; transition: all 0.15s;
     }
-    .placeholder-area span { display: block; font-size: 12px; margin-top: 6px; color: #D1D5DB; }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-layout {
+      display: flex;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: #F1F1F1;
+      padding: 28px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .sidebar-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #000;
+      padding: 0 4px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar-section-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.42);
+      padding: 0 4px;
+      margin-bottom: -8px;
+    }
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 4px;
+      width: 100%;
+      height: 40px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.84);
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      background: none;
+      font-family: inherit;
+      transition: background 0.12s;
+    }
+    .sidebar-nav-item:hover { background: rgba(30,30,30,0.05); }
+    .sidebar-nav-item.active { background: rgba(90,90,90,0.05); }
+    .sidebar-nav-item svg { flex-shrink: 0; opacity: 0.6; }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      flex: 1;
+      padding: 48px 64px;
+      overflow: auto;
+    }
+    .main-content-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #000;
+      line-height: 136%;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1E1E1E;
+    }
+
+    /* ── 이용 현황 카드 ── */
+    .plan-status-card {
+      padding: 24px;
+      border: 1px solid rgba(30,30,30,0.12);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .plan-current {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .plan-current-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1E1E1E;
+    }
+    .plan-current-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(30,30,30,0.84);
+    }
+
+    /* 연간 토글 */
+    .annual-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-end;
+      margin-bottom: -8px;
+    }
+    .annual-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.55);
+    }
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: #00A08C;
+      border-radius: 40px;
+      cursor: pointer;
+      padding: 4px 4px 4px 22px;
+      display: flex;
+      align-items: center;
+    }
+    .toggle-knob {
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    /* 플랜 카드 그리드 */
+    .plan-cards-area {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .plan-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+    .plan-card {
+      border: 1px solid rgba(30,30,30,0.02);
+      border-radius: 12px;
+      background: rgba(90,90,90,0.05);
+      padding: 16px 16px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* 프로 카드 프로모 배너 */
+    .plan-card-pro-wrap {
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      box-shadow: 0 0 10px 10px rgba(0,170,140,0.18);
+      overflow: hidden;
+    }
+    .plan-promo-banner {
+      background: #00A08C;
+      padding: 4px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      border-radius: 12px 12px 0 0;
+    }
+    .plan-promo-top {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .plan-promo-sub {
+      font-size: 12px;
+      color: #E8F6F5;
+    }
+    .plan-card-pro {
+      border: 1px solid #00A08C;
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      background: rgba(90,90,90,0.05);
+      padding: 16px 16px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .plan-card-header { display: flex; flex-direction: column; gap: 24px; }
+    .plan-card-top { display: flex; flex-direction: column; gap: 2px; }
+    .plan-card-subtitle {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1E1E1E;
+    }
+    .plan-card-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .plan-card-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #000;
+    }
+    .plan-badge {
+      font-size: 14px;
+      font-weight: 700;
+      color: #00A08C;
+      background: rgba(0,160,140,0.09);
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+    .plan-price-area { display: flex; flex-direction: column; gap: 0; }
+    .plan-original-price {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.42);
+      text-decoration: line-through;
+    }
+    .plan-price-row { display: flex; align-items: flex-end; gap: 4px; }
+    .plan-price {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1E1E1E;
+    }
+    .plan-period {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.55);
+      margin-bottom: 2px;
+    }
+
+    /* 플랜 버튼 */
+    .plan-btn {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .plan-btn-current {
+      background: rgba(0,160,140,0.09);
+      color: rgba(30,30,30,0.42);
+      cursor: default;
+    }
+    .plan-btn-upgrade {
+      background: #00A08C;
+      color: #fff;
+    }
+    .plan-btn-upgrade:hover { background: #009080; }
+    .plan-btn-contact {
+      background: #00A08C;
+      color: #fff;
+      border: 1px solid transparent;
+    }
+    .plan-btn-contact:hover { background: #009080; }
+
+    /* 기능 목록 */
+    .plan-features { display: flex; flex-direction: column; gap: 4px; }
+    .plan-features-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.55);
+      margin-bottom: 2px;
+    }
+    .plan-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1E1E1E;
+    }
+    .plan-feature-item svg { flex-shrink: 0; margin-top: 2px; }
+    .plan-feature-sub {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .plan-feature-sub-item {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.55);
+    }
+    .plan-feature-group-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.55);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* 더보기 버튼 */
+    .plan-features-expand {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.55);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+    }
+
+    .vat-note {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: rgba(30,30,30,0.55);
+    }
+
+    /* ── 토큰 사용량 ── */
+    .token-section { display: flex; flex-direction: column; gap: 20px; }
+    .token-card {
+      padding: 24px;
+      border: 1px solid rgba(30,30,30,0.12);
+      border-radius: 12px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .token-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1E1E1E;
+    }
+    .token-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .token-info-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .token-remaining {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.84);
+    }
+    .token-dot {
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: #AAAAAA;
+      flex-shrink: 0;
+    }
+    .token-date {
+      font-size: 14px;
+      color: rgba(30,30,30,0.55);
+    }
+    .token-badge {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+    .token-badge-red {
+      background: rgba(240,68,82,0.09);
+      color: #F04452;
+    }
+    .token-badge-neutral {
+      background: rgba(90,90,90,0.08);
+      color: #1E1E1E;
+    }
+    .token-bar-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(90,90,90,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .token-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: #00A08C;
+      transition: width 0.6s ease;
+    }
+    .token-bar-fill.empty { background: rgba(90,90,90,0.12); }
+    .token-divider {
+      height: 1px;
+      background: rgba(90,90,90,0.08);
+      border-radius: 4px;
+    }
+
+    /* AI icon SVG (sparkle) */
+    .icon-ai { color: #00A08C; }
+    .icon-check { color: #00A08C; }
+    .icon-x { color: rgba(30,30,30,0.3); }
   </style>
 </head>
 <body>
+
+<!-- ── HEADER ── -->
 <header>
   <div class="container">
     <div class="header-inner">
       <a href="index.html" class="logo">
         <img src="logo.png" alt="keywert" class="logo-img"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="logo-fallback">keywert</span>
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;letter-spacing:-0.02em;">keywert</span>
+        </span>
       </a>
+
       <nav>
-        <a href="insight.html" class="nav-btn">Insight</a>
-        <a href="pro.html" class="nav-btn">Pro</a>
-        <a href="chemistry.html" class="nav-btn">Chemistry</a>
+        <div onmouseenter="kwMegaShow('megaInsight',this)" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaPro',this)" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaChemHover',this)" onmouseleave="kwMegaHide()" style="display:none">
+          <a href="chemistry.html" class="btn-chemistry">
+            <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
+              <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+              <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+            </svg>
+            Chemistry
+          </a>
+        </div>
       </nav>
-      <div class="header-actions" id="appHeaderActions"></div>
+
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text">고객센터</a>
+        </div>
+        <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
     </div>
+  </div>
+
+  <div class="mega-bar" id="megaInsight" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container"><div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
+        <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+        <a href="#" class="mega-tab">AI보고서</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="insight_manage.html" class="mega-tab-util">관리</a>
+      </nav>
+    </div></div>
+  </div>
+  <div class="mega-bar" id="megaPro" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container"><div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="pro_search.html" class="mega-tab">일반검색</a>
+        <a href="#" class="mega-tab">선행조사용 검색</a>
+          <a href="pro_search.html" class="mega-tab">AI검색</a>
+        <a href="#" class="mega-tab">번호검색</a>
+        <a href="#" class="mega-tab">미국소송검색</a>
+        <a href="#" class="mega-tab">K WORK</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="pro_manage.html" class="mega-tab-util">관리</a>
+      </nav>
+    </div></div>
+  </div>
+  <div class="mega-bar" id="megaChemHover" style="display:none" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container"><div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="chemistry_search.html" class="mega-tab">화합물 검색</a>
+        <a href="#" class="mega-tab">화합물 범위 검색</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="#" class="mega-tab-util">관리</a>
+      </nav>
+    </div></div>
   </div>
 </header>
-<div class="mypage-layout">
-  <aside class="mypage-side">
-    <nav class="side-nav">
-      <div class="side-nav-title">마이페이지</div>
-      <ul>
-        <li><a href="mypage_info.html">내 정보</a></li>
-        <li><a href="mypage_subscription.html" class='active'>구독 관리</a></li>
-        <li><a href="insight_manage.html">Insight 관리</a></li>
-        <li><a href="pro_manage.html">Pro 관리</a></li>
-        
-      </ul>
+
+<!-- ── PAGE BODY ── -->
+<div class="page-layout">
+
+  <!-- 사이드바 -->
+  <aside class="sidebar">
+    <div class="sidebar-title">마이페이지</div>
+    <div class="sidebar-section-label">내 정보</div>
+    <nav class="sidebar-nav">
+      <a href="mypage_subscription.html" class="sidebar-nav-item active">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2L12.09 7.26L17.5 7.64L13.5 11.14L14.82 16.5L10 13.77L5.18 16.5L6.5 11.14L2.5 7.64L7.91 7.26L10 2Z" fill="#00A08C"/>
+        </svg>
+        구독
+      </a>
+      <a href="mypage_myinfo.html" class="sidebar-nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        내 정보
+      </a>
+      <a href="#" class="sidebar-nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        콘텐츠 알림
+      </a>
     </nav>
   </aside>
-  <div class="mypage-content">
-    <h1 class="page-title">구독 관리</h1>
-    <div class="placeholder-area">
-      콘텐츠 영역
-      <span>피그마 디자인 연결 예정</span>
-    </div>
-  </div>
+
+  <!-- 본문 -->
+  <main class="main-content">
+  <div class="main-content-inner">
+
+    <h1 class="page-title">구독</h1>
+
+    <!-- ① 이용 현황 -->
+    <div class="section">
+      <h2 class="section-title">이용 현황</h2>
+
+      <div class="plan-status-card">
+
+        <!-- 현재 플랜 없음 표시 -->
+        <div class="plan-current">
+          <div class="plan-current-name">플랜 없음</div>
+          <div class="plan-current-desc">규모와 사용에 맞는 플랜을 선택하세요.</div>
+        </div>
+
+        <!-- 플랜 카드 영역 -->
+        <div class="plan-cards-area">
+
+          <!-- 연간 토글 -->
+          <div class="annual-toggle-wrap">
+            <span class="annual-label">연간 플랜</span>
+            <div class="toggle-switch">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+
+          <!-- 3개 플랜 카드 -->
+          <div class="plan-cards-grid">
+
+            <!-- 라이트 -->
+            <div class="plan-card" style="padding-top: 40px;">
+              <div class="plan-card-header">
+                <div class="plan-card-top">
+                  <div class="plan-card-subtitle">AI 특허 분석을 체험하고 싶은 개인이라면</div>
+                  <div class="plan-card-name-row">
+                    <span class="plan-card-name">라이트</span>
+                    <span class="plan-badge">47% 할인</span>
+                  </div>
+                </div>
+                <div class="plan-price-area">
+                  <div class="plan-original-price" style="text-decoration:line-through;">158,000원</div>
+                  <div class="plan-price-row">
+                    <span class="plan-price">82,500원</span>
+                    <span class="plan-period">1인/월</span>
+                  </div>
+                </div>
+              </div>
+              <button class="plan-btn plan-btn-current">현재 플랜</button>
+              <div class="plan-features">
+                <div class="plan-features-label">지급된 토큰 사용</div>
+                <div class="plan-feature-item">
+                  <svg class="icon-ai" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg>
+                  AI 토큰 지급
+                </div>
+                <div class="plan-feature-item">
+                  <svg class="icon-ai" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg>
+                  AI 특허 검색
+                </div>
+                <div class="plan-feature-item">
+                  <svg class="icon-ai" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg>
+                  AI 분석 결과물 생성
+                </div>
+                <div class="plan-feature-item">
+                  <svg class="icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+                  프로젝트 생성 제한
+                </div>
+                <div class="plan-feature-item" style="align-items:flex-start;">
+                  <svg class="icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="margin-top:3px;"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+                  <div class="plan-feature-sub">
+                    <span>AI 분석 결과물 저장 및 공유</span>
+                    <span class="plan-feature-sub-item">· 파일 10MB/건, 월 누적 100MB</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 프로 (프로모 배너 포함) -->
+            <div class="plan-card-pro-wrap">
+              <div class="plan-promo-banner">
+                <div class="plan-promo-top">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="white"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z"/></svg>
+                  6월 까지, 토큰 2배 이벤트
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="white"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z"/></svg>
+                </div>
+                <div class="plan-promo-sub">라이트 대비 약 20배 토큰 제공</div>
+              </div>
+              <div class="plan-card-pro">
+                <div class="plan-card-header">
+                  <div class="plan-card-top">
+                    <div class="plan-card-subtitle">AI 특허 분석을 업무에 적극 활용하고 싶다면</div>
+                    <div class="plan-card-name-row">
+                      <span class="plan-card-name">프로</span>
+                      <span class="plan-badge">44% 할인</span>
+                    </div>
+                  </div>
+                  <div class="plan-price-area">
+                    <div class="plan-original-price">598,800원</div>
+                    <div class="plan-price-row">
+                      <span class="plan-price">332,500원</span>
+                      <span class="plan-period">1인/월</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="plan-btn plan-btn-upgrade">프로 시작하기</button>
+                <div class="plan-features">
+                  <div class="plan-features-label">토큰 걱정없는 AI 기능 사용</div>
+                  <div class="plan-feature-item">
+                    <svg class="icon-ai" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg>
+                    <strong>라이트 대비 AI 토큰 10배 지급</strong>
+                  </div>
+                  <div class="plan-feature-item">
+                    <svg class="icon-ai" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg>
+                    AI 특허 검색
+                  </div>
+                  <div class="plan-feature-item">
+                    <svg class="icon-ai" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg>
+                    AI 분석 결과물 생성
+                  </div>
+                  <div class="plan-feature-item">
+                    <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg>
+                    프로젝트 생성 무제한
+                  </div>
+                  <div class="plan-feature-item" style="align-items:flex-start;">
+                    <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round" style="margin-top:3px;"><path d="M3 8l4 4 6-7"/></svg>
+                    <div class="plan-feature-sub">
+                      <span>외부 사용자 초대 및 협업</span>
+                      <span class="plan-feature-sub-item">· 게스트 3명/시트 당</span>
+                    </div>
+                  </div>
+                  <div class="plan-feature-item">
+                    <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg>
+                    AI 분석 결과물 저장 및 공유 무제한
+                  </div>
+                  <div class="plan-feature-item">
+                    <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg>
+                    PDF 첨부 검색 용량 무제한
+                  </div>
+                  <div class="plan-feature-item">
+                    <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg>
+                    어드민(Admin) 기능 제공
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 엔터프라이즈 -->
+            <div class="plan-card" style="padding-top: 40px;">
+              <div class="plan-card-header">
+                <div class="plan-card-top">
+                  <div class="plan-card-subtitle">대규모 조직에 맞춤 적용하고 싶다면</div>
+                  <div class="plan-card-name-row">
+                    <span class="plan-card-name">엔터프라이즈</span>
+                  </div>
+                </div>
+                <div class="plan-price-area">
+                  <div style="font-size:14px;font-weight:500;color:rgba(30,30,30,0.55);">15명 이상 이용한다면</div>
+                  <div class="plan-price-row">
+                    <span class="plan-price">맞춤형 가격</span>
+                  </div>
+                </div>
+              </div>
+              <button class="plan-btn plan-btn-contact">문의하기</button>
+              <div class="plan-features">
+                <div class="plan-feature-group-label">
+                  라이트 · 프로 플랜의 모든 기능
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"><path d="M9 4v5M9 12v.5"/><circle cx="9" cy="9" r="7.5"/></svg>
+                </div>
+                <div class="plan-feature-item">
+                  <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg>
+                  외부 사용자 초대 및 협업 무제한
+                </div>
+                <div class="plan-feature-item" style="align-items:flex-start;">
+                  <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round" style="margin-top:3px;"><path d="M3 8l4 4 6-7"/></svg>
+                  <div class="plan-feature-sub">
+                    <span>기업 보안 강화 기능</span>
+                    <span class="plan-feature-sub-item">· SAML SSO 통합 로그인</span>
+                    <span class="plan-feature-sub-item">· 접속 IP 관리</span>
+                    <span class="plan-feature-sub-item">· 감사 로그</span>
+                  </div>
+                </div>
+                <div class="plan-feature-item">
+                  <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg>
+                  기업 환경에 맞는 결제 방식 지원
+                </div>
+                <div class="plan-feature-item">
+                  <svg class="icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg>
+                  전담 어카운트 매니저
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /plan-cards-grid -->
+        </div><!-- /plan-cards-area -->
+
+        <!-- 부가세 안내 -->
+        <div class="vat-note">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.55)" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v4M8 11v.5"/></svg>
+          표시된 금액에서 부가세(10%)는 별도로 부과됩니다.
+        </div>
+
+      </div><!-- /plan-status-card -->
+    </div><!-- /section 이용현황 -->
+
+    <!-- ② 토큰 사용량 -->
+    <div class="section">
+      <h2 class="section-title">토큰 사용량</h2>
+
+      <!-- 온보딩 토큰 -->
+      <div class="token-card">
+        <div class="token-card-title">온보딩 토큰</div>
+        <div class="token-item">
+          <div class="token-info-row">
+            <span class="token-remaining">남은 토큰</span>
+            <span class="token-remaining">0%</span>
+            <div class="token-dot"></div>
+            <span class="token-date">2026.01.10.~2026.01.15.</span>
+            <span class="token-badge token-badge-red">오늘 만료</span>
+          </div>
+          <div class="token-bar-track">
+            <div class="token-bar-fill empty" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 서비스 토큰 -->
+      <div class="token-card">
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div class="token-card-title">서비스 토큰</div>
+          <div style="font-size:14px;color:rgba(30,30,30,0.84);">만료일이 가까운 토큰부터 사용됩니다.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:30px;">
+          <div class="token-item">
+            <div class="token-info-row">
+              <span class="token-remaining">남은 토큰 56%</span>
+              <div class="token-dot"></div>
+              <span class="token-date">2026.01.10.~2026.01.31.</span>
+            </div>
+            <div class="token-bar-track">
+              <div class="token-bar-fill" style="width: 56%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 플랜 토큰 -->
+      <div class="token-card">
+        <div class="token-card-title">플랜 토큰</div>
+        <div class="token-item">
+          <div class="token-info-row">
+            <span class="token-remaining">남은 토큰 100%</span>
+            <div class="token-dot"></div>
+            <span class="token-date">2026.01.10.~2026.02.10.</span>
+            <span class="token-badge token-badge-neutral">D-25</span>
+          </div>
+          <div class="token-bar-track">
+            <div class="token-bar-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /section 토큰사용량 -->
+
+  </div><!-- /main-content-inner -->
+  </main>
 </div>
-<script src="auth.js"></script>
+
 <script>
+  function alignMegaBar(bar, navDiv) {
+    if (!bar || !navDiv) return;
+    var hc = document.querySelector('header .container');
+    if (!hc) return;
+    var offset = Math.max(0, Math.round(navDiv.getBoundingClientRect().left - hc.getBoundingClientRect().left));
+    var ct = bar.querySelector('.container');
+    if (ct) { ct.style.paddingLeft = offset + 'px'; }
+  }
+  function syncAllMegaBars() {
+    document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) {
+      var m = (div.getAttribute('onmouseenter') || '').match(/kwMegaShow\('([^']+)'/);
+      if (m) alignMegaBar(document.getElementById(m[1]), div);
+    });
+  }
+  syncAllMegaBars();
+  document.fonts && document.fonts.ready && document.fonts.ready.then(syncAllMegaBars);
+  window.addEventListener('load', syncAllMegaBars);
+  window.addEventListener('resize', syncAllMegaBars);
+
   (function() {
-    var user; try { user = JSON.parse(localStorage.getItem('kw_user')); } catch(e) { user = null; }
-    var el = document.getElementById('appHeaderActions');
-    if (!el) return;
-    if (user) {
-      el.innerHTML = '<span style="font-size:13px;color:#374151;">' + user.name + '</span><div class="btn-divider"></div><button class="btn-text" style="background:none;border:none;cursor:pointer;font-family:inherit;" onclick="localStorage.removeItem('kw_user');location.href='index.html'">로그아웃</button>';
-    } else {
-      el.innerHTML = '<a href="login.html" class="btn-text">로그인</a><div class="btn-divider"></div><a href="signup.html" class="btn-primary">무료 체험</a>';
-    }
+    let _t = null;
+    window.kwMegaShow = function(id, triggerEl) {
+      clearTimeout(_t);
+      document.querySelectorAll('.mega-bar').forEach(b => b.classList.remove('open'));
+      const el = document.getElementById(id);
+      if (el) {
+        alignMegaBar(el, triggerEl);
+        el.classList.add('open');
+      }
+    };
+    window.kwMegaHide = function() {
+      _t = setTimeout(function() {
+        document.querySelectorAll('.mega-bar').forEach(b => b.classList.remove('open'));
+      }, 120);
+    };
+    window.kwMegaCancel = function() { clearTimeout(_t); };
   })();
 </script>
+<script src="plan_pro_modal.js"></script>
+<script src="plan_insight_modal.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>

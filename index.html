@@ -803,6 +803,81 @@
 
     .btn-unified-outline:hover { background: rgba(255,255,255,0.12); }
 
+    /* ── 로그인 상태 헤더 ── */
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 6px 8px;
+      border-radius: 20px;
+      border: 1.5px solid #E5E7EB;
+      background: #fff;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      position: relative;
+    }
+    .user-chip:hover { background: #F9FAFB; border-color: #D1D5DB; }
+    .user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0BB8C9, #00A08C);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .user-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+    .user-email-badge {
+      font-size: 11px;
+      font-weight: 500;
+      color: #fff;
+      background: #00A08C;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .user-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      min-width: 200px;
+      padding: 8px;
+      z-index: 300;
+    }
+    .user-chip:hover .user-dropdown { display: block; }
+    .dropdown-info {
+      padding: 10px 12px 12px;
+      border-bottom: 1px solid #F3F4F6;
+      margin-bottom: 6px;
+    }
+    .dropdown-info-name { font-size: 14px; font-weight: 700; color: #111827; }
+    .dropdown-info-email { font-size: 12px; color: #9CA3AF; margin-top: 2px; }
+    .dropdown-item {
+      display: block;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.1s;
+    }
+    .dropdown-item:hover { background: #F9FAFB; }
+    .dropdown-item.logout { color: #EF4444; }
+
     /* ── FOOTER ────────────────────────────────── */
     footer {
       background: #0C1222;
@@ -917,7 +992,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
         </div>
-        <div onmouseenter="kwMegaShow('megaChemHover', this)" onmouseleave="kwMegaHide()" style="margin-left:4px;">
+        <div onmouseenter="kwMegaShow('megaChemHover', this)" onmouseleave="kwMegaHide()" style="display:none;margin-left:4px;">
           <a href="chemistry.html" class="btn-chemistry">
             <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
@@ -955,9 +1030,9 @@
           <a href="#" class="mega-tab">AI보고서</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="insight_manage.html" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -971,19 +1046,20 @@
         <nav class="mega-tabs">
           <a href="pro_search.html" class="mega-tab">일반검색</a>
           <a href="#" class="mega-tab">선행조사용 검색</a>
+          <a href="pro_search.html" class="mega-tab">AI검색</a>
           <a href="#" class="mega-tab">번호검색</a>
           <a href="#" class="mega-tab">미국소송검색</a>
           <a href="#" class="mega-tab">K WORK</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="pro.html" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="pro_manage.html" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
   </div>
-  <div class="mega-bar" id="megaChemHover"
+  <div class="mega-bar" id="megaChemHover" style="display:none"
        onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
     <div class="container">
       <div class="mega-bar-inner">
@@ -992,9 +1068,9 @@
           <a href="#" class="mega-tab">화합물 범위 검색</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="chemistry.html" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="#" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -1400,6 +1476,7 @@
 
   if (statsSection) counterObserver.observe(statsSection);
 
+
   // Fade-in on scroll
   const fadeEls = document.querySelectorAll('.service-card, .content-card, .stat-item');
   const fadeObserver = new IntersectionObserver(entries => {
@@ -1419,6 +1496,8 @@
     fadeObserver.observe(el);
   });
 </script>
+<script src="plan_pro_modal.js"></script>
+<script src="plan_insight_modal.js"></script>
 <script src="auth.js"></script>
 </body>
 </html>

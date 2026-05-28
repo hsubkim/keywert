@@ -175,7 +175,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
         </div>
-        <div onmouseenter="kwMegaShow('megaChemHover', this)" onmouseleave="kwMegaHide()" style="margin-left:4px;">
+        <div onmouseenter="kwMegaShow('megaChemHover', this)" onmouseleave="kwMegaHide()" style="display:none;margin-left:4px;">
           <a href="chemistry.html" class="btn-chemistry">
             <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
@@ -210,9 +210,9 @@
           <a href="#" class="mega-tab">AI보고서</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="insight_manage.html" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -229,9 +229,9 @@
           <a href="#" class="mega-tab">AI보고서</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="#" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="insight_manage.html" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -250,16 +250,16 @@
           <a href="#" class="mega-tab">K WORK</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="pro.html" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
           <a href="pro.html" class="mega-tab-util">이용 가이드</a>
-          <a href="pro.html" class="mega-tab-util">설정</a>
+          <a href="pro_manage.html" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
   </div>
 
   <!-- 호버 바: Chemistry -->
-  <div class="mega-bar" id="megaChemHover"
+  <div class="mega-bar" id="megaChemHover" style="display:none"
        onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
     <div class="container">
       <div class="mega-bar-inner">
@@ -270,7 +270,7 @@
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
           <a href="chemistry.html" class="mega-tab-util">플랜 안내</a>
           <a href="#" class="mega-tab-util">이용 가이드</a>
-          <a href="#" class="mega-tab-util">설정</a>
+          <a href="#" class="mega-tab-util">관리</a>
         </nav>
       </div>
     </div>
@@ -524,6 +524,8 @@
     } catch(e) {}
   });
 </script>
+<script src="plan_pro_modal.js"></script>
+<script src="plan_insight_modal.js"></script>
 <script src="auth.js"></script>
 
 <!-- ── AI 분석 모달 ── -->
@@ -571,15 +573,6 @@
 
 <script>
   function showAiModal() {
-    try {
-      var user = JSON.parse(localStorage.getItem('kw_user'));
-      if (user && (user.type === 'paid' || user.type === 'trial')) {
-        var ta = document.querySelector('.is-search-textarea');
-        document.getElementById('chemSearchTerm').textContent = ta ? (ta.value.trim() || ta.placeholder) : '';
-        document.getElementById('chemModal').style.display = 'flex';
-        return;
-      }
-    } catch(e) {}
     document.getElementById('aiModal').style.display = 'flex';
   }
   function closeAiModal() {

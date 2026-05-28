@@ -3,110 +3,355 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
-  <title>keywert > pro 관리</title>
+  <title>keywert > Pro > 관리</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html { font-size: 16px; }
     body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+
+    /* ── GNB ── */
+    .container { max-width: none; padding: 0 40px; }
     header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
-    header .container { max-width: none; }
     .header-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; height: 64px; gap: 16px; }
     .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .logo-img { height: 28px; width: auto; display: block; }
     .logo-fallback { display: none; align-items: center; gap: 7px; font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em; }
     nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
-    .nav-btn {
-      display: flex; align-items: center; gap: 4px;
-      padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827;
-      cursor: pointer; border-radius: 8px; background: none; border: none;
-      font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s;
-    }
+    .nav-btn { display: flex; align-items: center; gap: 4px; padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827; cursor: pointer; border-radius: 8px; background: none; border: none; font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s; }
     .nav-btn:hover { background: #F3F4F6; }
     .nav-btn.active { color: #0BB8C9; }
+    .mega-bar { position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #E5E7EB; box-shadow: 0 4px 16px rgba(0,0,0,0.07); opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity 0.15s, transform 0.15s; z-index: 199; }
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; border-bottom: 1px solid #E5E7EB; z-index: 0; }
+    .mega-bar:not(.mega-bar--fixed) { top: 64px; }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; padding: 0 40px; }
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab { padding: 6px 14px; font-size: 14px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap; cursor: pointer; border: none; background: none; font-family: inherit; }
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab.active { color: #111827; font-weight: 700; background: #F3F4F6; }
+    .mega-tab-util { font-size: 12px; font-weight: 500; color: #6B7280; padding: 3px 9px; border-radius: 6px; border: 1.5px solid #D1D5DB; text-decoration: none; white-space: nowrap; transition: border-color 0.15s, background 0.15s, color 0.15s; }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+    .mega-tab-util.active { border-color: #0BB8C9; color: #0BB8C9; background: rgba(11,184,201,0.06); }
     .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
     .btn-text { padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap; }
     .btn-text:hover { background: #F3F4F6; color: #374151; }
     .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
     .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
-    .btn-primary:hover { background: #008FA8; }
-    .mypage-layout { display: flex; min-height: calc(100vh - 64px); }
-    .mypage-side {
-      width: 240px; flex-shrink: 0;
-      border-right: 1px solid #E5E7EB;
-      padding: 40px 0;
-    }
-    .side-nav-title { font-size: 11px; font-weight: 700; color: #9CA3AF; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 24px 12px; }
-    .side-nav ul { list-style: none; }
-    .side-nav ul li a {
-      display: block; padding: 10px 24px; font-size: 14px; font-weight: 500;
-      color: #374151; text-decoration: none; border-radius: 0;
-      transition: color 0.15s, background 0.15s;
-    }
-    .side-nav ul li a:hover { color: #0BB8C9; background: #F0FDFF; }
-    .side-nav ul li a.active { color: #0BB8C9; font-weight: 700; background: #F0FDFF; }
-    .mypage-content { flex: 1; padding: 48px 60px; }
-    .page-title { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 32px; letter-spacing: -0.02em; }
-    .placeholder-area {
-      border: 2px dashed #E5E7EB; border-radius: 12px;
-      padding: 80px 24px; text-align: center; color: #9CA3AF; font-size: 14px;
-      background: #FAFAFA;
-    }
-    .placeholder-area span { display: block; font-size: 12px; margin-top: 6px; color: #D1D5DB; }
+    .btn-chemistry { display:none; }
+
+    /* ── LAYOUT ── */
+    .mg-layout { display: flex; height: calc(100vh - 112px); overflow: hidden; }
+
+    /* ── LEFT SIDEBAR ── */
+    .mg-sidebar { width: 280px; flex-shrink: 0; background: #F1F1F1; border-right: 1px solid rgba(30,30,30,0.12); overflow-y: auto; padding: 12px 16px 24px; display: flex; flex-direction: column; gap: 28px; }
+    .mg-sidebar-title { font-size: 20px; font-weight: 700; color: #000; line-height: 138%; }
+    .mg-nav-group { display: flex; flex-direction: column; gap: 4px; }
+    .mg-nav-label { font-size: 13px; font-weight: 500; color: rgba(30,30,30,0.42); padding: 0 4px; margin-bottom: 4px; }
+    .mg-nav-item { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 8px 8px 4px; border-radius: 4px; font-size: 15px; font-weight: 500; color: rgba(30,30,30,0.84); text-decoration: none; cursor: pointer; border: none; background: none; font-family: inherit; transition: background 0.12s; }
+    .mg-nav-item:hover { background: rgba(90,90,90,0.08); }
+    .mg-nav-item.active { background: rgba(90,90,90,0.05); color: #1E1E1E; }
+    .mg-nav-icon { width: 20px; height: 20px; flex-shrink: 0; color: rgba(30,30,30,0.55); display: flex; align-items: center; justify-content: center; }
+
+    /* ── MAIN ── */
+    .mg-main { flex: 1; overflow-y: auto; padding: 40px 60px; }
+    .mg-main-inner { max-width: 1040px; display: flex; flex-direction: column; gap: 48px; }
+
+    .mg-title-row { display: flex; align-items: center; justify-content: space-between; }
+    .mg-title { font-size: 32px; font-weight: 700; color: #000; }
+
+    /* ── TABLE SECTION ── */
+    .mg-table-section { display: flex; flex-direction: column; gap: 0; }
+
+    .mg-tabs-row { display: flex; align-items: flex-end; border-bottom: 1px solid rgba(30,30,30,0.12); position: relative; }
+    .mg-tab { padding: 8px 16px 10px; font-size: 16px; font-weight: 500; color: rgba(30,30,30,0.42); cursor: pointer; border: none; background: none; font-family: inherit; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s; }
+    .mg-tab.active { font-weight: 700; color: #1E1E1E; border-bottom-color: rgba(30,30,30,0.74); }
+
+    /* ── TABLE ── */
+    .mg-table { width: 100%; border-collapse: collapse; }
+    .mg-table th { padding: 0 8px; height: 40px; font-size: 12px; font-weight: 500; color: rgba(30,30,30,0.55); text-align: left; border-bottom: 1px solid rgba(30,30,30,0.05); white-space: nowrap; }
+    .mg-table td { padding: 0 8px; height: 52px; font-size: 15px; font-weight: 500; color: #000; border-bottom: 1px solid rgba(30,30,30,0.05); vertical-align: middle; }
+    .mg-table tr:hover td { background: rgba(90,90,90,0.03); }
+    .mg-table tr.selected td { background: rgba(90,90,90,0.05); }
+
+    .mg-col-name { width: 360px; }
+    .mg-col-settings { width: 56px; }
+
+    .mg-member { display: flex; align-items: center; gap: 10px; }
+    .mg-avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(90,90,90,0.05); border: 1px solid rgba(30,30,30,0.12); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: rgba(30,30,30,0.55); flex-shrink: 0; }
+    .mg-member-info { display: flex; flex-direction: column; gap: 1px; }
+    .mg-member-name-row { display: flex; align-items: center; gap: 6px; }
+    .mg-member-name { font-size: 15px; font-weight: 500; color: #000; }
+    .mg-me-badge { font-size: 12px; font-weight: 500; color: #00A08C; background: rgba(0,160,140,0.09); padding: 0 4px; border-radius: 4px; }
+    .mg-member-email { font-size: 12px; color: rgba(30,30,30,0.55); }
+
+    .mg-icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: none; background: none; cursor: pointer; border-radius: 4px; color: rgba(30,30,30,0.55); }
+    .mg-icon-btn:hover { background: rgba(90,90,90,0.08); }
+
+    /* ── PAGINATION ── */
+    .mg-pagination { display: flex; align-items: center; justify-content: center; gap: 24px; padding-top: 24px; }
+    .mg-page-arrow { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: none; background: none; cursor: pointer; color: rgba(30,30,30,0.55); border-radius: 4px; }
+    .mg-page-arrow:hover { background: rgba(90,90,90,0.08); }
+    .mg-page-nums { display: flex; align-items: center; gap: 4px; }
+    .mg-page-num { display: flex; align-items: center; justify-content: center; min-width: 27px; height: 30px; padding: 0 4px; border: none; background: none; cursor: pointer; font-size: 14px; font-family: inherit; color: rgba(5,23,45,0.72); border-radius: 4px; }
+    .mg-page-num.active { background: rgba(90,90,90,0.05); color: #000; font-weight: 500; }
+    .mg-page-num:hover:not(.active) { background: rgba(90,90,90,0.05); }
   </style>
 </head>
 <body>
+
 <header>
   <div class="container">
     <div class="header-inner">
       <a href="index.html" class="logo">
         <img src="logo.png" alt="keywert" class="logo-img"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="logo-fallback">keywert</span>
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;">keywert</span>
+        </span>
       </a>
       <nav>
-        <a href="insight.html" class="nav-btn">Insight</a>
-        <a href="pro.html" class="nav-btn">Pro</a>
-        <a href="chemistry.html" class="nav-btn">Chemistry</a>
+        <div onmouseenter="kwMegaShow('megaInsightHover', this)" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaProHover', this)" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn active">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
       </nav>
-      <div class="header-actions" id="appHeaderActions"></div>
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text" target="_blank">고객센터</a>
+        </div>
+        <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 고정 바: Pro -->
+  <div class="mega-bar mega-bar--fixed">
+    <div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="pro_search.html" class="mega-tab">일반검색</a>
+        <a href="#" class="mega-tab">선행조사용 검색</a>
+        <a href="#" class="mega-tab">AI검색</a>
+        <a href="#" class="mega-tab">번호검색</a>
+        <a href="#" class="mega-tab">미국소송검색</a>
+        <a href="#" class="mega-tab">K WORK</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="pro_manage.html" class="mega-tab-util active">관리</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 호버 바: Insight -->
+  <div class="mega-bar" id="megaInsightHover" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
+        <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+        <a href="#" class="mega-tab">AI보고서</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="insight_manage.html" class="mega-tab-util">관리</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 호버 바: Pro -->
+  <div class="mega-bar" id="megaProHover" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="pro_search.html" class="mega-tab">일반검색</a>
+        <a href="#" class="mega-tab">선행조사용 검색</a>
+        <a href="#" class="mega-tab">AI검색</a>
+        <a href="#" class="mega-tab">번호검색</a>
+        <a href="#" class="mega-tab">미국소송검색</a>
+        <a href="#" class="mega-tab">K WORK</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="pro_manage.html" class="mega-tab-util">관리</a>
+      </nav>
     </div>
   </div>
 </header>
-<div class="mypage-layout">
-  <aside class="mypage-side">
-    <nav class="side-nav">
-      <div class="side-nav-title">마이페이지</div>
-      <ul>
-        <li><a href="mypage_info.html">내 정보</a></li>
-        <li><a href="mypage_subscription.html">구독 관리</a></li>
-        <li><a href="insight_manage.html">Insight 관리</a></li>
-        <li><a href="pro_manage.html" class='active'>Pro 관리</a></li>
-        
-      </ul>
-    </nav>
-  </aside>
-  <div class="mypage-content">
-    <h1 class="page-title">Pro 관리</h1>
-    <div class="placeholder-area">
-      콘텐츠 영역
-      <span>피그마 디자인 연결 예정</span>
+
+<!-- ── BODY ── -->
+<div class="mg-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="mg-sidebar">
+    <div class="mg-sidebar-title">pro 관리</div>
+
+    <div class="mg-nav-group">
+      <div class="mg-nav-label">워크스페이스</div>
+      <button class="mg-nav-item active">
+        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        구성원
+      </button>
+      <button class="mg-nav-item">
+        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+        워크스페이스 정보
+      </button>
+      <button class="mg-nav-item">
+        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
+        결제
+      </button>
+    </div>
+
+    <div class="mg-nav-group">
+      <div class="mg-nav-label">접근 및 보안</div>
+      <button class="mg-nav-item">
+        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        IP 접근 제한
+      </button>
+      <button class="mg-nav-item">
+        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        SSO(통합 로그인)
+      </button>
+    </div>
+
+    <div class="mg-nav-group">
+      <div class="mg-nav-label">환경 설정</div>
+      <button class="mg-nav-item">
+        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
+        모드
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="mg-main">
+    <div class="mg-main-inner">
+
+      <!-- Title Row -->
+      <div class="mg-title-row">
+        <h1 class="mg-title">구성원</h1>
+      </div>
+
+      <!-- Table Section -->
+      <div class="mg-table-section">
+        <!-- Tabs -->
+        <div class="mg-tabs-row">
+          <button class="mg-tab active">동료(20)</button>
+        </div>
+
+        <!-- Table -->
+        <table class="mg-table">
+          <thead>
+            <tr>
+              <th class="mg-col-name">이름</th>
+              <th>워크스페이스</th>
+              <th class="mg-col-settings">설정</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">김</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">김지석</span></div><span class="mg-member-email">hong@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">김</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">김지윤</span></div><span class="mg-member-email">taeyoung@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">김</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">김정호</span><span class="mg-me-badge">나</span></div><span class="mg-member-email">jung012@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">이</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">이준호</span></div><span class="mg-member-email">park456@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">박</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">박서현</span></div><span class="mg-member-email">kim234@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr class="selected">
+              <td><div class="mg-member"><div class="mg-avatar">박</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">박지호</span></div><span class="mg-member-email">park456@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">신</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">신지윤</span></div><span class="mg-member-email">yoon123@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">오</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">오지후</span></div><span class="mg-member-email">seo567@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">한</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">한유준</span></div><span class="mg-member-email">designbasekorea@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+            <tr>
+              <td><div class="mg-member"><div class="mg-avatar">최</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">최지우</span></div><span class="mg-member-email">kim234@wert.co.kr</span></div></div></td>
+              <td>워트인텔리전스</td>
+              <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="mg-pagination">
+          <button class="mg-page-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="mg-page-nums">
+            <button class="mg-page-num active">1</button>
+            <button class="mg-page-num">2</button>
+          </div>
+          <button class="mg-page-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
+
+<script src="plan_insight_modal.js"></script>
+<script src="plan_pro_modal.js"></script>
 <script src="auth.js"></script>
 <script>
-  (function() {
-    var user; try { user = JSON.parse(localStorage.getItem('kw_user')); } catch(e) { user = null; }
-    var el = document.getElementById('appHeaderActions');
-    if (!el) return;
-    if (user) {
-      el.innerHTML = '<span style="font-size:13px;color:#374151;">' + user.name + '</span><div class="btn-divider"></div><button class="btn-text" style="background:none;border:none;cursor:pointer;font-family:inherit;" onclick="localStorage.removeItem('kw_user');location.href='index.html'">로그아웃</button>';
-    } else {
-      el.innerHTML = '<a href="login.html" class="btn-text">로그인</a><div class="btn-divider"></div><a href="signup.html" class="btn-primary">무료 체험</a>';
-    }
-  })();
+  var kwMegaTimer = null;
+  function kwMegaShow(id, trigger) {
+    clearTimeout(kwMegaTimer);
+    document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
+    var el = document.getElementById(id);
+    if (el) el.classList.add('open');
+  }
+  function kwMegaHide() {
+    kwMegaTimer = setTimeout(function() {
+      document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
+    }, 120);
+  }
+  function kwMegaCancel() { clearTimeout(kwMegaTimer); }
 </script>
 </body>
 </html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > 마이페이지 > 내 정보</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1E1E1E;
+      background: #fff;
+      min-width: 1280px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: #fff;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    header .container { max-width: none; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+    .header-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      height: 64px;
+      gap: 16px;
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 28px; width: auto; display: block; }
+    .logo-fallback {
+      display: none; align-items: center; gap: 8px;
+      font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em;
+    }
+    nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .nav-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827;
+      cursor: pointer; border-radius: 8px; background: none; border: none;
+      font-family: inherit; text-decoration: none; transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #F3F4F6; }
+    .btn-chemistry {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 11px; border: 1.5px solid #3B82F6; border-radius: 7px;
+      color: #3B82F6; font-size: 16px; font-weight: 700; background: none;
+      cursor: pointer; text-decoration: none; font-family: inherit;
+      transition: background 0.15s; line-height: 1;
+    }
+    .btn-chemistry:hover { background: #EFF6FF; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-text {
+      padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px; white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; flex-shrink: 0; }
+    .btn-primary {
+      padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px;
+      font-weight: 600; border-radius: 8px; text-decoration: none; border: none;
+      cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #008FA8; }
+
+    /* mega-bar */
+    .mega-bar {
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      opacity: 0; pointer-events: none; transform: translateY(-4px);
+      transition: opacity 0.15s, transform 0.15s; z-index: 199;
+    }
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab {
+      padding: 6px 14px; font-size: 14px; font-weight: 500; color: #6B7280;
+      text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap;
+    }
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab-util {
+      font-size: 12px; font-weight: 500; color: #6B7280;
+      padding: 3px 9px; border-radius: 6px; border: 1.5px solid #D1D5DB;
+      text-decoration: none; white-space: nowrap; transition: all 0.15s;
+    }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-layout {
+      display: flex;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: #F1F1F1;
+      padding: 28px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .sidebar-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #000;
+      padding: 0 4px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar-section-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.42);
+      padding: 0 4px;
+      margin-bottom: -8px;
+    }
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 4px;
+      width: 100%;
+      height: 40px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.84);
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      background: none;
+      font-family: inherit;
+      transition: background 0.12s;
+    }
+    .sidebar-nav-item:hover { background: rgba(30,30,30,0.05); }
+    .sidebar-nav-item.active { background: rgba(90,90,90,0.05); }
+    .sidebar-nav-item svg { flex-shrink: 0; opacity: 0.6; }
+    .sidebar-nav-item.active svg { opacity: 1; }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      flex: 1;
+      padding: 48px 64px;
+      overflow: auto;
+    }
+    .main-content-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #000;
+      line-height: 136%;
+    }
+
+    /* ── PROFILE SECTION ── */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* 아바타 */
+    .avatar-wrap {
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+    .avatar-circle {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: rgba(90,90,90,0.05);
+      border: 1px solid rgba(30,30,30,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avatar-initial {
+      font-size: 28px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.26);
+    }
+    .avatar-edit-btn {
+      position: absolute;
+      bottom: 0;
+      right: -6px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #F8F8F8;
+      border: 1px solid rgba(30,30,30,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .avatar-edit-btn:hover { background: #EFEFEF; }
+
+    /* 정보 rows */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .info-row {
+      display: flex;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(30,30,30,0.12);
+    }
+    .info-row:last-child {
+      border-bottom: none;
+    }
+    .info-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+    .info-label {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(30,30,30,0.55);
+      line-height: 156%;
+    }
+    .info-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1E1E1E;
+      line-height: 150%;
+    }
+    .info-value-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-outlined {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      border: 1px solid rgba(30,30,30,0.12);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.84);
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .btn-outlined:hover { background: rgba(30,30,30,0.04); border-color: rgba(30,30,30,0.2); }
+    .btn-outlined-disabled {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      border: 1px solid rgba(30,30,30,0.12);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(30,30,30,0.16);
+      background: none;
+      cursor: default;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-outlined-danger {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      border: 1px solid rgba(30,30,30,0.12);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #F04452;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: background 0.12s;
+    }
+    .btn-outlined-danger:hover { background: rgba(240,68,82,0.06); }
+
+    /* ── SECTION ── */
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1E1E1E;
+      line-height: 138%;
+    }
+    .section-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(30,30,30,0.84);
+      line-height: 156%;
+    }
+
+    /* 계정 연결 Google row */
+    .account-link-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 0 16px;
+      border-bottom: 1px solid rgba(30,30,30,0.12);
+    }
+    .google-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;letter-spacing:-0.02em;">keywert</span>
+        </span>
+      </a>
+
+      <nav>
+        <div onmouseenter="kwMegaShow('megaInsight',this)" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaPro',this)" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaChemHover',this)" onmouseleave="kwMegaHide()" style="display:none">
+          <a href="chemistry.html" class="btn-chemistry">
+            <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
+              <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+              <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+            </svg>
+            Chemistry
+          </a>
+        </div>
+      </nav>
+
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text">고객센터</a>
+        </div>
+        <a href="login.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mega-bar" id="megaInsight" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container"><div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
+        <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+        <a href="#" class="mega-tab">AI보고서</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="insight_manage.html" class="mega-tab-util">관리</a>
+      </nav>
+    </div></div>
+  </div>
+  <div class="mega-bar" id="megaPro" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container"><div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="pro_search.html" class="mega-tab">일반검색</a>
+        <a href="#" class="mega-tab">선행조사용 검색</a>
+          <a href="pro_search.html" class="mega-tab">AI검색</a>
+        <a href="#" class="mega-tab">번호검색</a>
+        <a href="#" class="mega-tab">미국소송검색</a>
+        <a href="#" class="mega-tab">K WORK</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="pro_manage.html" class="mega-tab-util">관리</a>
+      </nav>
+    </div></div>
+  </div>
+  <div class="mega-bar" id="megaChemHover" style="display:none" onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container"><div class="mega-bar-inner">
+      <nav class="mega-tabs">
+        <a href="chemistry_search.html" class="mega-tab">화합물 검색</a>
+        <a href="#" class="mega-tab">화합물 범위 검색</a>
+      </nav>
+      <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+        <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
+        <a href="#" class="mega-tab-util">이용 가이드</a>
+        <a href="#" class="mega-tab-util">관리</a>
+      </nav>
+    </div></div>
+  </div>
+</header>
+
+<!-- ── PAGE BODY ── -->
+<div class="page-layout">
+
+  <!-- 사이드바 -->
+  <aside class="sidebar">
+    <div class="sidebar-title">마이페이지</div>
+    <div class="sidebar-section-label">내 정보</div>
+    <nav class="sidebar-nav">
+      <a href="mypage_subscription.html" class="sidebar-nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2L12.09 7.26L17.5 7.64L13.5 11.14L14.82 16.5L10 13.77L5.18 16.5L6.5 11.14L2.5 7.64L7.91 7.26L10 2Z" fill="#00A08C"/>
+        </svg>
+        구독
+      </a>
+      <a href="mypage_myinfo.html" class="sidebar-nav-item active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        내 정보
+      </a>
+      <a href="#" class="sidebar-nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        콘텐츠 알림
+      </a>
+    </nav>
+  </aside>
+
+  <!-- 본문 -->
+  <main class="main-content">
+  <div class="main-content-inner">
+
+    <h1 class="page-title">내 정보</h1>
+
+    <!-- ① 프로필 정보 -->
+    <div class="profile-section">
+
+      <!-- 아바타 -->
+      <div class="avatar-wrap">
+        <div class="avatar-circle">
+          <span class="avatar-initial">김</span>
+        </div>
+        <button class="avatar-edit-btn" title="프로필 사진 수정">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(30,30,30,0.55)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 정보 목록 -->
+      <div class="info-list">
+
+        <!-- 이름 -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">이름</span>
+            <span class="info-value">김워트</span>
+          </div>
+          <button class="btn-outlined">수정</button>
+        </div>
+
+        <!-- 이메일 (Google 연동, 수정 버튼 없음) -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">이메일</span>
+            <div class="info-value-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(30,30,30,0.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M2 7l10 7 10-7"/>
+              </svg>
+              <span class="info-value">baehk@gmail.com</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 비밀번호 -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">비밀번호</span>
+            <span class="info-value">마지막 변경: 6개월 전</span>
+          </div>
+          <button class="btn-outlined">수정</button>
+        </div>
+
+        <!-- 휴대폰 번호 -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">휴대폰 번호</span>
+            <span class="info-value">010 2222 2222</span>
+          </div>
+          <button class="btn-outlined">수정</button>
+        </div>
+
+        <!-- 회사 -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">회사</span>
+            <span class="info-value">워트인텔리전스</span>
+          </div>
+          <button class="btn-outlined">수정</button>
+        </div>
+
+        <!-- 부서 -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">부서</span>
+            <span class="info-value">프로덕트그룹</span>
+          </div>
+          <button class="btn-outlined">수정</button>
+        </div>
+
+        <!-- 직급 -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">직급</span>
+            <span class="info-value">연구개발직(R&amp;D)</span>
+          </div>
+          <button class="btn-outlined">수정</button>
+        </div>
+
+        <!-- 회사 이메일 -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">회사 이메일</span>
+            <div class="info-value-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(30,30,30,0.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M2 7l10 7 10-7"/>
+              </svg>
+              <span class="info-value">baehk@gmail.com</span>
+            </div>
+          </div>
+          <button class="btn-outlined">수정</button>
+        </div>
+
+        <!-- 회사 전화번호 -->
+        <div class="info-row">
+          <div class="info-content">
+            <span class="info-label">회사 전화번호</span>
+            <span class="info-value">010 2222 2222</span>
+          </div>
+          <button class="btn-outlined">수정</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ② 계정 연결 -->
+    <div class="section">
+      <div class="section-header">
+        <h2 class="section-title">계정 연결</h2>
+        <p class="section-desc">간편 로그인은 한 서비스 계정만 연결할 수 있습니다.</p>
+      </div>
+
+      <div class="info-list">
+        <div class="account-link-row">
+          <!-- Google 아이콘 -->
+          <svg class="google-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="8" fill="white"/>
+            <path d="M33.5 20.23c0-.94-.08-1.84-.23-2.71H20v5.13h7.58c-.33 1.76-1.31 3.25-2.79 4.25v3.53h4.51c2.64-2.43 4.16-6.01 4.16-10.2z" fill="#4285F4"/>
+            <path d="M20 34c3.8 0 6.99-1.26 9.32-3.41l-4.51-3.53c-1.25.84-2.86 1.34-4.81 1.34-3.7 0-6.83-2.5-7.95-5.86H7.4v3.65C9.72 31.19 14.52 34 20 34z" fill="#34A853"/>
+            <path d="M12.05 22.54A8.09 8.09 0 0 1 11.6 20c0-.88.15-1.73.42-2.54v-3.65H7.4A14.01 14.01 0 0 0 6 20c0 2.26.54 4.39 1.4 6.19l4.65-3.65z" fill="#FBBC04"/>
+            <path d="M20 13.6c2.09 0 3.96.72 5.44 2.12l4.07-4.07C27 9.35 23.8 8 20 8c-5.48 0-10.28 2.81-12.6 7.19l4.65 3.65C13.17 16.1 16.3 13.6 20 13.6z" fill="#E94235"/>
+          </svg>
+
+          <div class="info-content">
+            <span class="info-label">Google</span>
+            <span class="info-value">baehk@gmail.com</span>
+          </div>
+          <button class="btn-outlined-disabled">연결됨</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ 계정 관리 -->
+    <div class="section">
+      <div class="section-header">
+        <h2 class="section-title">계정 관리</h2>
+      </div>
+
+      <div class="info-list">
+        <div class="info-row" style="border-bottom: none; padding-bottom: 0;">
+          <div class="info-content">
+            <span class="info-label">계정 탈퇴</span>
+            <span class="info-value">이 작업은 되돌릴 수 없습니다.</span>
+          </div>
+          <button class="btn-outlined-danger">계정 탈퇴</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-content-inner -->
+  </main>
+</div>
+
+<script>
+  function alignMegaBar(bar, navDiv) {
+    if (!bar || !navDiv) return;
+    var hc = document.querySelector('header .container');
+    if (!hc) return;
+    var offset = Math.max(0, Math.round(navDiv.getBoundingClientRect().left - hc.getBoundingClientRect().left));
+    var ct = bar.querySelector('.container');
+    if (ct) { ct.style.paddingLeft = offset + 'px'; }
+  }
+  function syncAllMegaBars() {
+    document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) {
+      var m = (div.getAttribute('onmouseenter') || '').match(/kwMegaShow\('([^']+)'/);
+      if (m) alignMegaBar(document.getElementById(m[1]), div);
+    });
+  }
+  syncAllMegaBars();
+  document.fonts && document.fonts.ready && document.fonts.ready.then(syncAllMegaBars);
+  window.addEventListener('load', syncAllMegaBars);
+  window.addEventListener('resize', syncAllMegaBars);
+
+  (function() {
+    let _t = null;
+    window.kwMegaShow = function(id, triggerEl) {
+      clearTimeout(_t);
+      document.querySelectorAll('.mega-bar').forEach(b => b.classList.remove('open'));
+      const el = document.getElementById(id);
+      if (el) {
+        alignMegaBar(el, triggerEl);
+        el.classList.add('open');
+      }
+    };
+    window.kwMegaHide = function() {
+      _t = setTimeout(function() {
+        document.querySelectorAll('.mega-bar').forEach(b => b.classList.remove('open'));
+      }, 120);
+    };
+    window.kwMegaCancel = function() { clearTimeout(_t); };
+  })();
+</script>
+<script src="plan_pro_modal.js"></script>
+<script src="plan_insight_modal.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>
