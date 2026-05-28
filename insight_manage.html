@@ -406,11 +406,31 @@
 <script src="auth.js"></script>
 <script>
   var kwMegaTimer = null;
+  function alignMegaBar(bar, navDiv) {
+    if (!bar || !navDiv) return;
+    var hc = document.querySelector('header .container');
+    if (!hc) return;
+    var offset = Math.max(0, Math.round(navDiv.getBoundingClientRect().left - hc.getBoundingClientRect().left));
+    var ct = bar.querySelector('.container');
+    if (ct) { ct.style.paddingLeft = offset + 'px'; var inn = ct.querySelector('.mega-bar-inner'); if (inn) inn.style.paddingLeft = ''; }
+  }
+  function syncAllMegaBars() {
+    document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) {
+      var m = (div.getAttribute('onmouseenter') || '').match(/kwMegaShow\('([^']+)'/);
+      if (m) alignMegaBar(document.getElementById(m[1]), div);
+    });
+    var fixedBar = document.querySelector('.mega-bar--fixed');
+    if (fixedBar) {
+      var activeDiv = null;
+      document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) { if (!activeDiv && div.querySelector('.nav-btn.active')) activeDiv = div; });
+      alignMegaBar(fixedBar, activeDiv);
+    }
+  }
   function kwMegaShow(id, trigger) {
     clearTimeout(kwMegaTimer);
     document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
     var el = document.getElementById(id);
-    if (el) el.classList.add('open');
+    if (el) { el.classList.add('open'); alignMegaBar(el, trigger); }
   }
   function kwMegaHide() {
     kwMegaTimer = setTimeout(function() {
@@ -418,6 +438,10 @@
     }, 120);
   }
   function kwMegaCancel() { clearTimeout(kwMegaTimer); }
+  syncAllMegaBars();
+  document.fonts && document.fonts.ready && document.fonts.ready.then(syncAllMegaBars);
+  window.addEventListener('load', syncAllMegaBars);
+  window.addEventListener('resize', syncAllMegaBars);
 </script>
 </body>
 </html>
