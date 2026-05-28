@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > 무료 체험 신청</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #1E1E1E; background: #F8FAFB; min-width: 1280px; }
+
+    /* ── HEADER ── */
+    header { padding: 20px 52px; background: #fff; border-bottom: 1px solid #E5E7EB; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo-img { height: 26px; width: auto; display: block; }
+    .logo-fallback { display: none; align-items: center; gap: 7px; font-size: 18px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em; }
+
+    /* ── MAIN ── */
+    main { display: flex; justify-content: center; padding: 48px 40px 80px; }
+
+    /* ── CONTENT CARD ── */
+    .card { width: 888px; background: #fff; border-radius: 16px; box-shadow: 0 0 1px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.12); padding: 32px; position: relative; display: flex; flex-direction: column; gap: 32px; }
+
+    .close-btn { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: none; background: rgba(90,90,90,0.08); border-radius: 4px; cursor: pointer; color: rgba(30,30,30,0.55); transition: background 0.15s; text-decoration: none; }
+    .close-btn:hover { background: rgba(90,90,90,0.14); }
+
+    .page-title { font-size: 28px; font-weight: 700; color: #000; line-height: 136%; letter-spacing: -0.02em; max-width: 620px; }
+
+    /* ── PLAN CARDS ── */
+    .plan-row { display: flex; gap: 10px; }
+    .plan-card { flex: 1; display: flex; flex-direction: column; border-radius: 12px; overflow: visible; filter: drop-shadow(0 0 10px rgba(0,170,140,0.36)); }
+    .plan-badge { background: #00A08C; border-radius: 12px 12px 0 0; height: 30px; display: flex; align-items: center; justify-content: center; }
+    .plan-badge-text { font-size: 13px; font-weight: 700; color: #fff; }
+    .plan-body { background: rgba(90,90,90,0.05); border: 1px solid #00A08C; border-top: none; border-radius: 0 0 12px 12px; padding: 16px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .plan-header { display: flex; flex-direction: column; gap: 2px; }
+    .plan-target { font-size: 13px; font-weight: 500; color: #1E1E1E; line-height: 150%; }
+    .plan-name { font-size: 18px; font-weight: 700; color: #000; line-height: 136%; }
+    .plan-divider { height: 1px; background: rgba(30,30,30,0.08); }
+    .plan-features { display: flex; flex-direction: column; gap: 4px; }
+    .plan-features-title { font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.55); margin-bottom: 6px; line-height: 156%; }
+    .feat-row { display: flex; align-items: center; gap: 4px; }
+    .feat-row-sub { display: flex; align-items: flex-start; gap: 4px; }
+    .feat-icon { width: 16px; height: 16px; flex-shrink: 0; }
+    .feat-text { font-size: 13px; font-weight: 500; color: #1E1E1E; line-height: 150%; }
+    .feat-text-bold { font-size: 13px; font-weight: 700; color: #1E1E1E; line-height: 150%; }
+    .feat-sub-group { display: flex; flex-direction: column; gap: 2px; }
+    .feat-sub { font-size: 12px; font-weight: 500; color: rgba(30,30,30,0.55); line-height: 150%; }
+    .plan-btn { width: 100%; padding: 10px 16px; background: #00A08C; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; transition: background 0.15s; margin-top: auto; }
+    .plan-btn:hover { background: #009080; }
+
+    /* ── FORM ── */
+    .form-section { display: flex; flex-direction: column; gap: 32px; }
+    .form-fields { display: flex; flex-direction: column; gap: 20px; }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field-label { display: flex; align-items: center; gap: 2px; font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.69); line-height: 156%; }
+    .required-mark { color: #F04452; }
+    .field-input { width: 100%; padding: 12px; border: 1px solid rgba(30,30,30,0.12); border-radius: 8px; font-size: 16px; font-family: inherit; color: #1E1E1E; background: #fff; outline: none; transition: border-color 0.15s; }
+    .field-input:focus { border-color: #00A08C; }
+    .field-input::placeholder { color: rgba(30,30,30,0.26); }
+    .field-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='rgba(30%2C30%2C30%2C0.55)' stroke-width='2' stroke-linecap='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; padding-right: 40px; cursor: pointer; }
+    .field-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+    .textarea-wrap { position: relative; }
+    .char-count { position: absolute; right: 12px; bottom: 10px; font-size: 13px; color: rgba(30,30,30,0.42); pointer-events: none; }
+
+    /* ── PRIVACY ── */
+    .privacy-box { background: rgba(90,90,90,0.03); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .privacy-check-row { display: flex; align-items: center; gap: 8px; }
+    .privacy-check { width: 20px; height: 20px; border: 2px solid rgba(30,30,30,0.12); border-radius: 4px; flex-shrink: 0; cursor: pointer; appearance: none; position: relative; transition: border-color 0.15s, background 0.15s; }
+    .privacy-check:checked { border-color: #00A08C; background: #00A08C; }
+    .privacy-check:checked::after { content: ''; position: absolute; left: 4px; top: 1px; width: 8px; height: 12px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg); }
+    .privacy-label { font-size: 16px; font-weight: 700; color: rgba(30,30,30,0.84); }
+    .privacy-text { font-size: 16px; font-weight: 400; color: rgba(30,30,30,0.69); line-height: 1.65; padding: 0 12px; }
+    .privacy-detail { font-size: 12px; color: rgba(30,30,30,0.69); line-height: 1.6; padding: 0 12px; }
+
+    /* ── SUBMIT ── */
+    .submit-btn { width: 100%; padding: 14px 16px; background: #00A08C; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; transition: background 0.15s; }
+    .submit-btn:hover { background: #009080; }
+
+    /* ── SUCCESS OVERLAY ── */
+    .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
+    .success-card { background: #fff; border-radius: 16px; padding: 48px 40px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; width: 420px; box-shadow: 0 24px 64px rgba(0,0,0,0.18); }
+    .success-icon { width: 64px; height: 64px; background: rgba(0,160,140,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .success-title { font-size: 21px; font-weight: 800; color: #000; line-height: 1.35; }
+    .success-desc { font-size: 14px; color: rgba(30,30,30,0.55); line-height: 1.65; }
+    .success-redirect { font-size: 13px; color: rgba(30,30,30,0.42); }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="keywert" class="logo-img"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <span class="logo-fallback">
+      <svg width="24" height="20" viewBox="0 0 34 28" fill="none">
+        <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+        <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+        <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+        <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+        <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+      </svg>
+      <span>keywert</span>
+    </span>
+  </a>
+</header>
+
+<main>
+  <div class="card">
+
+    <!-- 닫기 -->
+    <a href="index.html" class="close-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </a>
+
+    <!-- 타이틀 -->
+    <h1 class="page-title">키워트의 AI 특허 검색·분석을 무료로 체험해보세요</h1>
+
+    <!-- 플랜 카드 -->
+    <div class="plan-row">
+
+      <!-- Insight 라이트 -->
+      <div class="plan-card">
+        <div class="plan-badge"><span class="plan-badge-text">insight</span></div>
+        <div class="plan-body">
+          <div class="plan-header">
+            <span class="plan-target">AI 특허 분석을 체험하고 싶은 개인이라면</span>
+            <span class="plan-name">라이트</span>
+          </div>
+          <div class="plan-divider"></div>
+          <div class="plan-features">
+            <p class="plan-features-title">지급된 토큰 사용</p>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg>
+              <span class="feat-text">AI 토큰 지급</span>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg>
+              <span class="feat-text">AI 특허 검색</span>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg>
+              <span class="feat-text">AI 분석 결과물 생성</span>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="feat-text">프로젝트 생성 제한</span>
+            </div>
+            <div class="feat-row-sub">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none" style="margin-top:2px;"><rect x="2" y="1.5" width="12" height="13" rx="1.5" stroke="rgba(30,30,30,0.42)" stroke-width="1.5"/><path d="M5 5.5h6M5 8h6M5 10.5h4" stroke="rgba(30,30,30,0.42)" stroke-width="1.2" stroke-linecap="round"/></svg>
+              <div class="feat-sub-group">
+                <span class="feat-text">AI 분석 결과물 저장 및 공유</span>
+                <span class="feat-sub">· 파일 10MB/건, 월 누적 100MB</span>
+              </div>
+            </div>
+          </div>
+          <button class="plan-btn">무료 토큰 제공</button>
+        </div>
+      </div>
+
+      <!-- Pro -->
+      <div class="plan-card">
+        <div class="plan-badge"><span class="plan-badge-text">pro</span></div>
+        <div class="plan-body">
+          <div class="plan-header">
+            <span class="plan-target">AI 특허 분석을 업무에 적극 활용하고 싶다면</span>
+            <span class="plan-name">프로</span>
+          </div>
+          <div class="plan-divider"></div>
+          <div class="plan-features">
+            <p class="plan-features-title">토큰 걱정없는 AI 기능 사용</p>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg>
+              <span class="feat-text-bold">라이트 대비 AI 토큰 10배 지급</span>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg>
+              <span class="feat-text">AI 특허 검색</span>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg>
+              <span class="feat-text">AI 분석 결과물 생성</span>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="feat-text">프로젝트 생성 무제한</span>
+            </div>
+            <div class="feat-row-sub">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none" style="margin-top:2px;"><circle cx="13" cy="3" r="2" stroke="#00A08C" stroke-width="1.4"/><circle cx="3" cy="8" r="2" stroke="#00A08C" stroke-width="1.4"/><circle cx="13" cy="13" r="2" stroke="#00A08C" stroke-width="1.4"/><path d="M5 8.8L11 12M11 4L5 7.2" stroke="#00A08C" stroke-width="1.2" stroke-linecap="round"/></svg>
+              <div class="feat-sub-group">
+                <span class="feat-text">외부 사용자 초대 및 협업</span>
+                <span class="feat-sub">· 게스트 3명/시트 당</span>
+              </div>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="feat-text">AI 분석 결과물 저장 및 공유 무제한</span>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="feat-text">PDF 첨부 검색 용량 무제한</span>
+            </div>
+            <div class="feat-row">
+              <svg class="feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="feat-text">어드민(Admin) 기능 제공</span>
+            </div>
+          </div>
+          <button class="plan-btn">무료 체험 7일</button>
+        </div>
+      </div>
+
+    </div><!-- /plan-row -->
+
+    <!-- 신청 폼 -->
+    <div class="form-section">
+      <div class="form-fields">
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label class="field-label">회사 <span class="required-mark">*</span></label>
+            <input type="text" class="field-input" value="워트인텔리전스" placeholder="워트전자, 법무법인 워트, 워트대학교">
+          </div>
+          <div class="field">
+            <label class="field-label">직군 <span class="required-mark">*</span></label>
+            <select class="field-input field-select">
+              <option value="">직군을 선택해주세요</option>
+              <option value="ip" selected>IP 실무자</option>
+              <option value="rd">R&D 연구자</option>
+              <option value="strategy">전략·기획자</option>
+              <option value="other">기타</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label class="field-label">부서명</label>
+            <input type="text" class="field-input" value="IP팀" placeholder="부서명을 입력해주세요">
+          </div>
+          <div class="field">
+            <label class="field-label">직급</label>
+            <input type="text" class="field-input" value="팀장" placeholder="직급을 입력해주세요">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label class="field-label">회사 이메일</label>
+            <input type="email" class="field-input" value="hsubkim@wert.co.kr" placeholder="이메일을 입력해주세요">
+          </div>
+          <div class="field">
+            <label class="field-label">회사 전화번호</label>
+            <input type="tel" class="field-input" value="0212345678" placeholder="(-)를 제외하고 입력해주세요">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">어떻게 키워트 인사이트를 알게 되셨나요?</label>
+          <select class="field-input field-select">
+            <option value="">경로를 선택해주세요</option>
+            <option value="referral" selected>지인 추천</option>
+            <option value="search">검색</option>
+            <option value="sns">SNS</option>
+            <option value="media">미디어/뉴스</option>
+            <option value="event">행사/세미나</option>
+            <option value="other">기타</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field-label">키워트 인사이트를 어디에 활용하고 싶으신가요?</label>
+          <div class="textarea-wrap">
+            <textarea class="field-input field-textarea" id="purposeText" maxlength="300" placeholder="예) 활용 업무, 해결하고싶은 이슈, 활용하고 싶은 기능 등" oninput="updateCount(this)">선행기술조사 및 특허 분석 업무에 주로 활용하고자 합니다. AI 특허 검색과 분석 결과물 생성 기능을 통해 조사 업무 효율화를 기대하고 있습니다.</textarea>
+            <span class="char-count" id="charCount">97/300</span>
+          </div>
+        </div>
+
+        <div class="privacy-box">
+          <div class="privacy-check-row">
+            <input type="checkbox" class="privacy-check" id="privacyCheck" checked>
+            <label class="privacy-label" for="privacyCheck">개인정보 처리방침에 동의합니다</label>
+          </div>
+          <p class="privacy-text">'㈜워트인텔리전스'는 고객님의 신청내용에 정확하고 신속한 답변을 드리기 위해 필요한 최소한의 개인정보를 수집하고 있습니다. 이에 개인정보의 수집범위, 보유 및 이용기간에 관하여 고지하오니 확인하신 후 동의하여 주시기 바랍니다.</p>
+          <p class="privacy-detail">(1) 개인정보 수집범위 : 성명, 회사명, 연락처, 이메일<br>(2) 보유 및 이용기간 : 동의를 철회할 때까지</p>
+        </div>
+
+      </div>
+
+      <button class="submit-btn" onclick="handleSubmit()">신청</button>
+    </div>
+
+  </div><!-- /card -->
+</main>
+
+<!-- 신청 완료 오버레이 -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00A08C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2 class="success-title">무료 체험 신청이<br>완료되었습니다!</h2>
+    <p class="success-desc">담당자 확인 후 이메일로 안내 드리겠습니다.<br>빠른 시일 내에 연락드리겠습니다.</p>
+    <p class="success-redirect">잠시 후 홈으로 이동합니다...</p>
+  </div>
+</div>
+
+<script>
+  function updateCount(el) {
+    document.getElementById('charCount').textContent = el.value.length + '/300';
+  }
+
+  function handleSubmit() {
+    const overlay = document.getElementById('successOverlay');
+    overlay.style.display = 'flex';
+    setTimeout(function() { location.href = 'index.html'; }, 2500);
+  }
+</script>
+</body>
+</html>
