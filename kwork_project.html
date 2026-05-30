@@ -22,16 +22,12 @@
     .kp-proj-badge { width: 28px; height: 28px; border-radius: 50%; background: #9333EA; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .kp-proj-name { font-size: 15px; font-weight: 700; color: #111827; white-space: nowrap; max-width: 340px; overflow: hidden; text-overflow: ellipsis; }
     .kp-proj-chevron { color: #6B7280; flex-shrink: 0; }
-    .kp-right { display: flex; align-items: center; gap: 12px; }
-    .kp-user { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #374151; }
-    .kp-user-icon { width: 28px; height: 28px; border-radius: 50%; background: #E0F2F8; display: flex; align-items: center; justify-content: center; color: #00AACB; flex-shrink: 0; }
-    .kp-user-name { font-weight: 600; }
-    .kp-user-plan { color: #00AACB; font-weight: 600; }
-    .kp-user-token { color: #6B7280; }
-    .kp-user-badge { padding: 2px 8px; background: #F3F4F6; border-radius: 4px; font-size: 11px; font-weight: 600; color: #6B7280; }
-    .kp-divider { width: 1px; height: 14px; background: #E5E7EB; }
-    .kp-cs { display: flex; align-items: center; gap: 5px; font-size: 13px; color: #374151; cursor: pointer; padding: 5px 8px; border-radius: 6px; transition: background 0.15s; text-decoration: none; }
-    .kp-cs:hover { background: #F3F4F6; }
+    .kp-header-right { display: flex; align-items: center; flex-shrink: 0; }
+    .btn-text { padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap; cursor: pointer; background: none; border: none; font-family: inherit; }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; flex-shrink: 0; margin: 0 4px; }
+    .user-info { display: flex; align-items: center; gap: 6px; }
+    .user-icon { width: 28px; height: 28px; border-radius: 50%; background: #E0F2F8; display: flex; align-items: center; justify-content: center; color: #00AACB; flex-shrink: 0; }
 
     /* ── LAYOUT ── */
     .kp-layout { display: flex; flex: 1; overflow: hidden; }
@@ -155,22 +151,7 @@
     </div>
   </div>
 
-  <div class="kp-right">
-    <div class="kp-user">
-      <div class="kp-user-icon">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </div>
-      <span class="kp-user-name">김형섭 (hsubkim)</span>
-      <span class="kp-user-plan">무제한</span>
-      <span class="kp-user-token">(1,000P)</span>
-      <span class="kp-user-badge">관리자</span>
-    </div>
-    <div class="kp-divider"></div>
-    <a href="cslab.html" class="kp-cs">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-      고객센터
-    </a>
-  </div>
+  <div class="kp-header-right" id="kpHeaderUser"></div>
 </div>
 
 <!-- ── BODY ── -->
@@ -330,6 +311,35 @@
     el.classList.add('active');
   }
   document.querySelector('.kp-tree-section .kp-tree-arrow').style.transform = 'rotate(90deg)';
+
+  // 헤더 유저 영역
+  (function() {
+    var user;
+    try { user = JSON.parse(localStorage.getItem('kw_user')); } catch(e) { user = null; }
+    var el = document.getElementById('kpHeaderUser');
+    if (!el) return;
+    if (user) {
+      el.innerHTML =
+        '<div class="user-info">' +
+          '<div class="user-icon">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
+          '</div>' +
+          '<span style="font-size:12px;font-weight:500;color:#374151;margin-left:6px;">' + user.name + '</span>' +
+        '</div>' +
+        '<div class="btn-divider"></div>' +
+        '<button class="btn-text" onclick="kpLogout()">로그아웃</button>';
+    } else {
+      el.innerHTML =
+        '<span style="font-size:12px;color:#374151;font-weight:500;">김형섭</span>' +
+        '<div class="btn-divider"></div>' +
+        '<button class="btn-text" onclick="kpLogout()">로그아웃</button>';
+    }
+  })();
+
+  function kpLogout() {
+    localStorage.removeItem('kw_user');
+    window.location.href = 'login.html';
+  }
 </script>
 </body>
 </html>
