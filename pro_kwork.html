@@ -69,11 +69,7 @@
 
     /* ── CENTER MAIN ── */
     .kw-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .kw-headers-row { display: flex; flex-shrink: 0; border-bottom: 1px solid #E5E7EB; }
     .kw-content-row { flex: 1; display: flex; overflow-y: auto; overflow-x: hidden; }
-    .kw-main-header { flex: 1; padding: 20px 24px 14px; }
-    .kw-main-title { font-size: 20px; font-weight: 800; color: #111827; margin-bottom: 14px; letter-spacing: -0.02em; }
-    .kw-toolbar { display: flex; align-items: center; gap: 8px; }
     .kw-new-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; background: #0BB8C9; color: #fff; font-size: 13px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; }
     .kw-new-btn:hover { background: #09A5B5; }
     .kw-icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid #D1D5DB; border-radius: 5px; background: #fff; color: #6B7280; cursor: pointer; transition: border-color 0.12s, background 0.12s; }
@@ -85,7 +81,9 @@
     .kw-search-go { display: flex; align-items: center; justify-content: center; width: 32px; height: 30px; background: #0BB8C9; color: #fff; border: none; border-radius: 0 5px 5px 0; cursor: pointer; flex-shrink: 0; }
     .kw-search-go:hover { background: #09A5B5; }
 
-    .kw-main-body { flex: 1; padding: 16px 24px 40px; }
+    .kw-main-body { flex: 1; padding: 20px 24px 40px; }
+    .kw-main-title { font-size: 20px; font-weight: 800; color: #111827; margin-bottom: 14px; letter-spacing: -0.02em; }
+    .kw-toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
 
     /* Project card */
     .kw-proj-card { border: 1px solid #E5E7EB; border-radius: 10px; padding: 20px 20px 0; background: #fff; margin-bottom: 12px; }
@@ -115,10 +113,12 @@
     .kw-history-link:hover { color: #0BB8C9; }
 
     /* ── RIGHT PANEL ── */
-    .kw-right-header { width: 380px; flex-shrink: 0; padding: 20px 16px 14px; border-left: 1px solid #E5E7EB; background: #F3F4F6; }
+    .kw-right { width: 380px; flex-shrink: 0; display: flex; flex-direction: column; }
+    .kw-right-spacer { height: 62px; flex-shrink: 0; }
+    .kw-right-header { padding: 14px 16px; background: #F3F4F6; border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB; flex-shrink: 0; }
     .kw-right-title { font-size: 15px; font-weight: 700; color: #111827; line-height: 1.5; }
     .kw-right-title strong { color: #0BB8C9; }
-    .kw-right-body { width: 380px; flex-shrink: 0; padding: 12px 0; background: #fff; }
+    .kw-right-body { flex: 1; padding: 12px 0; background: #fff; }
 
     .kw-patent-card { border: 1px solid #E5E7EB; border-radius: 10px; margin: 0 12px 12px; padding: 16px; }
     .kw-patent-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
@@ -349,8 +349,8 @@
 
   <!-- CENTER MAIN -->
   <div class="kw-main">
-    <div class="kw-headers-row">
-    <div class="kw-main-header">
+    <div class="kw-content-row">
+    <div class="kw-main-body">
       <div class="kw-main-title">전체 프로젝트</div>
       <div class="kw-toolbar">
         <button class="kw-new-btn">새 프로젝트</button>
@@ -372,14 +372,6 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
       </div>
-    </div><!-- /.kw-main-header -->
-    <div class="kw-right-header">
-      <div class="kw-right-title"><strong>김형섭</strong> 님께 알려주고 싶은 특허</div>
-    </div>
-    </div><!-- /.kw-headers-row -->
-
-    <div class="kw-content-row">
-    <div class="kw-main-body">
       <!-- 프로젝트 카드 -->
       <div class="kw-proj-card">
         <div class="kw-proj-card-top">
@@ -442,6 +434,11 @@
     </div>
 
     <!-- RIGHT PANEL -->
+    <div class="kw-right">
+      <div class="kw-right-spacer"></div>
+      <div class="kw-right-header">
+        <div class="kw-right-title"><strong>김형섭</strong> 님께 알려주고 싶은 특허</div>
+      </div>
     <div class="kw-right-body">
 
       <!-- 특허 카드 1 -->
@@ -498,6 +495,7 @@
       </div>
 
     </div><!-- /.kw-right-body -->
+    </div><!-- /.kw-right -->
     </div><!-- /.kw-content-row -->
   </div><!-- /.kw-main -->
 
