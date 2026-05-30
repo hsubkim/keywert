@@ -29,17 +29,13 @@
     /* ── 2DEPTH TAB BAR ── */
     .guide-tabs {
       background: #0BB8C9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 40px;
       position: sticky;
       top: 65px;
       z-index: 190;
-    }
-    .guide-tabs-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      height: 100%;
     }
     .guide-tab {
       padding: 0 16px;
@@ -139,12 +135,10 @@
 
 <!-- ── 2DEPTH TAB BAR ── -->
 <nav class="guide-tabs">
-  <div class="guide-tabs-inner">
-    <a href="#" class="guide-tab" data-tab="start">keywert 시작하기</a>
-    <a href="#" class="guide-tab active" data-tab="pro">Pro 이용가이드</a>
-    <a href="#" class="guide-tab" data-tab="insight">Insight 이용가이드</a>
-    <a href="#" class="guide-tab" data-tab="data">데이터 커버리지</a>
-  </div>
+  <a href="#" class="guide-tab" data-tab="start">keywert 시작하기</a>
+  <a href="#" class="guide-tab active" data-tab="pro">Pro 이용가이드</a>
+  <a href="#" class="guide-tab" data-tab="insight">Insight 이용가이드</a>
+  <a href="#" class="guide-tab" data-tab="data">데이터 커버리지</a>
 </nav>
 
 <!-- ── GUIDE LAYOUT ── -->
