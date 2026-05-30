@@ -457,7 +457,7 @@ function kwInjectFreeTrialModal() {
             <p class="kw-ft-privacy-detail">(1) 개인정보 수집범위 : 성명, 회사명, 연락처, 이메일<br>(2) 보유 및 이용기간 : 동의를 철회할 때까지</p>
             <div style="border-top: 1px solid rgba(30,30,30,0.08); margin-top: 2px; padding-top: 10px; display: flex; flex-direction: column; gap: 8px;">
               <div class="kw-ft-privacy-row">
-                <input type="checkbox" class="kw-ft-checkbox" id="kwFtMarketing" onchange="kwFreeTrialCheckForm()">
+                <input type="checkbox" class="kw-ft-checkbox" id="kwFtMarketing" checked onchange="kwFreeTrialCheckForm()">
                 <label class="kw-ft-privacy-label" for="kwFtMarketing">무료체험 혜택 제공 및 이벤트·프로모션 안내를 위한 광고성 정보 수신에 동의합니다.</label>
               </div>
               <p class="kw-ft-privacy-text">동의 시 이메일, 문자(SMS/LMS), 전화 등을 통해 무료체험 및 서비스 관련 정보를 받아보실 수 있습니다. 동의는 언제든지 철회할 수 있으며, 동의하지 않을 경우 무료체험 혜택 제공이 제한될 수 있습니다.</p>
@@ -467,7 +467,7 @@ function kwInjectFreeTrialModal() {
         </div>
 
         <div class="kw-ft-submit-wrap">
-          <button id="kwFtSubmit" class="kw-ft-submit active" onclick="kwSubmitFreeTrial()">신청</button>
+          <button id="kwFtSubmit" class="kw-ft-submit active" onclick="kwSubmitFreeTrial()">무료체험 시작하기</button>
         </div>
       </div>
     </div>
