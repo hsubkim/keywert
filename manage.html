@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
-  <title>keywert > Pro > 관리</title>
+  <title>keywert > 관리</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,14 +39,15 @@
     .btn-text:hover { background: #F3F4F6; color: #374151; }
     .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
     .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
-    .btn-chemistry { display:none; }
 
     /* ── LAYOUT ── */
     .mg-layout { display: flex; height: calc(100vh - 112px); overflow: hidden; }
 
     /* ── LEFT SIDEBAR ── */
     .mg-sidebar { width: 280px; flex-shrink: 0; background: #F1F1F1; border-right: 1px solid rgba(30,30,30,0.12); overflow-y: auto; padding: 12px 16px 24px; display: flex; flex-direction: column; gap: 28px; }
-    .mg-sidebar-title { font-size: 20px; font-weight: 700; color: #000; line-height: 138%; }
+    .mg-sidebar-section { display: flex; flex-direction: column; gap: 12px; }
+    .mg-sidebar-title { font-size: 16px; font-weight: 700; color: #000; line-height: 138%; padding: 4px 4px 0; }
+    .mg-sidebar-divider { height: 1px; background: rgba(30,30,30,0.10); margin: 0 4px; }
     .mg-nav-group { display: flex; flex-direction: column; gap: 4px; }
     .mg-nav-label { font-size: 13px; font-weight: 500; color: rgba(30,30,30,0.42); padding: 0 4px; margin-bottom: 4px; }
     .mg-nav-item { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 8px 8px 4px; border-radius: 4px; font-size: 15px; font-weight: 500; color: rgba(30,30,30,0.84); text-decoration: none; cursor: pointer; border: none; background: none; font-family: inherit; transition: background 0.12s; }
@@ -60,6 +61,14 @@
 
     .mg-title-row { display: flex; align-items: center; justify-content: space-between; }
     .mg-title { font-size: 32px; font-weight: 700; color: #000; }
+    .mg-title-actions { display: flex; align-items: center; gap: 16px; }
+
+    .mg-search-input { display: flex; align-items: center; gap: 8px; width: 280px; padding: 8px 12px; border: 1px solid rgba(30,30,30,0.12); border-radius: 8px; background: #fff; }
+    .mg-search-input input { flex: 1; border: none; outline: none; font-size: 14px; font-family: inherit; color: #1E1E1E; background: none; }
+    .mg-search-input input::placeholder { color: rgba(30,30,30,0.26); }
+
+    .mg-invite-btn { display: flex; align-items: center; gap: 4px; padding: 10px 16px; background: #00A08C; color: #fff; font-size: 14px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+    .mg-invite-btn:hover { background: #009080; }
 
     /* ── TABLE SECTION ── */
     .mg-table-section { display: flex; flex-direction: column; gap: 0; }
@@ -67,6 +76,8 @@
     .mg-tabs-row { display: flex; align-items: flex-end; border-bottom: 1px solid rgba(30,30,30,0.12); position: relative; }
     .mg-tab { padding: 8px 16px 10px; font-size: 16px; font-weight: 500; color: rgba(30,30,30,0.42); cursor: pointer; border: none; background: none; font-family: inherit; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s; }
     .mg-tab.active { font-weight: 700; color: #1E1E1E; border-bottom-color: rgba(30,30,30,0.74); }
+    .mg-seats { position: absolute; right: 0; bottom: 10px; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: rgba(5,23,45,0.84); }
+    .mg-seats-count { font-size: 16px; font-weight: 500; color: #00A08C; background: rgba(0,160,140,0.09); padding: 0 4px; border-radius: 4px; }
 
     /* ── TABLE ── */
     .mg-table { width: 100%; border-collapse: collapse; }
@@ -86,6 +97,10 @@
     .mg-me-badge { font-size: 12px; font-weight: 500; color: #00A08C; background: rgba(0,160,140,0.09); padding: 0 4px; border-radius: 4px; }
     .mg-member-email { font-size: 12px; color: rgba(30,30,30,0.55); }
 
+    .mg-chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 4px 4px 8px; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+    .mg-chip-teal { border: 1px solid rgba(0,170,140,0.36); color: #00A08C; background: rgba(0,160,140,0.04); }
+    .mg-chip-gray { border: 1px solid rgba(30,30,30,0.12); color: rgba(30,30,30,0.84); background: #fff; }
+
     .mg-icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: none; background: none; cursor: pointer; border-radius: 4px; color: rgba(30,30,30,0.55); }
     .mg-icon-btn:hover { background: rgba(90,90,90,0.08); }
 
@@ -97,6 +112,9 @@
     .mg-page-num { display: flex; align-items: center; justify-content: center; min-width: 27px; height: 30px; padding: 0 4px; border: none; background: none; cursor: pointer; font-size: 14px; font-family: inherit; color: rgba(5,23,45,0.72); border-radius: 4px; }
     .mg-page-num.active { background: rgba(90,90,90,0.05); color: #000; font-weight: 500; }
     .mg-page-num:hover:not(.active) { background: rgba(90,90,90,0.05); }
+
+    /* ── INFO ICON ── */
+    .th-with-icon { display: flex; align-items: center; gap: 4px; }
   </style>
 </head>
 <body>
@@ -120,12 +138,12 @@
       </a>
       <nav>
         <div onmouseenter="kwMegaShow('megaInsightHover', this)" onmouseleave="kwMegaHide()">
-          <a href="insight.html" class="nav-btn">Insight
+          <a href="insight.html" class="nav-btn active">Insight
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
         </div>
         <div onmouseenter="kwMegaShow('megaProHover', this)" onmouseleave="kwMegaHide()">
-          <a href="pro.html" class="nav-btn active">Pro
+          <a href="pro.html" class="nav-btn">Pro
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </a>
         </div>
@@ -143,20 +161,17 @@
     </div>
   </div>
 
-  <!-- 고정 바: Pro -->
+  <!-- 고정 바: Insight -->
   <div class="mega-bar mega-bar--fixed" style="border-bottom: 1px solid #E5E7EB;">
     <div class="container">
       <div class="mega-bar-inner">
         <nav class="mega-tabs">
-          <a href="pro_search.html" class="mega-tab">일반검색</a>
-          <a href="#" class="mega-tab">선행조사용 검색</a>
-          <a href="#" class="mega-tab">AI검색</a>
-          <a href="#" class="mega-tab">번호검색</a>
-          <a href="#" class="mega-tab">미국소송검색</a>
-          <a href="pro_kwork.html" class="mega-tab">K WORK</a>
+          <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="insight_project.html" class="mega-tab">프로젝트</a>
         </nav>
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
-          <a href="plan_unified.html?tab=pro" class="mega-tab-util">플랜 안내</a>
+          <a href="plan_unified.html" class="mega-tab-util">플랜 안내</a>
           <a href="https://hsubkim.github.io/keywert/cslab_guide.html" class="mega-tab-util" target="_blank">이용 가이드</a>
           <a href="manage.html" class="mega-tab-util active">관리</a>
         </nav>
@@ -209,42 +224,91 @@
 
   <!-- LEFT SIDEBAR -->
   <div class="mg-sidebar">
-    <div class="mg-sidebar-title">pro 관리</div>
 
-    <div class="mg-nav-group">
-      <div class="mg-nav-label">워크스페이스</div>
-      <button class="mg-nav-item active">
-        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-        구성원
-      </button>
-      <button class="mg-nav-item">
-        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
-        워크스페이스 정보
-      </button>
-      <button class="mg-nav-item">
-        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
-        결제
-      </button>
+    <!-- Insight 관리 섹션 -->
+    <div class="mg-sidebar-section">
+      <div class="mg-sidebar-title">insight 관리</div>
+      <div class="mg-nav-group">
+        <div class="mg-nav-label">워크스페이스</div>
+        <button class="mg-nav-item active" onclick="showSection('insight-members', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          구성원
+        </button>
+        <button class="mg-nav-item" onclick="showSection('insight-workspace', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          워크스페이스 정보
+        </button>
+        <button class="mg-nav-item" onclick="showSection('insight-billing', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
+          결제
+        </button>
+      </div>
+      <div class="mg-nav-group">
+        <div class="mg-nav-label">접근 및 보안</div>
+        <button class="mg-nav-item" onclick="showSection('insight-ip', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          IP 접근 제한
+        </button>
+        <button class="mg-nav-item" onclick="showSection('insight-sso', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          SSO(통합 로그인)
+        </button>
+        <button class="mg-nav-item" onclick="showSection('insight-audit', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
+          감사 로그
+        </button>
+      </div>
+      <div class="mg-nav-group">
+        <div class="mg-nav-label">환경 설정</div>
+        <button class="mg-nav-item" onclick="showSection('insight-theme', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+          테마
+        </button>
+        <button class="mg-nav-item" onclick="showSection('insight-mode', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
+          모드
+        </button>
+      </div>
     </div>
 
-    <div class="mg-nav-group">
-      <div class="mg-nav-label">접근 및 보안</div>
-      <button class="mg-nav-item">
-        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
-        IP 접근 제한
-      </button>
-      <button class="mg-nav-item">
-        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-        SSO(통합 로그인)
-      </button>
-    </div>
+    <div class="mg-sidebar-divider"></div>
 
-    <div class="mg-nav-group">
-      <div class="mg-nav-label">환경 설정</div>
-      <button class="mg-nav-item">
-        <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
-        모드
-      </button>
+    <!-- Pro 관리 섹션 -->
+    <div class="mg-sidebar-section">
+      <div class="mg-sidebar-title">pro 관리</div>
+      <div class="mg-nav-group">
+        <div class="mg-nav-label">워크스페이스</div>
+        <button class="mg-nav-item" onclick="showSection('pro-members', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          구성원
+        </button>
+        <button class="mg-nav-item" onclick="showSection('pro-workspace', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          워크스페이스 정보
+        </button>
+        <button class="mg-nav-item" onclick="showSection('pro-billing', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
+          결제
+        </button>
+      </div>
+      <div class="mg-nav-group">
+        <div class="mg-nav-label">접근 및 보안</div>
+        <button class="mg-nav-item" onclick="showSection('pro-ip', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          IP 접근 제한
+        </button>
+        <button class="mg-nav-item" onclick="showSection('pro-sso', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          SSO(통합 로그인)
+        </button>
+      </div>
+      <div class="mg-nav-group">
+        <div class="mg-nav-label">환경 설정</div>
+        <button class="mg-nav-item" onclick="showSection('pro-mode', this)">
+          <span class="mg-nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
+          모드
+        </button>
+      </div>
     </div>
   </div>
 
@@ -254,7 +318,17 @@
 
       <!-- Title Row -->
       <div class="mg-title-row">
-        <h1 class="mg-title">구성원</h1>
+        <h1 class="mg-title" id="mainTitle">구성원</h1>
+        <div class="mg-title-actions">
+          <div class="mg-search-input">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(30,30,30,0.4)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="이름 또는 이메일로 검색">
+          </div>
+          <button class="mg-invite-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            동료 초대
+          </button>
+        </div>
       </div>
 
       <!-- Table Section -->
@@ -262,6 +336,11 @@
         <!-- Tabs -->
         <div class="mg-tabs-row">
           <button class="mg-tab active">동료(20)</button>
+          <button class="mg-tab">게스트(5)</button>
+          <div class="mg-seats">
+            할당할 수 있는 시트
+            <span class="mg-seats-count">11</span>
+          </div>
         </div>
 
         <!-- Table -->
@@ -270,6 +349,8 @@
             <tr>
               <th class="mg-col-name">이름</th>
               <th>워크스페이스</th>
+              <th><div class="th-with-icon">시트 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(30,30,30,0.4)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div></th>
+              <th>권한</th>
               <th class="mg-col-settings">설정</th>
             </tr>
           </thead>
@@ -277,51 +358,71 @@
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">김</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">김지석</span></div><span class="mg-member-email">hong@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-teal">라이트 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></td>
+              <td>관리자</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">김</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">김지윤</span></div><span class="mg-member-email">taeyoung@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-teal">라이트 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></td>
+              <td>관리자</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">김</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">김정호</span><span class="mg-me-badge">나</span></div><span class="mg-member-email">jung012@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-teal">라이트 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></td>
+              <td>관리자</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">이</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">이준호</span></div><span class="mg-member-email">park456@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-teal">라이트 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></td>
+              <td>관리자</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">박</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">박서현</span></div><span class="mg-member-email">kim234@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-teal">라이트 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></td>
+              <td>동료</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr class="selected">
               <td><div class="mg-member"><div class="mg-avatar">박</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">박지호</span></div><span class="mg-member-email">park456@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-teal">라이트 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></td>
+              <td>동료</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">신</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">신지윤</span></div><span class="mg-member-email">yoon123@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-gray">추가 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></td>
+              <td>동료</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">오</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">오지후</span></div><span class="mg-member-email">seo567@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-gray">추가 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></td>
+              <td>동료</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">한</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">한유준</span></div><span class="mg-member-email">designbasekorea@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-gray">추가 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></td>
+              <td>동료</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
             <tr>
               <td><div class="mg-member"><div class="mg-avatar">최</div><div class="mg-member-info"><div class="mg-member-name-row"><span class="mg-member-name">최지우</span></div><span class="mg-member-email">kim234@wert.co.kr</span></div></div></td>
               <td>워트인텔리전스</td>
+              <td><span class="mg-chip mg-chip-gray">추가 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></td>
+              <td>동료</td>
               <td><button class="mg-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></td>
             </tr>
           </tbody>
@@ -341,6 +442,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  function showSection(section, btn) {
+    document.querySelectorAll('.mg-nav-item').forEach(function(el) { el.classList.remove('active'); });
+    if (btn) btn.classList.add('active');
+  }
+</script>
 
 <script src="plan_insight_modal.js"></script>
 <script src="plan_pro_modal.js"></script>

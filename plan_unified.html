@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > 플랜 안내</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; }
+
+    /* ── GNB ── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+    header .container { max-width: none; }
+    header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
+    .header-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; height: 64px; gap: 16px; }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 28px; width: auto; display: block; }
+    .logo-fallback { display: none; align-items: center; gap: 7px; font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em; }
+    nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .nav-btn { display: flex; align-items: center; gap: 4px; padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827; cursor: pointer; border-radius: 8px; background: none; border: none; font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s; }
+    .nav-btn:hover { background: #F3F4F6; }
+    .nav-btn.active { color: #0BB8C9; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-text { padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
+    .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
+    .btn-primary:hover { background: #0099b5; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 48px 52px 80px; }
+
+    /* ── SERVICE TABS ── */
+    .service-tabs { display: flex; align-items: center; gap: 8px; margin-bottom: 40px; }
+    .service-tab { padding: 8px 24px; font-size: 15px; font-weight: 600; border-radius: 8px; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; }
+    .service-tab.active-insight { background: #0BB8C9; color: #fff; }
+    .service-tab.active-pro { background: #00A08C; color: #fff; }
+    .service-tab.inactive { background: #F3F4F6; color: rgba(30,30,30,0.55); }
+    .service-tab.inactive:hover { background: #E5E7EB; color: rgba(30,30,30,0.84); }
+
+    /* ── PLAN SECTION ── */
+    .plan-section { display: none; }
+    .plan-section.active { display: block; }
+
+    .plan-section-title { font-size: 28px; font-weight: 700; color: #000; line-height: 136%; margin-bottom: 8px; }
+    .plan-section-sub { font-size: 15px; color: rgba(30,30,30,0.55); margin-bottom: 32px; }
+
+    /* ── TOGGLE ── */
+    .plan-toggle-row { display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .plan-toggle-label { font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.55); }
+    .plan-toggle-sw { width: 44px; height: 24px; background: #00A08C; border-radius: 40px; padding: 4px 4px 4px 22px; display: flex; align-items: center; cursor: pointer; }
+    .plan-toggle-knob { width: 16px; height: 16px; background: #fff; border-radius: 50%; }
+
+    /* ── PLAN GRID ── */
+    .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+    .plan-col { display: flex; flex-direction: column; }
+    .plan-col-padded { padding-top: 40px; }
+    .plan-col-pro { display: flex; flex-direction: column; filter: drop-shadow(0 0 10px rgba(0,170,140,0.36)); }
+
+    .plan-promo-banner { background: #00A08C; padding: 2px 4px; border-radius: 12px 12px 0 0; display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .plan-promo-top { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; color: #fff; padding: 6px 0 2px; }
+    .plan-promo-sub { font-size: 12px; font-weight: 400; color: #E8F6F5; padding-bottom: 6px; }
+
+    .plan-card { background: rgba(90,90,90,0.05); border: 1px solid rgba(30,30,30,0.02); border-radius: 12px; padding: 16px 16px 32px; display: flex; flex-direction: column; gap: 24px; flex: 1; }
+    .plan-card-pro { border-radius: 0 0 12px 12px; border-top: none; border-color: #00A08C; }
+
+    .plan-card-head { display: flex; flex-direction: column; gap: 24px; }
+    .plan-card-top { display: flex; flex-direction: column; gap: 2px; }
+    .plan-card-sub { font-size: 13px; font-weight: 500; color: #1E1E1E; }
+    .plan-card-name-row { display: flex; align-items: center; gap: 6px; }
+    .plan-card-name { font-size: 18px; font-weight: 700; color: #000; }
+    .plan-badge { font-size: 14px; font-weight: 700; color: #00A08C; background: rgba(0,160,140,0.09); padding: 0 4px; border-radius: 4px; }
+
+    .plan-price-wrap { display: flex; flex-direction: column; gap: 0; }
+    .plan-original-price { font-size: 16px; font-weight: 500; color: rgba(30,30,30,0.42); text-decoration: line-through; }
+    .plan-price-row { display: flex; align-items: flex-end; gap: 4px; }
+    .plan-price { font-size: 22px; font-weight: 700; color: #1E1E1E; }
+    .plan-period { font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.55); margin-bottom: 2px; }
+    .plan-price-sub { font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.55); }
+
+    .plan-btn { width: 100%; padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; border: none; transition: all 0.15s; line-height: 146%; }
+    .plan-btn-current { background: rgba(0,160,140,0.09); color: rgba(30,30,30,0.16); cursor: default; }
+    .plan-btn-green { background: #00A08C; color: #fff; }
+    .plan-btn-green:hover { background: #009080; }
+    .plan-btn-outline-green { background: #00A08C; color: #fff; border: 1px solid transparent; }
+    .plan-btn-outline-green:hover { background: #009080; }
+
+    .plan-features { display: flex; flex-direction: column; gap: 4px; }
+    .plan-feature-label { font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.55); margin-bottom: 2px; }
+    .plan-fi { display: flex; align-items: flex-start; gap: 4px; font-size: 13px; font-weight: 500; color: #1E1E1E; }
+    .plan-fi svg { flex-shrink: 0; margin-top: 2px; }
+    .plan-fi-right { display: flex; flex-direction: column; gap: 2px; }
+    .plan-fi-sub-text { font-size: 12px; font-weight: 500; color: rgba(30,30,30,0.55); }
+    .plan-fi strong { font-weight: 700; }
+    .plan-feature-group-label { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.55); margin-bottom: 2px; }
+
+    .plan-vat { display: flex; align-items: center; gap: 4px; font-size: 12px; color: rgba(30,30,30,0.55); margin-top: 16px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;">keywert</span>
+        </span>
+      </a>
+      <nav>
+        <a href="insight.html" class="nav-btn">Insight
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <a href="pro.html" class="nav-btn">Pro
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+      </nav>
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text" target="_blank">고객센터</a>
+        </div>
+        <a href="free_trial.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- 서비스 탭 -->
+  <div class="service-tabs">
+    <button class="service-tab active-insight" id="tabInsight" onclick="switchTab('insight')">Insight 플랜</button>
+    <button class="service-tab inactive" id="tabPro" onclick="switchTab('pro')">Pro 플랜</button>
+  </div>
+
+  <!-- ── Insight 플랜 섹션 ── -->
+  <div class="plan-section active" id="sectionInsight">
+    <h2 class="plan-section-title">플랜을 구독하고 기술 리서치 전 과정을 AI로 자동화하세요</h2>
+    <p class="plan-section-sub">Insight는 AI 기반 특허 분석 서비스입니다. 원하는 플랜을 선택하여 시작하세요.</p>
+
+    <div class="plan-toggle-row">
+      <span class="plan-toggle-label">연간 플랜</span>
+      <div class="plan-toggle-sw"><div class="plan-toggle-knob"></div></div>
+    </div>
+
+    <div class="plan-grid">
+      <!-- 라이트 -->
+      <div class="plan-col plan-col-padded">
+        <div class="plan-card">
+          <div class="plan-card-head">
+            <div class="plan-card-top">
+              <div class="plan-card-sub">AI 특허 분석을 체험하고 싶은 개인이라면</div>
+              <div class="plan-card-name-row"><span class="plan-card-name">라이트</span><span class="plan-badge">47% 할인</span></div>
+            </div>
+            <div class="plan-price-wrap">
+              <div class="plan-original-price">158,000원</div>
+              <div class="plan-price-row"><span class="plan-price">82,500원</span><span class="plan-period">1인/월</span></div>
+            </div>
+          </div>
+          <button class="plan-btn plan-btn-current" disabled>현재 플랜</button>
+          <div class="plan-features">
+            <div class="plan-feature-label">지급된 토큰 사용</div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 토큰 지급</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 특허 검색</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 분석 결과물 생성</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.3)" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg><div class="plan-fi-right"><span>프로젝트 생성 제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.3)" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg><div class="plan-fi-right"><span>AI 분석 결과물 저장 및 공유</span><span class="plan-fi-sub-text">· 파일 10MB/건, 월 누적 100MB</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 프로 -->
+      <div class="plan-col plan-col-pro">
+        <div class="plan-promo-banner">
+          <div class="plan-promo-top">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="white"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z"/></svg>
+            6월 까지, 토큰 2배 이벤트
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="white"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z"/></svg>
+          </div>
+          <div class="plan-promo-sub">라이트 대비 약 20배 토큰 제공</div>
+        </div>
+        <div class="plan-card plan-card-pro">
+          <div class="plan-card-head">
+            <div class="plan-card-top">
+              <div class="plan-card-sub">AI 특허 분석을 업무에 적극 활용하고 싶다면</div>
+              <div class="plan-card-name-row"><span class="plan-card-name">프로</span><span class="plan-badge">44% 할인</span></div>
+            </div>
+            <div class="plan-price-wrap">
+              <div class="plan-original-price">598,800원</div>
+              <div class="plan-price-row"><span class="plan-price">332,500원</span><span class="plan-period">1인/월</span></div>
+            </div>
+          </div>
+          <button class="plan-btn plan-btn-green">프로 시작하기</button>
+          <div class="plan-features">
+            <div class="plan-feature-label">토큰 걱정없는 AI 기능 사용</div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span><strong>라이트 대비 AI 토큰 10배 지급</strong></span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 특허 검색</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 분석 결과물 생성</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>프로젝트 생성 무제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>외부 사용자 초대 및 협업</span><span class="plan-fi-sub-text">· 게스트 3명/시트 당</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>AI 분석 결과물 저장 및 공유 무제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>PDF 첨부 검색 용량 무제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>어드민(Admin) 기능 제공</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 엔터프라이즈 -->
+      <div class="plan-col plan-col-padded">
+        <div class="plan-card">
+          <div class="plan-card-head">
+            <div class="plan-card-top">
+              <div class="plan-card-sub">대규모 조직에 맞춤 적용하고 싶다면</div>
+              <div class="plan-card-name-row"><span class="plan-card-name">엔터프라이즈</span></div>
+            </div>
+            <div class="plan-price-wrap">
+              <div class="plan-price-sub">15명 이상 이용한다면</div>
+              <div class="plan-price-row"><span class="plan-price">맞춤형 가격</span></div>
+            </div>
+          </div>
+          <button class="plan-btn plan-btn-outline-green">문의하기</button>
+          <div class="plan-features">
+            <div class="plan-feature-group-label">라이트 ⋅ 프로 플랜의 모든 기능 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.55)" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v4M8 11v.5"/></svg></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>외부 사용자 초대 및 협업 무제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>기업 보안 강화 기능</span><span class="plan-fi-sub-text">· SAML SSO 통합 로그인<br>· 접속 IP 관리<br>· 감사 로그</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>기업 환경에 맞는 결제 방식 지원</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>전담 어카운트 매니저</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plan-vat">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.55)" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v4M8 11v.5"/></svg>
+      <span>표시된 금액에서 부가세(10%)는 별도로 부과됩니다.</span>
+    </div>
+  </div>
+
+  <!-- ── Pro 플랜 섹션 ── -->
+  <div class="plan-section" id="sectionPro">
+    <h2 class="plan-section-title">특허 검색과 분석, 시각화, 보고서 작성까지 모두 이용하세요.</h2>
+    <p class="plan-section-sub">Pro는 특허 검색 전문 서비스입니다. 원하는 플랜을 선택하여 시작하세요.</p>
+
+    <div class="plan-toggle-row">
+      <span class="plan-toggle-label">연간 플랜</span>
+      <div class="plan-toggle-sw"><div class="plan-toggle-knob"></div></div>
+    </div>
+
+    <div class="plan-grid">
+      <!-- 라이트 -->
+      <div class="plan-col plan-col-padded">
+        <div class="plan-card">
+          <div class="plan-card-head">
+            <div class="plan-card-top">
+              <div class="plan-card-sub">특허 검색&amp;분석을 이용하고 싶은 개인이라면</div>
+              <div class="plan-card-name-row"><span class="plan-card-name">라이트</span><span class="plan-badge">47% 할인</span></div>
+            </div>
+            <div class="plan-price-wrap">
+              <div class="plan-original-price">158,000원</div>
+              <div class="plan-price-row"><span class="plan-price">82,500원</span><span class="plan-period">1인/월</span></div>
+            </div>
+          </div>
+          <button class="plan-btn plan-btn-current" disabled>현재 플랜</button>
+          <div class="plan-features">
+            <div class="plan-feature-label">지급된 토큰 사용</div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 토큰 지급</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 특허 검색</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 분석 결과물 생성</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.3)" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg><div class="plan-fi-right"><span>프로젝트 생성 제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.3)" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg><div class="plan-fi-right"><span>AI 분석 결과물 저장 및 공유</span><span class="plan-fi-sub-text">· 파일 10MB/건, 월 누적 100MB</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 프로 -->
+      <div class="plan-col plan-col-pro">
+        <div class="plan-promo-banner">
+          <div class="plan-promo-top">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="white"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z"/></svg>
+            insight 무료 토큰 2배 이벤트
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="white"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z"/></svg>
+          </div>
+          <div class="plan-promo-sub">pro와 함께 insight 이용도 한번에!</div>
+        </div>
+        <div class="plan-card plan-card-pro">
+          <div class="plan-card-head">
+            <div class="plan-card-top">
+              <div class="plan-card-sub">특허 검색&amp;분석을 업무에 활용하고 싶다면</div>
+              <div class="plan-card-name-row"><span class="plan-card-name">프로</span><span class="plan-badge">44% 할인</span></div>
+            </div>
+            <div class="plan-price-wrap">
+              <div class="plan-original-price">598,800원</div>
+              <div class="plan-price-row"><span class="plan-price">332,500원</span><span class="plan-period">1인/월</span></div>
+            </div>
+          </div>
+          <button class="plan-btn plan-btn-green">프로 시작하기</button>
+          <div class="plan-features">
+            <div class="plan-feature-label">토큰 걱정없는 AI 기능 사용</div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span><strong>라이트 대비 AI 토큰 10배 지급</strong></span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 특허 검색</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.4 5.8L13.5 6.1L10.5 8.8L11.4 12.9L8 10.8L4.6 12.9L5.5 8.8L2.5 6.1L6.6 5.8L8 2Z" fill="#00A08C"/></svg><div class="plan-fi-right"><span>AI 분석 결과물 생성</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>프로젝트 생성 무제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>외부 사용자 초대 및 협업</span><span class="plan-fi-sub-text">· 게스트 3명/시트 당</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>AI 분석 결과물 저장 및 공유 무제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>PDF 첨부 검색 용량 무제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>어드민(Admin) 기능 제공</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 엔터프라이즈 -->
+      <div class="plan-col plan-col-padded">
+        <div class="plan-card">
+          <div class="plan-card-head">
+            <div class="plan-card-top">
+              <div class="plan-card-sub">대규모 조직에 맞춤 적용하고 싶다면</div>
+              <div class="plan-card-name-row"><span class="plan-card-name">엔터프라이즈</span></div>
+            </div>
+            <div class="plan-price-wrap">
+              <div class="plan-price-sub">15명 이상 이용한다면</div>
+              <div class="plan-price-row"><span class="plan-price">맞춤형 가격</span></div>
+            </div>
+          </div>
+          <button class="plan-btn plan-btn-outline-green">문의하기</button>
+          <div class="plan-features">
+            <div class="plan-feature-group-label">라이트 ⋅ 프로 플랜의 모든 기능 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.55)" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v4M8 11v.5"/></svg></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>외부 사용자 초대 및 협업 무제한</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>기업 보안 강화 기능</span><span class="plan-fi-sub-text">· SAML SSO 통합 로그인<br>· 접속 IP 관리<br>· 감사 로그</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>기업 환경에 맞는 결제 방식 지원</span></div></div>
+            <div class="plan-fi"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#00A08C" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-7"/></svg><div class="plan-fi-right"><span>전담 어카운트 매니저</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plan-vat">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(30,30,30,0.55)" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v4M8 11v.5"/></svg>
+      <span>표시된 금액에서 부가세(10%)는 별도로 부과됩니다.</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(service) {
+    var tabInsight = document.getElementById('tabInsight');
+    var tabPro = document.getElementById('tabPro');
+    var sectionInsight = document.getElementById('sectionInsight');
+    var sectionPro = document.getElementById('sectionPro');
+
+    if (service === 'insight') {
+      tabInsight.className = 'service-tab active-insight';
+      tabPro.className = 'service-tab inactive';
+      sectionInsight.classList.add('active');
+      sectionPro.classList.remove('active');
+    } else {
+      tabInsight.className = 'service-tab inactive';
+      tabPro.className = 'service-tab active-pro';
+      sectionInsight.classList.remove('active');
+      sectionPro.classList.add('active');
+    }
+  }
+
+  // URL 파라미터로 초기 탭 설정
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('tab') === 'pro') switchTab('pro');
+</script>
+
+<script src="auth.js"></script>
+</body>
+</html>
