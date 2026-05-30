@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Malgun Gothic','Noto Sans KR',sans-serif; color: #333333; background: #fff; min-width: 1440px; font-size: 13px; }
+    body { font-family: 'Malgun Gothic','Noto Sans KR',sans-serif; color: #333333; background: #fff; min-width: 1440px; font-size: 13px; overflow-anchor: none; }
     header, header * { font-family: 'Noto Sans KR', sans-serif; }
     /* GNB용 고정 컨테이너 (pro.html과 동일) */
     .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
@@ -1164,18 +1164,24 @@
     if (!subBar) return;
     var lastY = Math.round(window.scrollY);
     var ticking = false;
+    var locked = false;
     window.addEventListener('scroll', function() {
-      if (ticking) return;
+      if (ticking || locked) return;
       ticking = true;
       requestAnimationFrame(function() {
         var currentY = Math.round(window.scrollY);
         var delta = currentY - lastY;
-        if (delta > 0 && currentY > 15) {
+        if (delta > 0 && currentY > 15 && !subBar.classList.contains('sub-hidden')) {
           subBar.classList.add('sub-hidden');
-        } else if (delta < 0) {
+          locked = true;
+          setTimeout(function() { locked = false; lastY = Math.round(window.scrollY); }, 300);
+        } else if (delta < 0 && subBar.classList.contains('sub-hidden')) {
           subBar.classList.remove('sub-hidden');
+          locked = true;
+          setTimeout(function() { locked = false; lastY = Math.round(window.scrollY); }, 300);
+        } else {
+          lastY = currentY;
         }
-        lastY = currentY;
         ticking = false;
       });
     }, { passive: true });
