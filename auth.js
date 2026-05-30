@@ -249,7 +249,6 @@ function kwRenderHeader() {
       <div class="kw-ws-dropdown" id="kwWsDropdown">
         <button class="kw-ws-item" onclick="kwSelectWorkspace(event,'개인스페이스')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>개인스페이스</button>
         <button class="kw-ws-item" onclick="kwSelectWorkspace(event,'워트인텔리전스')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>워트인텔리전스</button>
-        <button class="kw-ws-item" onclick="kwSelectWorkspace(event,'OO법률사무소')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>OO법률사무소</button>
       </div>
     </div>
   ` : '';
