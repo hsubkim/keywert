@@ -369,12 +369,11 @@ function kwInjectFreeTrialModal() {
           <div class="kw-ft-badge"><span>insight</span></div>
           <div class="kw-ft-body">
             <div class="kw-ft-plan-header">
-              <span class="kw-ft-plan-target">AI 특허 분석을 체험하고 싶은 개인이라면</span>
-              <span class="kw-ft-plan-name">라이트</span>
+              <span class="kw-ft-plan-target">AI 특허 분석을 체험하고 업무에 활용해 보세요</span>
+              <span class="kw-ft-plan-name">무료 온보딩 토큰 제공</span>
             </div>
             <div class="kw-ft-divider"></div>
             <div class="kw-ft-features">
-              <p class="kw-ft-features-title">지급된 토큰 사용</p>
               <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">AI 토큰 지급</span></div>
               <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">AI 특허 검색</span></div>
               <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">AI 분석 결과물 생성</span></div>
@@ -384,7 +383,6 @@ function kwInjectFreeTrialModal() {
                 <div class="kw-ft-feat-sub-group"><span class="kw-ft-feat-text">AI 분석 결과물 저장 및 공유</span><span class="kw-ft-feat-sub">· 파일 10MB/건, 월 누적 100MB</span></div>
               </div>
             </div>
-            <button class="kw-ft-plan-btn">무료 토큰 제공</button>
           </div>
         </div>
 
@@ -393,25 +391,16 @@ function kwInjectFreeTrialModal() {
           <div class="kw-ft-badge"><span>pro</span></div>
           <div class="kw-ft-body">
             <div class="kw-ft-plan-header">
-              <span class="kw-ft-plan-target">AI 특허 분석을 업무에 적극 활용하고 싶다면</span>
-              <span class="kw-ft-plan-name">프로</span>
+              <span class="kw-ft-plan-target">특허 검색과 분석, 시각화, 보고서까지 이용해 보세요</span>
+              <span class="kw-ft-plan-name">무료 체험 7일 제공</span>
             </div>
             <div class="kw-ft-divider"></div>
             <div class="kw-ft-features">
-              <p class="kw-ft-features-title">토큰 걱정없는 AI 기능 사용</p>
-              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text-bold">라이트 대비 AI 토큰 10배 지급</span></div>
-              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">AI 특허 검색</span></div>
-              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">AI 분석 결과물 생성</span></div>
-              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="kw-ft-feat-text">프로젝트 생성 무제한</span></div>
-              <div class="kw-ft-feat-row-sub">
-                <svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none" style="margin-top:2px;"><circle cx="13" cy="3" r="2" stroke="#00A08C" stroke-width="1.4"/><circle cx="3" cy="8" r="2" stroke="#00A08C" stroke-width="1.4"/><circle cx="13" cy="13" r="2" stroke="#00A08C" stroke-width="1.4"/><path d="M5 8.8L11 12M11 4L5 7.2" stroke="#00A08C" stroke-width="1.2" stroke-linecap="round"/></svg>
-                <div class="kw-ft-feat-sub-group"><span class="kw-ft-feat-text">외부 사용자 초대 및 협업</span><span class="kw-ft-feat-sub">· 게스트 3명/시트 당</span></div>
-              </div>
-              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="kw-ft-feat-text">AI 분석 결과물 저장 및 공유 무제한</span></div>
-              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="kw-ft-feat-text">PDF 첨부 검색 용량 무제한</span></div>
-              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#00A08C" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="#00A08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="kw-ft-feat-text">어드민(Admin) 기능 제공</span></div>
+              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">수만 건의 특허를 몇 초 만에 분류하는 AI 기술분류</span></div>
+              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">특허 핵심 내용을 읽기 쉽게 요약하는 AI 분석</span></div>
+              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">국내 최초 3세대 LLM 기반 AI 특허 번역</span></div>
+              <div class="kw-ft-feat-row"><svg class="kw-ft-feat-icon" viewBox="0 0 16 16" fill="none"><path d="M9 2L3.5 9.5H8L6 14L12.5 6H8L9 2Z" fill="#00A08C"/></svg><span class="kw-ft-feat-text">도면만으로 분석 가능한 AI 도면 인식</span></div>
             </div>
-            <button class="kw-ft-plan-btn">무료 체험 7일</button>
           </div>
         </div>
       </div>
