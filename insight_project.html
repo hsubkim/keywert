@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert > Insight > 프로젝트</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; height: 100%; overflow: hidden; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; overflow: hidden; height: 100%; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+
+    /* ── HEADER ── */
+    header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
+    header .container { max-width: none; }
+    .header-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; height: 64px; gap: 16px; }
+    .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 28px; width: auto; display: block; }
+    .logo-fallback { display: none; align-items: center; gap: 7px; font-size: 20px; font-weight: 700; color: #29B8D8; letter-spacing: -0.02em; }
+    nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .nav-btn { display: flex; align-items: center; gap: 4px; padding: 8px 16px; font-size: 16px; font-weight: 700; color: #111827; cursor: pointer; border-radius: 8px; background: none; border: none; font-family: inherit; text-decoration: none; transition: background 0.15s, color 0.15s; }
+    .nav-btn:hover { background: #F3F4F6; }
+    .nav-btn.active { color: #0BB8C9; }
+    .mega-bar { position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #E5E7EB; box-shadow: 0 4px 16px rgba(0,0,0,0.07); opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity 0.15s, transform 0.15s; z-index: 199; }
+    .mega-bar.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-bar--fixed { position: static; opacity: 1; pointer-events: all; transform: none; box-shadow: none; border-bottom: none; z-index: 0; overflow: hidden; max-height: 48px; transition: max-height 0.15s ease, opacity 0.12s ease; }
+    .mega-bar--fixed.sub-hidden { max-height: 0; opacity: 0; pointer-events: none; }
+    .mega-bar:not(.mega-bar--fixed) { top: 64px; }
+    .mega-bar-inner { display: flex; align-items: center; height: 48px; }
+    .mega-tabs { display: flex; align-items: center; gap: 4px; }
+    .mega-tab { padding: 6px 14px; font-size: 14px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap; cursor: pointer; border: none; background: none; font-family: inherit; }
+    .mega-tab:hover { color: #111827; background: #F3F4F6; }
+    .mega-tab.active { color: #111827; font-weight: 700; background: #F3F4F6; }
+    .mega-tab-util { font-size: 12px; font-weight: 500; color: #6B7280; padding: 3px 9px; border-radius: 6px; border: 1.5px solid #D1D5DB; text-decoration: none; white-space: nowrap; transition: border-color 0.15s, background 0.15s, color 0.15s; }
+    .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-chemistry { display: flex; align-items: center; gap: 5px; padding: 5px 11px; border: 1.5px solid #3B82F6; border-radius: 7px; color: #3B82F6; font-size: 16px; font-weight: 700; background: none; cursor: pointer; text-decoration: none; font-family: inherit; transition: background 0.15s; line-height: 1; }
+    .btn-chemistry:hover { background: #EFF6FF; }
+    .btn-text { padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; margin: 0; flex-shrink: 0; }
+    .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
+    .btn-primary:hover { background: #008FA8; }
+
+    /* ── LAYOUT ── */
+    .is-layout { display: flex; height: calc(100vh - 112px); overflow: hidden; position: relative; }
+
+    /* ── SIDEBAR ── */
+    .is-sidebar { width: 240px; flex-shrink: 0; border-right: 1px solid #E5E7EB; background: #FAFAFA; display: flex; flex-direction: column; overflow-y: auto; }
+    .is-new-btn-outline { display: flex; align-items: center; gap: 6px; width: 100%; padding: 8px 14px; background: #fff; color: #374151; font-size: 13px; font-weight: 500; border: 1px solid #E5E7EB; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s, border-color 0.15s; }
+    .is-new-btn-outline:hover { background: #F9FAFB; border-color: #D1D5DB; }
+    .is-collapse-btn { position: absolute; left: calc(240px - 13px); top: 20px; display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border: 1px solid #E5E7EB; background: #fff; cursor: pointer; color: #9CA3AF; border-radius: 50%; z-index: 10; flex-shrink: 0; }
+    .is-collapse-btn:hover { background: #F3F4F6; color: #6B7280; border-color: #D1D5DB; }
+    .is-sec { padding: 14px 16px; border-bottom: 1px solid #F3F4F6; flex-shrink: 0; }
+    .is-sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .is-sec-label { font-size: 11px; font-weight: 700; color: #9CA3AF; letter-spacing: 0.04em; }
+    .is-sec-add { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: none; background: none; cursor: pointer; color: #9CA3AF; border-radius: 4px; }
+    .is-sec-add:hover { background: #F3F4F6; color: #6B7280; }
+    .is-search-list { display: flex; flex-direction: column; gap: 0; }
+    .is-search-li { font-size: 12px; color: #374151; padding: 5px 2px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-radius: 4px; line-height: 1.4; }
+    .is-search-li:hover { color: #0BB8C9; }
+    .is-viewall { display: inline-flex; align-items: center; gap: 2px; font-size: 11px; color: #9CA3AF; cursor: pointer; margin-top: 6px; border: none; background: none; font-family: inherit; padding: 0; }
+    .is-viewall:hover { color: #0BB8C9; }
+    .is-proj-item { display: flex; align-items: center; gap: 7px; padding: 5px 2px; font-size: 12px; color: #374151; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .is-proj-item:hover { color: #111827; }
+    .is-proj-icon { flex-shrink: 0; color: #9CA3AF; }
+    .is-proj-icon--blue { color: #0BB8C9; }
+    .is-bottom-links { margin-top: auto; padding: 12px 16px 55px; border-top: 1px solid #F3F4F6; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+    .is-blog-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #6B7280; cursor: pointer; text-decoration: none; padding: 3px 0; }
+    .is-blog-link:hover { color: #374151; }
+    .is-sidebar-bottom { padding: 12px 16px; border-top: 1px solid #E5E7EB; display: flex; align-items: center; gap: 0; flex-shrink: 0; }
+    .is-avatar { display: none; }
+    .is-icon-btn-group { display: flex; align-items: center; gap: 6px; margin-left: 0; }
+    .is-icon-btn { position: relative; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1.5px solid #D1D5DB; background: #fff; cursor: pointer; color: #6B7280; border-radius: 50%; padding: 0; }
+    .is-icon-btn:hover { border-color: #9CA3AF; background: #F9FAFB; }
+    .is-icon-btn .dot-indicator { position: absolute; top: 2px; right: 2px; width: 7px; height: 7px; border-radius: 50%; background: #3AA7C6; border: 1.5px solid #fff; }
+
+    /* ── PROJECT MAIN ── */
+    .ip-main { flex: 1; overflow-y: auto; background: #fff; }
+    .ip-main-inner { max-width: 960px; margin: 0 auto; padding: 52px 48px 80px; }
+
+    .ip-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .ip-title { font-size: 26px; font-weight: 800; color: #111827; letter-spacing: -0.02em; }
+    .ip-new-btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; background: #0BB8C9; color: #fff; font-size: 14px; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+    .ip-new-btn:hover { background: #09A5B5; }
+
+    .ip-sort-row { display: flex; align-items: center; gap: 6px; margin-bottom: 20px; }
+    .ip-sort-label { font-size: 13px; color: #9CA3AF; }
+    .ip-sort-btn { font-size: 13px; font-weight: 500; color: #374151; background: none; border: none; cursor: pointer; font-family: inherit; padding: 0; }
+    .ip-sort-btn:hover { color: #0BB8C9; }
+
+    .ip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .ip-card { display: flex; flex-direction: column; gap: 0; padding: 20px; border: 1px solid #E5E7EB; border-radius: 12px; background: #fff; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; min-height: 160px; }
+    .ip-card:hover { border-color: #0BB8C9; box-shadow: 0 2px 12px rgba(11,184,201,0.10); }
+    .ip-card-title { font-size: 15px; font-weight: 700; color: #111827; line-height: 1.5; margin-bottom: 8px; }
+    .ip-card-count { font-size: 13px; color: #9CA3AF; }
+    .ip-card-count span { color: #111827; }
+    .ip-card-spacer { flex: 1; }
+    .ip-card-date { font-size: 13px; color: #9CA3AF; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="keywert" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="logo-fallback">
+          <svg width="28" height="24" viewBox="0 0 34 28" fill="none">
+            <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+            <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+            <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+            <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+            <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+          </svg>
+          <span style="color:#29B8D8;font-size:20px;font-weight:700;letter-spacing:-0.02em;">keywert</span>
+        </span>
+      </a>
+
+      <nav>
+        <div onmouseenter="kwMegaShow('megaInsightHover', this)" onmouseleave="kwMegaHide()">
+          <a href="insight.html" class="nav-btn active">Insight
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaProHover', this)" onmouseleave="kwMegaHide()">
+          <a href="pro.html" class="nav-btn">Pro
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <div onmouseenter="kwMegaShow('megaChemHover', this)" onmouseleave="kwMegaHide()" style="display:none;margin-left:4px;">
+          <a href="chemistry.html" class="btn-chemistry">
+            <svg width="11" height="13" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 1h4M5 1v5L1 13h12L9 6V1"/>
+              <circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/>
+              <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+            </svg>
+            Chemistry
+          </a>
+        </div>
+      </nav>
+
+      <div class="header-actions" id="headerActions">
+        <div style="display:flex;align-items:center;gap:0;">
+          <a href="login.html" class="btn-text">로그인</a>
+          <div class="btn-divider"></div>
+          <a href="signup.html" class="btn-text">회원가입</a>
+          <div class="btn-divider"></div>
+          <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
+        </div>
+        <a href="free_trial.html" class="btn-primary">무료체험 시작하기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 고정 바: Insight 현재 페이지 -->
+  <div class="mega-bar mega-bar--fixed" style="border-bottom: 1px solid #E5E7EB;">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="insight_project.html" class="mega-tab active">프로젝트</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="insight_manage.html" class="mega-tab-util">관리</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- 호버 바: Insight -->
+  <div class="mega-bar" id="megaInsightHover"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="insight_search.html" class="mega-tab">AI 특허검색</a>
+          <a href="insight_techtrend.html" class="mega-tab">기술트렌드</a>
+          <a href="insight_project.html" class="mega-tab active">프로젝트</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="insight_manage.html" class="mega-tab-util">관리</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- 호버 바: Pro -->
+  <div class="mega-bar" id="megaProHover"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="pro_search.html" class="mega-tab">일반검색</a>
+          <a href="pro_prior_search.html" class="mega-tab">선행조사용 검색</a>
+          <a href="pro_ai_search.html" class="mega-tab">AI검색</a>
+          <a href="pro_number_search.html" class="mega-tab">번호검색</a>
+          <a href="pro_us_search.html" class="mega-tab">미국소송검색</a>
+          <a href="#" class="mega-tab">K WORK</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="pro_manage.html" class="mega-tab-util">관리</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- 호버 바: Chemistry -->
+  <div class="mega-bar" id="megaChemHover" style="display:none"
+       onmouseenter="kwMegaCancel()" onmouseleave="kwMegaHide()">
+    <div class="container">
+      <div class="mega-bar-inner">
+        <nav class="mega-tabs">
+          <a href="chemistry_search.html" class="mega-tab">화합물 검색</a>
+          <a href="#" class="mega-tab">화합물 범위 검색</a>
+        </nav>
+        <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
+          <a href="chemistry.html" class="mega-tab-util">플랜 안내</a>
+          <a href="#" class="mega-tab-util">이용 가이드</a>
+          <a href="#" class="mega-tab-util">관리</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── BODY ── -->
+<div class="is-layout">
+
+  <!-- 접기 버튼 -->
+  <button class="is-collapse-btn" title="사이드바 접기">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+
+  <!-- SIDEBAR -->
+  <div class="is-sidebar">
+    <div style="padding:14px 16px; flex-shrink:0;">
+      <button class="is-new-btn-outline">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        새 검색
+      </button>
+    </div>
+
+    <!-- 내 검색 -->
+    <div class="is-sec">
+      <div class="is-sec-head">
+        <span class="is-sec-label">내 검색</span>
+      </div>
+      <div class="is-search-list">
+        <div class="is-search-li">전기차 배터리 고속 충전</div>
+        <div class="is-search-li">EV 배터리 급속 충전 열 관리 및 냉각 기술</div>
+        <div class="is-search-li">AI 기반 배터리 충전 최적화 및 수명 연장</div>
+      </div>
+      <button class="is-viewall">전체보기
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- 프로젝트 -->
+    <div class="is-sec">
+      <div class="is-sec-head">
+        <span class="is-sec-label">프로젝트</span>
+        <button class="is-sec-add">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+      <div class="is-proj-item">
+        <svg class="is-proj-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">배터리 셀 내부 열 관리 기술 전략화</span>
+      </div>
+      <div class="is-proj-item">
+        <svg class="is-proj-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">wert 빅데이터 분석 - 하이브리드...</span>
+      </div>
+      <div class="is-proj-item">
+        <svg class="is-proj-icon is-proj-icon--blue" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">하이브리드 자동차 : 배터리 냉각</span>
+      </div>
+    </div>
+
+    <!-- 하단 링크 + 아이콘 -->
+    <div class="is-bottom-links">
+      <a href="#" class="is-blog-link">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7"/></svg>
+        블로그
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+    <div class="is-sidebar-bottom">
+      <div class="is-avatar" id="isSidebarAvatar">김</div>
+      <div class="is-icon-btn-group">
+        <button class="is-icon-btn" title="도움말">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="dot-indicator"></span>
+        </button>
+        <button class="is-icon-btn" title="알림">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="ip-main">
+    <div class="ip-main-inner">
+
+      <!-- 페이지 헤더 -->
+      <div class="ip-header">
+        <h1 class="ip-title">프로젝트</h1>
+        <button class="ip-new-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          새 프로젝트
+        </button>
+      </div>
+
+      <!-- 정렬 -->
+      <div class="ip-sort-row">
+        <span class="ip-sort-label">정렬</span>
+        <button class="ip-sort-btn">최근 활동</button>
+      </div>
+
+      <!-- 프로젝트 카드 그리드 -->
+      <div class="ip-grid">
+
+        <div class="ip-card">
+          <div class="ip-card-title">역양자화 기반 영상 복호화 장치 및 방법 특허</div>
+          <div class="ip-card-count"><span>0</span>/10,000</div>
+          <div class="ip-card-spacer"></div>
+          <div class="ip-card-date">지금</div>
+        </div>
+
+        <div class="ip-card">
+          <div class="ip-card-title">위치 감지 도포 경로 추적 표시 장치 제조 기술</div>
+          <div class="ip-card-count"><span>0</span>/10,000</div>
+          <div class="ip-card-spacer"></div>
+          <div class="ip-card-date">지금</div>
+        </div>
+
+        <div class="ip-card">
+          <div class="ip-card-title">자동 충전 촉매 기술 특허</div>
+          <div class="ip-card-count"><span>84</span>/10,000</div>
+          <div class="ip-card-spacer"></div>
+          <div class="ip-card-date">5월 6일 오전 10:21</div>
+        </div>
+
+        <div class="ip-card">
+          <div class="ip-card-title">수소와 전기의 생성을 위한 전지</div>
+          <div class="ip-card-count"><span>0</span>/10,000</div>
+          <div class="ip-card-spacer"></div>
+          <div class="ip-card-date">4월 24일 오후 5:49</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    var _t = null;
+    window.kwMegaShow = function(id, triggerEl) {
+      clearTimeout(_t);
+      document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
+      var el = document.getElementById(id);
+      if (el) {
+        alignMegaBar(el, triggerEl);
+        el.classList.add('open');
+      }
+    };
+    window.kwMegaHide = function() {
+      _t = setTimeout(function() {
+        document.querySelectorAll('.mega-bar:not(.mega-bar--fixed)').forEach(function(b) { b.classList.remove('open'); });
+      }, 120);
+    };
+    window.kwMegaCancel = function() { clearTimeout(_t); };
+  })();
+
+  function alignMegaBar(bar, navDiv) {
+    if (!bar || !navDiv) return;
+    var hc = document.querySelector('header .container');
+    if (!hc) return;
+    var offset = Math.max(0, Math.round(navDiv.getBoundingClientRect().left - hc.getBoundingClientRect().left));
+    var ct = bar.querySelector('.container');
+    if (ct) { ct.style.paddingLeft = offset + 'px'; }
+  }
+  function syncAllMegaBars() {
+    document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) {
+      var m = (div.getAttribute('onmouseenter') || '').match(/kwMegaShow\('([^']+)'/);
+      if (m) alignMegaBar(document.getElementById(m[1]), div);
+    });
+    var fixedBar = document.querySelector('.mega-bar--fixed');
+    if (fixedBar) {
+      var activeDiv = null;
+      document.querySelectorAll('nav > div[onmouseenter]').forEach(function(div) { if (!activeDiv && div.querySelector('.nav-btn.active')) activeDiv = div; });
+      alignMegaBar(fixedBar, activeDiv);
+    }
+  }
+  syncAllMegaBars();
+  document.fonts && document.fonts.ready && document.fonts.ready.then(syncAllMegaBars);
+  window.addEventListener('load', syncAllMegaBars);
+  window.addEventListener('resize', syncAllMegaBars);
+
+  // 2Depth 메뉴 스크롤 자동 숨김/표시
+  (function() {
+    var subBar = document.querySelector('.mega-bar--fixed');
+    var scrollEl = document.querySelector('.ip-main') || window;
+    if (!subBar) return;
+    var lastY = 0;
+    var ticking = false;
+    scrollEl.addEventListener('scroll', function() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function() {
+        var currentY = Math.round(scrollEl.scrollTop || 0);
+        var delta = currentY - lastY;
+        if (delta > 0 && currentY > 15) {
+          subBar.classList.add('sub-hidden');
+        } else if (delta < 0) {
+          subBar.classList.remove('sub-hidden');
+        }
+        lastY = currentY;
+        ticking = false;
+      });
+    }, { passive: true });
+  })();
+</script>
+<script src="plan_pro_modal.js"></script>
+<script src="plan_insight_modal.js"></script>
+<script src="auth.js"></script>
+
+</body>
+</html>
