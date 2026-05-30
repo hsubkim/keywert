@@ -457,14 +457,6 @@
     }
   });
 
-  // Sub-nav active
-  document.querySelectorAll('.hnav-item').forEach(item => {
-    item.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.querySelectorAll('.hnav-item').forEach(i => i.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
 </script>
 </body>
 </html>
