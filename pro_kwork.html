@@ -69,22 +69,23 @@
 
     /* ── CENTER MAIN ── */
     .kw-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .kw-headers-row { display: flex; flex-shrink: 0; border-bottom: 1px solid #E5E7EB; }
     .kw-content-row { flex: 1; display: flex; overflow-y: auto; overflow-x: hidden; }
-    .kw-main-header { padding: 20px 24px 14px; flex-shrink: 0; }
+    .kw-main-header { flex: 1; padding: 20px 24px 14px; }
     .kw-main-title { font-size: 20px; font-weight: 800; color: #111827; margin-bottom: 14px; letter-spacing: -0.02em; }
     .kw-toolbar { display: flex; align-items: center; gap: 8px; }
     .kw-new-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; background: #0BB8C9; color: #fff; font-size: 13px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; }
     .kw-new-btn:hover { background: #09A5B5; }
     .kw-icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid #D1D5DB; border-radius: 5px; background: #fff; color: #6B7280; cursor: pointer; transition: border-color 0.12s, background 0.12s; }
     .kw-icon-btn:hover { border-color: #9CA3AF; background: #F9FAFB; }
-    .kw-toolbar-sep { width: 1px; height: 20px; background: #E5E7EB; flex-shrink: 0; }
+    .kw-toolbar-sep { width: 1px; height: 20px; background: #E5E7EB; flex-shrink: 0; margin-left: auto; }
     .kw-search-select { height: 30px; border: 1px solid #D1D5DB; border-radius: 5px; font-size: 12px; font-family: inherit; color: #374151; padding: 0 28px 0 8px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 6px center; -webkit-appearance: none; appearance: none; cursor: pointer; }
     .kw-search-input { height: 30px; border: 1px solid #D1D5DB; border-radius: 5px 0 0 5px; font-size: 12px; font-family: inherit; color: #374151; padding: 0 10px; outline: none; width: 180px; }
     .kw-search-input::placeholder { color: #BBBBBB; }
     .kw-search-go { display: flex; align-items: center; justify-content: center; width: 32px; height: 30px; background: #0BB8C9; color: #fff; border: none; border-radius: 0 5px 5px 0; cursor: pointer; flex-shrink: 0; }
     .kw-search-go:hover { background: #09A5B5; }
 
-    .kw-main-body { flex: 1; padding: 0 24px 40px; border-right: 1px solid #E5E7EB; }
+    .kw-main-body { flex: 1; padding: 16px 24px 40px; }
 
     /* Project card */
     .kw-proj-card { border: 1px solid #E5E7EB; border-radius: 10px; padding: 20px 20px 0; background: #fff; margin-bottom: 12px; }
@@ -114,11 +115,10 @@
     .kw-history-link:hover { color: #0BB8C9; }
 
     /* ── RIGHT PANEL ── */
-    .kw-right { width: 380px; flex-shrink: 0; display: flex; flex-direction: column; background: #fff; }
-    .kw-right-header { padding: 20px 16px 14px; flex-shrink: 0; border-bottom: 1px solid #F3F4F6; }
+    .kw-right-header { width: 380px; flex-shrink: 0; padding: 20px 16px 14px; border-left: 1px solid #E5E7EB; background: #F3F4F6; }
     .kw-right-title { font-size: 15px; font-weight: 700; color: #111827; line-height: 1.5; }
     .kw-right-title strong { color: #0BB8C9; }
-    .kw-right-body { flex: 1; padding: 12px 0; }
+    .kw-right-body { width: 380px; flex-shrink: 0; padding: 12px 0; background: #fff; }
 
     .kw-patent-card { border: 1px solid #E5E7EB; border-radius: 10px; margin: 0 12px 12px; padding: 16px; }
     .kw-patent-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
@@ -349,6 +349,7 @@
 
   <!-- CENTER MAIN -->
   <div class="kw-main">
+    <div class="kw-headers-row">
     <div class="kw-main-header">
       <div class="kw-main-title">전체 프로젝트</div>
       <div class="kw-toolbar">
@@ -356,11 +357,8 @@
         <button class="kw-icon-btn" title="복사">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         </button>
-        <button class="kw-icon-btn" title="위로">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-        </button>
-        <button class="kw-icon-btn" title="아래로">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        <button class="kw-icon-btn" title="순서 변경">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg>
         </button>
         <div class="kw-toolbar-sep"></div>
         <select class="kw-search-select">
@@ -374,7 +372,11 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
       </div>
+    </div><!-- /.kw-main-header -->
+    <div class="kw-right-header">
+      <div class="kw-right-title"><strong>김형섭</strong> 님께 알려주고 싶은 특허</div>
     </div>
+    </div><!-- /.kw-headers-row -->
 
     <div class="kw-content-row">
     <div class="kw-main-body">
@@ -440,10 +442,6 @@
     </div>
 
     <!-- RIGHT PANEL -->
-    <div class="kw-right">
-    <div class="kw-right-header">
-      <div class="kw-right-title"><strong>김형섭</strong> 님께 알려주고 싶은 특허</div>
-    </div>
     <div class="kw-right-body">
 
       <!-- 특허 카드 1 -->
@@ -499,8 +497,7 @@
         </div>
       </div>
 
-    </div>
-    </div><!-- /.kw-right -->
+    </div><!-- /.kw-right-body -->
     </div><!-- /.kw-content-row -->
   </div><!-- /.kw-main -->
 
