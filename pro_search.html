@@ -924,11 +924,149 @@
 </div>
 </div><!-- panelGeneral -->
 
-<!-- 기타 패널 -->
-<div id="panelPrior"  style="display:none;"><div style="padding:80px;text-align:center;color:#999;">선행조사용 검색 — 준비 중입니다.</div></div>
-<div id="panelAI"    style="display:none;"><div style="padding:80px;text-align:center;color:#999;">AI검색 — 준비 중입니다.</div></div>
-<div id="panelNumber"style="display:none;"><div style="padding:80px;text-align:center;color:#999;">번호검색 — 준비 중입니다.</div></div>
-<div id="panelUS"    style="display:none;"><div style="padding:80px;text-align:center;color:#999;">미국소송검색 — 준비 중입니다.</div></div>
+<!-- ── 선행조사용 검색 패널 ── -->
+<div id="panelPrior" style="display:none;">
+<div class="container-full">
+<div class="ps-wrap">
+  <div class="ps-filter-bar">
+    <div class="ps-filter-header">
+      <div class="ps-filter-header-left">
+        <button class="ps-scope-tab active">
+          <svg width="15" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          한글유사검색
+        </button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">
+          <svg width="15" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          영문유사검색
+        </button>
+        <div class="ps-scope-sep" style="margin:0 8px;"></div>
+        <button class="ps-scope-tab" style="color:#888;border-left:1px solid #e0e0e0;padding-left:16px;margin-left:4px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          선행조사보고서
+        </button>
+      </div>
+      <div class="ps-filter-header-right">
+        <button class="ps-recent-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          최근검색
+        </button>
+        <button class="ps-user-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          김학민_P5
+        </button>
+        <div class="ps-hdr-sep"></div>
+        <button class="ps-condition-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          검색 조건 설정
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div style="padding:60px 80px;text-align:center;color:#999;">선행조사용 검색 — 준비 중입니다.</div>
+</div>
+
+<!-- ── AI검색 패널 ── -->
+<div id="panelAI" style="display:none;">
+<div class="container-full">
+<div class="ps-wrap">
+  <div class="ps-filter-bar">
+    <div class="ps-filter-header">
+      <div class="ps-filter-header-left" style="flex-wrap:wrap;row-gap:4px;">
+        <button class="ps-scope-tab active">한국</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">일본</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">미국</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">유럽</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">중국</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">PCT</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">독일</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">대만</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">프랑스</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">러시아</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">영국</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">캐나다</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">호주</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">이탈리아</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">인도</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div style="padding:60px 80px;text-align:center;color:#999;">AI검색 — 준비 중입니다.</div>
+</div>
+
+<!-- ── 번호검색 패널 ── -->
+<div id="panelNumber" style="display:none;">
+<div class="container-full">
+<div class="ps-wrap">
+  <div class="ps-filter-bar">
+    <div class="ps-filter-header">
+      <div class="ps-filter-header-left"></div>
+      <div class="ps-filter-header-right">
+        <button class="ps-recent-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          최근검색
+        </button>
+        <button class="ps-user-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          김학민_P5
+        </button>
+        <div class="ps-hdr-sep"></div>
+        <button class="ps-condition-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          검색 조건 설정
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div style="padding:60px 80px;text-align:center;color:#999;">번호검색 — 준비 중입니다.</div>
+</div>
+
+<!-- ── 미국소송검색 패널 ── -->
+<div id="panelUS" style="display:none;">
+<div class="container-full">
+<div class="ps-wrap">
+  <div class="ps-filter-bar">
+    <div class="ps-filter-header">
+      <div class="ps-filter-header-left">
+        <button class="ps-scope-tab active">통합검색</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">특허심판원</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">ITC</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">지방법원</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">항소법원</button>
+        <div class="ps-scope-sep"></div>
+        <button class="ps-scope-tab">대법원</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div style="padding:60px 80px;text-align:center;color:#999;">미국소송검색 — 준비 중입니다.</div>
+</div>
+
 <div id="panelKWork" style="display:none;"><div style="padding:80px;text-align:center;color:#999;">K WORK — 준비 중입니다.</div></div>
 
 <!-- ── 플로팅 버튼 (side by side) ── -->
@@ -981,6 +1119,18 @@
     tab.addEventListener('click', function() {
       document.querySelectorAll('.ps-country-tab').forEach(t => t.classList.remove('active'));
       this.classList.add('active');
+    });
+  });
+
+  // 각 패널 내 ps-scope-tab 클릭 시 해당 패널 내에서만 active 전환
+  ['panelPrior','panelAI','panelNumber','panelUS'].forEach(function(panelId) {
+    var panel = document.getElementById(panelId);
+    if (!panel) return;
+    panel.querySelectorAll('.ps-scope-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        panel.querySelectorAll('.ps-scope-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
     });
   });
 
