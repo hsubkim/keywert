@@ -56,7 +56,7 @@
     .guide-tab.active { color: #fff; font-weight: 700; border-bottom-color: #fff; }
 
     /* ── LAYOUT ── */
-    .guide-layout { display: flex; align-items: flex-start; }
+    .guide-layout { display: flex; max-width: 1180px; margin: 0 auto; min-height: calc(100vh - 105px); border-left: 1px solid #E5E7EB; border-right: 1px solid #E5E7EB; }
 
     /* ── LEFT SIDEBAR ── */
     .guide-sidebar {
@@ -64,10 +64,6 @@
       flex-shrink: 0;
       border-right: 1px solid #E5E7EB;
       background: #fff;
-      position: sticky;
-      top: 105px;
-      height: calc(100vh - 105px);
-      overflow-y: auto;
     }
     .gs-section { border-bottom: 1px solid #F3F4F6; }
     .gs-section-head { display: flex; align-items: center; gap: 8px; padding: 14px 20px; font-size: 13px; font-weight: 700; color: #111827; cursor: pointer; user-select: none; }
