@@ -480,8 +480,8 @@ function kwInjectFreeTrialModal() {
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <h2 class="kw-ft-success-title">무료 체험 신청이<br>완료되었습니다!</h2>
-        <p class="kw-ft-success-desc">담당자 확인 후 이메일로 안내 드리겠습니다.<br>빠른 시일 내에 연락드리겠습니다.</p>
+        <h2 class="kw-ft-success-title">무료체험이<br>시작되었습니다!</h2>
+        <p class="kw-ft-success-desc">지금 바로 모든 기능을 이용하실 수 있습니다.<br>무료체험 기간 동안 마음껏 활용해 보세요.</p>
         <p class="kw-ft-success-redirect">잠시 후 창이 닫힙니다...</p>
       </div>
     </div>
