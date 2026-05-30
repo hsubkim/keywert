@@ -69,7 +69,7 @@
 
     /* ── MAIN ── */
     .kp-main { flex: 1; overflow-y: auto; background: #fff; }
-    .kp-main-inner { padding: 28px 36px 60px; max-width: 1100px; }
+    .kp-main-inner { padding: 16px 36px 60px; max-width: 1100px; }
 
     /* Project header */
     .kp-proj-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; }
@@ -142,6 +142,17 @@
       <span class="kp-proj-name">자동 충전 촉매 기술 특허</span>
       <svg class="kp-proj-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
     </button>
+    <div style="display:flex;align-items:center;gap:6px;margin-left:8px;">
+      <button class="kp-action-btn" title="수정">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      </button>
+      <button class="kp-action-btn" title="공유">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="kp-action-btn" title="삭제">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      </button>
+    </div>
   </div>
 
   <div class="kp-right">
@@ -226,23 +237,6 @@
   <!-- MAIN -->
   <div class="kp-main">
     <div class="kp-main-inner">
-
-      <!-- Action bar -->
-      <div style="display:flex; justify-content:flex-end; align-items:center; gap:8px; margin-bottom:24px;">
-        <button class="kp-ai-btn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          AI 분석 시작하기
-        </button>
-        <button class="kp-action-btn" title="수정">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
-        <button class="kp-action-btn" title="공유">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        </button>
-        <button class="kp-action-btn" title="삭제">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-        </button>
-      </div>
 
       <!-- Info + Memo -->
       <div class="kp-info-row">
