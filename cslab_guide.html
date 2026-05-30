@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>keywert 고객센터 — 주요기능 활용법</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; height: 100%; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: #111827; background: #fff; min-width: 1280px; height: 100%; overflow: hidden; }
+
+    /* ── HEADER ── */
+    header { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 1px solid #E5E7EB; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 20px 52px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
+    .logo-img { height: 24px; width: auto; display: block; }
+    .logo-fallback { display: none; align-items: center; gap: 6px; font-size: 17px; font-weight: 700; color: #29B8D8; }
+    .logo-cs { font-size: 14px; font-weight: 600; color: #6B7280; padding-left: 10px; border-left: 1.5px solid #E5E7EB; margin-left: 2px; }
+    .header-nav { display: flex; align-items: center; gap: 0; position: absolute; left: 50%; transform: translateX(-50%); }
+    .hnav-item { padding: 6px 20px; font-size: 14px; font-weight: 500; color: #374151; text-decoration: none; border-radius: 6px; transition: all 0.15s; white-space: nowrap; }
+    .hnav-item:hover { color: #0BB8C9; background: #F0FDFF; }
+    .hnav-item.active { color: #0BB8C9; font-weight: 700; }
+    .header-user { display: flex; align-items: center; gap: 0; flex-shrink: 0; }
+    .btn-text { padding: 5px 4px; font-size: 12px; font-weight: 500; color: #6B7280; text-decoration: none; border-radius: 6px; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .btn-text:hover { background: #F3F4F6; color: #374151; }
+    .btn-divider { width: 1px; height: 12px; background: #E5E7EB; flex-shrink: 0; margin: 0 4px; }
+
+    /* ── 2DEPTH TAB BAR ── */
+    .guide-tabs { background: #0BB8C9; display: flex; align-items: center; padding: 0 52px; height: 48px; gap: 4px; }
+    .guide-tab { padding: 0 20px; height: 48px; display: flex; align-items: center; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; cursor: pointer; border-bottom: 3px solid transparent; transition: color 0.15s, border-color 0.15s; white-space: nowrap; }
+    .guide-tab:hover { color: #fff; }
+    .guide-tab.active { color: #fff; font-weight: 700; border-bottom-color: #fff; }
+
+    /* ── LAYOUT ── */
+    .guide-layout { display: flex; height: calc(100vh - 112px); overflow: hidden; }
+
+    /* ── LEFT SIDEBAR ── */
+    .guide-sidebar { width: 260px; flex-shrink: 0; border-right: 1px solid #E5E7EB; overflow-y: auto; background: #fff; }
+    .gs-section { border-bottom: 1px solid #F3F4F6; }
+    .gs-section-head { display: flex; align-items: center; gap: 8px; padding: 14px 20px; font-size: 13px; font-weight: 700; color: #111827; cursor: pointer; user-select: none; }
+    .gs-section-head:hover { background: #F9FAFB; }
+    .gs-arrow { font-size: 10px; color: #6B7280; transition: transform 0.2s; flex-shrink: 0; }
+    .gs-section.open .gs-arrow { transform: rotate(90deg); }
+    .gs-items { display: none; }
+    .gs-section.open .gs-items { display: block; }
+    .gs-item { display: block; padding: 9px 20px 9px 30px; font-size: 12px; color: #374151; text-decoration: none; cursor: pointer; border-left: 3px solid transparent; line-height: 1.5; transition: background 0.12s, color 0.12s; }
+    .gs-item:hover { background: #F0FDFF; color: #0BB8C9; }
+    .gs-item.active { background: #0BB8C9; color: #fff; border-left-color: transparent; }
+    .gs-item-tag { font-weight: 600; display: block; }
+    .gs-item-desc { color: #9CA3AF; font-size: 11px; display: block; margin-top: 1px; }
+    .gs-item.active .gs-item-desc { color: rgba(255,255,255,0.75); }
+
+    /* ── RIGHT CONTENT ── */
+    .guide-content { flex: 1; overflow-y: auto; padding: 40px 56px 60px; }
+    .gc-title { font-size: 22px; font-weight: 800; color: #111827; margin-bottom: 20px; line-height: 1.4; letter-spacing: -0.02em; }
+    .gc-body { font-size: 14px; color: #374151; line-height: 1.9; }
+    .gc-body p { margin-bottom: 18px; }
+    .gc-body strong { color: #111827; }
+    .gc-img { width: 100%; max-width: 820px; border: 1px solid #E5E7EB; border-radius: 10px; overflow: hidden; margin-top: 28px; }
+    .gc-img-inner { background: #F8FAFB; padding: 28px; }
+
+    /* 본문 내 가이드 스크린샷 미리보기 */
+    .gc-screen { background: #fff; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .gc-screen-bar { background: #0BB8C9; height: 36px; display: flex; align-items: center; padding: 0 16px; gap: 20px; }
+    .gc-screen-tab { font-size: 12px; color: rgba(255,255,255,0.7); padding: 0 4px; }
+    .gc-screen-tab.active { color: #fff; font-weight: 700; border-bottom: 2px solid #fff; padding-bottom: 2px; }
+    .gc-screen-body { padding: 20px; display: flex; gap: 16px; min-height: 200px; }
+    .gc-screen-left { width: 200px; flex-shrink: 0; }
+    .gc-screen-panel { border: 1px solid #E5E7EB; border-radius: 8px; padding: 14px; font-size: 12px; color: #6B7280; }
+    .gc-screen-right { flex: 1; }
+    .gc-screen-result { height: 140px; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #9CA3AF; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-inner">
+    <a href="cslab.html" class="logo">
+      <img src="logo.png" alt="keywert" class="logo-img"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <span class="logo-fallback">
+        <svg width="22" height="19" viewBox="0 0 34 28" fill="none">
+          <circle cx="17" cy="14" r="6.5" fill="#29B8D8"/>
+          <circle cx="7.5" cy="9" r="4.5" fill="#29B8D8" opacity="0.85"/>
+          <circle cx="7.5" cy="20" r="3" fill="#29B8D8" opacity="0.7"/>
+          <circle cx="27" cy="8" r="3.5" fill="#29B8D8" opacity="0.8"/>
+          <circle cx="28" cy="20" r="2.5" fill="#29B8D8" opacity="0.6"/>
+        </svg>
+        <span>keywert</span>
+      </span>
+      <span class="logo-cs">고객센터</span>
+    </a>
+
+    <nav class="header-nav">
+      <a href="cslab_guide.html" class="hnav-item active">주요기능 활용법</a>
+      <a href="cslab.html#faq" class="hnav-item">FAQ</a>
+      <a href="#" class="hnav-item">요금제 문의</a>
+      <a href="#" class="hnav-item">고객상담</a>
+      <a href="#" class="hnav-item">공지사항</a>
+      <a href="#" class="hnav-item">블로그</a>
+    </nav>
+
+    <div class="header-user" id="csHeaderUser"></div>
+  </div>
+</header>
+
+<!-- ── 2DEPTH TAB BAR ── -->
+<nav class="guide-tabs">
+  <a href="#" class="guide-tab" data-tab="start">keywert 시작하기</a>
+  <a href="#" class="guide-tab active" data-tab="pro">Pro 이용가이드</a>
+  <a href="#" class="guide-tab" data-tab="insight">Insight 이용가이드</a>
+  <a href="#" class="guide-tab" data-tab="data">데이터 커버리지</a>
+</nav>
+
+<!-- ── GUIDE LAYOUT ── -->
+<div class="guide-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="guide-sidebar">
+
+    <!-- 검색 -->
+    <div class="gs-section open">
+      <div class="gs-section-head">
+        <span class="gs-arrow">▶</span>
+        검색
+      </div>
+      <div class="gs-items">
+        <a class="gs-item active" href="#">
+          <span class="gs-item-tag">[검색]</span>
+          <span class="gs-item-desc">일반검색과 선행조사용검색의 차이</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[선행조사용검색]</span>
+          <span class="gs-item-desc">유사특허 빠르게 찾기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[검색 조건]</span>
+          <span class="gs-item-desc">자주 사용하는 검색 조건 저장하기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[91개국 초록검색]</span>
+          <span class="gs-item-desc">주요 국가 외 전세계 특허 검색하기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[번호검색]</span>
+          <span class="gs-item-desc">다양한 형식의 특허 번호로 검색하기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[미국소송검색]</span>
+          <span class="gs-item-desc">미국특허소송정보, 가장 신속하게 한글로 확인하기</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 검색결과 & 리뷰 -->
+    <div class="gs-section open">
+      <div class="gs-section-head">
+        <span class="gs-arrow">▶</span>
+        검색결과 &amp; 리뷰
+      </div>
+      <div class="gs-items">
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[K Topics, K Technologies]</span>
+          <span class="gs-item-desc">특허 트렌드와 핵심 기술분야 확인하기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[패밀리 그룹핑/확장]</span>
+          <span class="gs-item-desc">동일 발명의 전세계 특허, 원클릭으로 찾기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[슬라이딩뷰 기본편]</span>
+          <span class="gs-item-desc">다수의 특허문헌을 효율적으로 검토하기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[슬라이딩뷰 활용편]</span>
+          <span class="gs-item-desc">키보드 단축키만으로 빠르게 유효특허 분류하기</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 분석 -->
+    <div class="gs-section">
+      <div class="gs-section-head">
+        <span class="gs-arrow">▶</span>
+        분석
+      </div>
+      <div class="gs-items">
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[동향분석]</span>
+          <span class="gs-item-desc">출원·등록 동향 한눈에 파악하기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[인용분석]</span>
+          <span class="gs-item-desc">핵심 특허의 영향력 측정하기</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- K WORK -->
+    <div class="gs-section">
+      <div class="gs-section-head">
+        <span class="gs-arrow">▶</span>
+        K WORK
+      </div>
+      <div class="gs-items">
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[프로젝트 생성]</span>
+          <span class="gs-item-desc">프로젝트 만들고 문헌 관리하기</span>
+        </a>
+        <a class="gs-item" href="#">
+          <span class="gs-item-tag">[보고서]</span>
+          <span class="gs-item-desc">AI 보고서 자동 생성하기</span>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /.guide-sidebar -->
+
+  <!-- RIGHT CONTENT -->
+  <div class="guide-content">
+    <h2 class="gc-title">[검색] 일반검색과 선행조사용검색의 차이</h2>
+    <div class="gc-body">
+      <p>일반검색과 선행조사용검색은 목적에 따라 구분해서 사용해야 합니다.</p>
+      <p>
+        - <strong>일반검색</strong>: 상세한 특허 분석이 가능한 기능으로 15개국 전문검색, 91개국 초록검색이 가능합니다.<br>
+        동향조사, 특허통계분석 등이 필요할 때 사용합니다.
+      </p>
+      <p>
+        - <strong>선행조사용검색</strong>: 유사특허를 빠르게 찾고 싶을 때 사용합니다. 검색 키워드와 검색된 특허들이 얼마나 관련이 있는지 A~C 등급으로 보여주는 '유사도' 기능은 선행조사용검색에서만 확인할 수 있습니다.<br>
+        또한 찾고자 하는 특허의 기술분야를 선택해서 검색할 수도 있습니다.
+      </p>
+    </div>
+
+    <!-- 화면 미리보기 -->
+    <div class="gc-img">
+      <div class="gc-img-inner">
+        <div class="gc-screen">
+          <div class="gc-screen-bar">
+            <span style="font-size:13px;font-weight:700;color:#fff;margin-right:24px;">
+              <svg width="14" height="12" viewBox="0 0 34 28" fill="none" style="vertical-align:middle;margin-right:4px;">
+                <circle cx="17" cy="14" r="6.5" fill="rgba(255,255,255,0.9)"/>
+                <circle cx="7.5" cy="9" r="4.5" fill="rgba(255,255,255,0.8)"/>
+                <circle cx="7.5" cy="20" r="3" fill="rgba(255,255,255,0.7)"/>
+                <circle cx="27" cy="8" r="3.5" fill="rgba(255,255,255,0.75)"/>
+                <circle cx="28" cy="20" r="2.5" fill="rgba(255,255,255,0.6)"/>
+              </svg>
+              keywert
+            </span>
+            <span class="gc-screen-tab">일반검색</span>
+            <span class="gc-screen-tab active">선행조사용검색</span>
+            <span class="gc-screen-tab">번호검색</span>
+            <span class="gc-screen-tab">미국소송검색</span>
+            <span class="gc-screen-tab">K WORK</span>
+          </div>
+          <div class="gc-screen-body">
+            <div class="gc-screen-left">
+              <div class="gc-screen-panel">
+                <div style="display:flex;gap:8px;margin-bottom:10px;">
+                  <span style="padding:3px 8px;background:#0BB8C9;color:#fff;border-radius:4px;font-size:11px;font-weight:700;">최근검색</span>
+                  <span style="font-size:11px;color:#9CA3AF;">검색 조건 설정</span>
+                </div>
+                <div style="font-size:11px;color:#374151;margin-bottom:6px;">국가선택 <span style="color:#9CA3AF;font-size:10px;">✓ 전체 ✓ 한국 ✓ 일본</span></div>
+                <div style="font-size:11px;color:#374151;margin-bottom:6px;">기술분야 <span style="color:#9CA3AF;font-size:10px;"></span></div>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;">
+                  <span style="padding:2px 6px;background:#0BB8C9;color:#fff;border-radius:4px;font-size:10px;">통합</span>
+                  <span style="padding:2px 6px;background:#E5E7EB;color:#374151;border-radius:4px;font-size:10px;">전기전자</span>
+                  <span style="padding:2px 6px;background:#E5E7EB;color:#374151;border-radius:4px;font-size:10px;">기계</span>
+                </div>
+                <div style="background:#F0FDFF;border:1px solid #0BB8C9;border-radius:6px;padding:8px;font-size:10px;color:#374151;">
+                  <div style="margin-bottom:4px;">기본검색</div>
+                  <div style="color:#9CA3AF;">명칭+요약+특합</div>
+                  <div style="margin-top:6px;background:#fff;border:1px solid #E5E7EB;border-radius:4px;padding:4px 6px;color:#BBBBBB;">검색어 입력</div>
+                </div>
+              </div>
+            </div>
+            <div class="gc-screen-right">
+              <div class="gc-screen-result">
+                <span style="font-size:12px;color:#C4C8CE;">검색 결과가 여기에 표시됩니다</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.guide-content -->
+
+</div><!-- /.guide-layout -->
+
+<script>
+  // GNB 유저 영역
+  (function() {
+    var user;
+    try { user = JSON.parse(localStorage.getItem('kw_user')); } catch(e) { user = null; }
+    var el = document.getElementById('csHeaderUser');
+    if (!el) return;
+    if (user) {
+      el.innerHTML =
+        '<div style="display:flex;align-items:center;gap:6px;font-size:13px;color:#374151;">' +
+          '<div style="width:28px;height:28px;border-radius:50%;background:#E0F2F8;display:flex;align-items:center;justify-content:center;color:#0BB8C9;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
+          '</div>' +
+          '<span style="font-size:12px;font-weight:500;">' + user.name + '</span>' +
+        '</div>' +
+        '<div class="btn-divider"></div>' +
+        '<button class="btn-text" style="background:none;border:none;cursor:pointer;font-family:inherit;" onclick="csLogout()">로그아웃</button>';
+    } else {
+      el.innerHTML =
+        '<a href="login.html" class="btn-text">로그인</a>' +
+        '<div class="btn-divider"></div>' +
+        '<a href="signup.html" class="btn-text">회원가입</a>';
+    }
+  })();
+
+  function csLogout() {
+    localStorage.removeItem('kw_user');
+    window.location.href = 'cslab_guide.html';
+  }
+
+  // 2Depth 탭 전환
+  document.querySelectorAll('.guide-tab').forEach(function(tab) {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.guide-tab').forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+
+  // 사이드바 섹션 토글
+  document.querySelectorAll('.gs-section-head').forEach(function(head) {
+    head.addEventListener('click', function() {
+      this.closest('.gs-section').classList.toggle('open');
+    });
+  });
+
+  // 사이드바 아이템 활성화
+  document.querySelectorAll('.gs-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.gs-item').forEach(function(i) { i.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
