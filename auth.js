@@ -437,27 +437,17 @@ function kwInjectFreeTrialModal() {
           </div>
 
           <div class="kw-ft-field">
-            <label class="kw-ft-label" for="kwFtDept">부서명</label>
-            <input id="kwFtDept" type="text" class="kw-ft-input" value="IP팀" placeholder="부서명을 입력해주세요">
-          </div>
-
-          <div class="kw-ft-field">
-            <label class="kw-ft-label" for="kwFtRank">직급</label>
-            <input id="kwFtRank" type="text" class="kw-ft-input" value="팀장" placeholder="직급을 입력해주세요">
-          </div>
-
-          <div class="kw-ft-field">
-            <label class="kw-ft-label" for="kwFtEmail">회사 이메일</label>
+            <label class="kw-ft-label" for="kwFtEmail">이메일</label>
             <input id="kwFtEmail" type="email" class="kw-ft-input" value="hsubkim@wert.co.kr" placeholder="이메일을 입력해주세요">
           </div>
 
           <div class="kw-ft-field">
-            <label class="kw-ft-label" for="kwFtPhone">회사 전화번호</label>
+            <label class="kw-ft-label" for="kwFtPhone">전화번호</label>
             <input id="kwFtPhone" type="tel" class="kw-ft-input" value="0212345678" placeholder="(-)를 제외하고 입력해주세요">
           </div>
 
           <div class="kw-ft-field">
-            <label class="kw-ft-label" for="kwFtRoute">어떻게 키워트 인사이트를 알게 되셨나요?</label>
+            <label class="kw-ft-label" for="kwFtRoute">어떻게 키워트를 알게 되셨나요?</label>
             <select id="kwFtRoute" class="kw-ft-input kw-ft-select">
               <option value="">경로를 선택해주세요</option>
               <option value="referral" selected>지인 추천</option>
@@ -467,16 +457,6 @@ function kwInjectFreeTrialModal() {
               <option value="event">행사/세미나</option>
               <option value="other">기타</option>
             </select>
-          </div>
-
-          <div class="kw-ft-field">
-            <label class="kw-ft-label" for="kwFtPurpose">키워트 인사이트를 어디에 활용하고 싶으신가요?</label>
-            <div class="kw-ft-textarea-wrap">
-              <textarea id="kwFtPurpose" class="kw-ft-input kw-ft-textarea" maxlength="300"
-                placeholder="예) 활용 업무, 해결하고싶은 이슈, 활용하고 싶은 기능 등"
-                oninput="kwFreeTrialUpdateCount(this)">선행기술조사 및 특허 분석 업무에 주로 활용하고자 합니다. AI 특허 검색과 분석 결과물 생성 기능을 통해 조사 업무 효율화를 기대하고 있습니다.</textarea>
-              <span class="kw-ft-char-count" id="kwFtCharCount">97/300</span>
-            </div>
           </div>
 
           <div class="kw-ft-privacy">
