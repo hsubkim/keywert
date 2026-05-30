@@ -542,6 +542,30 @@
   document.fonts && document.fonts.ready && document.fonts.ready.then(syncAllMegaBars);
   window.addEventListener('load', syncAllMegaBars);
   window.addEventListener('resize', syncAllMegaBars);
+
+  (function() {
+    var subBar = document.querySelector('.mega-bar--fixed');
+    if (!subBar) return;
+    var scrollEl = document.querySelector('.kw-content-row');
+    if (!scrollEl) return;
+    var lastY = Math.round(scrollEl.scrollTop);
+    var ticking = false;
+    scrollEl.addEventListener('scroll', function() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function() {
+        var currentY = Math.round(scrollEl.scrollTop);
+        var delta = currentY - lastY;
+        if (delta > 0 && currentY > 15) {
+          subBar.classList.add('sub-hidden');
+        } else if (delta < 0) {
+          subBar.classList.remove('sub-hidden');
+        }
+        lastY = currentY;
+        ticking = false;
+      });
+    }, { passive: true });
+  })();
 </script>
 <script src="plan_pro_modal.js"></script>
 <script src="plan_insight_modal.js"></script>
