@@ -31,7 +31,6 @@ const KW_PASSWORD = '1111';
     .kw-token { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; color: #fff; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
     .kw-token.paid  { background: #0BB8C9; }
     .kw-token.trial { background: #34C7A9; }
-    .kw-token.free  { background: #6B7280; }
     .kw-token-sep { opacity: 0.6; }
     .kw-chevron { color: #9CA3AF; flex-shrink: 0; margin-left: 2px; }
     .kw-pill-sep { width: 1px; height: 16px; background: #E5E7EB; flex-shrink: 0; }
@@ -226,9 +225,7 @@ function kwRenderHeader() {
   if (type === 'paid') {
     tokenHTML = `<span class="kw-token paid">Insight 토큰 100% <span class="kw-token-sep">/</span> Pro 유료</span>`;
   } else if (type === 'trial') {
-    tokenHTML = `<span class="kw-token trial">무료체험 D-10 <span class="kw-token-sep">|</span> 남은 토큰 99%</span>`;
-  } else if (type === 'free') {
-    tokenHTML = `<span class="kw-token free">Insight 토큰 100% <span class="kw-token-sep">/</span> Pro 체험</span>`;
+    tokenHTML = `<span class="kw-token trial">Insight 토큰 100% <span class="kw-token-sep">/</span> Pro 체험</span>`;
   }
 
   const trialBtn = type === 'free'
