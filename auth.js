@@ -233,7 +233,7 @@ function kwRenderHeader() {
     : '';
 
   const tokenLinkHTML = tokenHTML
-    ? `<a href="mypage_myinfo.html" class="kw-token-link" onclick="event.stopPropagation()">${tokenHTML}</a>`
+    ? `<a href="manage.html" class="kw-token-link" onclick="event.stopPropagation()">${tokenHTML}</a>`
     : '';
 
   const savedWorkspace = sessionStorage.getItem('kw_workspace') || '워크스페이스';
