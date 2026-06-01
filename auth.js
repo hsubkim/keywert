@@ -236,7 +236,7 @@ function kwRenderHeader() {
     ? `<a href="manage.html" class="kw-token-link" onclick="event.stopPropagation()">${tokenHTML}</a>`
     : '';
 
-  const savedWorkspace = sessionStorage.getItem('kw_workspace') || '워크스페이스';
+  const savedWorkspace = sessionStorage.getItem('kw_workspace') || '개인스페이스';
 
   const workspaceHTML = (type === 'paid' || type === 'trial') ? `
     <div class="kw-pill-sep"></div>
