@@ -235,7 +235,7 @@ function kwRenderHeader() {
     : '';
 
   const tokenLinkHTML = tokenHTML
-    ? `<a href="manage.html" class="kw-token-link" onclick="event.stopPropagation()">${tokenHTML}</a>`
+    ? `<a href="plan.html" class="kw-token-link" onclick="event.stopPropagation()">${tokenHTML}</a>`
     : '';
 
   const savedWorkspace = sessionStorage.getItem('kw_workspace') || '개인스페이스';
