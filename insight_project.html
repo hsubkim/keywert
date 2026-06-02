@@ -34,6 +34,8 @@
     .mega-tab.active { color: #111827; font-weight: 700; background: #F3F4F6; }
     .mega-tab-util { font-size: 12px; font-weight: 500; color: #6B7280; padding: 3px 9px; border-radius: 6px; border: 1.5px solid #D1D5DB; text-decoration: none; white-space: nowrap; transition: border-color 0.15s, background 0.15s, color 0.15s; }
     .mega-tab-util:hover { border-color: #9CA3AF; background: #F9FAFB; color: #374151; }
+    .mega-tab-icon { display:flex; align-items:center; justify-content:center; width:28px; height:28px; color:#6B7280; border-radius:6px; text-decoration:none; flex-shrink:0; transition:background 0.15s, color 0.15s; }
+    .mega-tab-icon:hover { background:#F3F4F6; color:#374151; }
     .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
     .btn-chemistry { display: flex; align-items: center; gap: 5px; padding: 5px 11px; border: 1.5px solid #3B82F6; border-radius: 7px; color: #3B82F6; font-size: 16px; font-weight: 700; background: none; cursor: pointer; text-decoration: none; font-family: inherit; transition: background 0.15s; line-height: 1; }
     .btn-chemistry:hover { background: #EFF6FF; }
@@ -170,7 +172,7 @@
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
           <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
           <a href="https://hsubkim.github.io/keywert/cslab_guide.html" class="mega-tab-util" target="_blank">이용 가이드</a>
-          <a href="manage.html" class="mega-tab-util">관리</a>
+          <a href="manage.html" class="mega-tab-icon" title="설정" aria-label="설정"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
         </nav>
       </div>
     </div>
@@ -189,7 +191,7 @@
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
           <a href="#" class="mega-tab-util" onclick="openInsightPlanModal();return false;">플랜 안내</a>
           <a href="https://hsubkim.github.io/keywert/cslab_guide.html" class="mega-tab-util" target="_blank">이용 가이드</a>
-          <a href="manage.html" class="mega-tab-util">관리</a>
+          <a href="manage.html" class="mega-tab-icon" title="설정" aria-label="설정"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
         </nav>
       </div>
     </div>
@@ -211,7 +213,7 @@
         <nav class="mega-tabs" style="margin-left:auto; gap:4px;">
           <a href="#" class="mega-tab-util" onclick="openProPlanModal();return false;">플랜 안내</a>
           <a href="https://hsubkim.github.io/keywert/cslab_guide.html" class="mega-tab-util" target="_blank">이용 가이드</a>
-          <a href="manage.html" class="mega-tab-util">관리</a>
+          <a href="manage.html" class="mega-tab-icon" title="설정" aria-label="설정"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
         </nav>
       </div>
     </div>
