@@ -15,8 +15,9 @@ const KW_PASSWORD = '1111';
     /* ── User area ── */
     .kw-user-wrap { display: flex; align-items: center; gap: 10px; position: relative; }
     .kw-user-pill {
-      display: flex; align-items: center; gap: 8px; padding: 4px 8px;
+      display: flex; align-items: center; gap: 8px; padding: 4px 10px;
       border: 1.5px solid #E5E7EB; border-radius: 24px; background: #fff;
+      min-height: 38px; box-sizing: border-box;
       transition: border-color 0.15s, background 0.15s; position: relative; user-select: none;
     }
     .kw-user-pill:hover { border-color: #C4C8CE; background: #F9FAFB; }
@@ -35,9 +36,9 @@ const KW_PASSWORD = '1111';
     .kw-chevron { color: #9CA3AF; flex-shrink: 0; margin-left: 2px; }
     .kw-settings-link { display:flex; align-items:center; justify-content:center; width:24px; height:24px; color:#9CA3AF; border-radius:5px; text-decoration:none; flex-shrink:0; transition:background 0.15s, color 0.15s; margin-left:2px; }
     .kw-settings-link:hover { background:#F3F4F6; color:#374151; }
-    .kw-notif-btn { display:flex; align-items:center; justify-content:center; width:24px; height:24px; color:#9CA3AF; border-radius:5px; border:none; background:none; cursor:pointer; flex-shrink:0; position:relative; transition:background 0.15s, color 0.15s; padding:0; }
-    .kw-notif-btn:hover { background:#F3F4F6; color:#374151; }
-    .kw-notif-dot { position:absolute; top:3px; right:3px; width:5px; height:5px; background:#EF4444; border-radius:50%; border:1.5px solid #fff; }
+    .kw-notif-btn { display:flex; align-items:center; justify-content:center; width:28px; height:28px; color:#6B7280; border-radius:50%; border:none; background:#F3F4F6; cursor:pointer; flex-shrink:0; position:relative; transition:background 0.15s, color 0.15s; padding:0; }
+    .kw-notif-btn:hover { background:#E5E7EB; color:#111827; }
+    .kw-notif-dot { position:absolute; top:1px; right:1px; width:8px; height:8px; background:#EF4444; border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 1px rgba(239,68,68,0.25); }
     .kw-action-group { display:flex; align-items:center; gap:2px; padding:4px 6px; border:1.5px solid #E5E7EB; border-radius:24px; background:#fff; flex-shrink:0; }
     .kw-pill-sep { width: 1px; height: 16px; background: #E5E7EB; flex-shrink: 0; }
     .kw-workspace-wrap { position: relative; align-self: stretch; display: flex; align-items: center; }
