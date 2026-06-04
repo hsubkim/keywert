@@ -126,6 +126,18 @@
     .plan-current-name { font-size: 18px; font-weight: 700; color: #1E1E1E; }
     .plan-current-desc { font-size: 14px; font-weight: 400; color: rgba(30,30,30,0.84); }
 
+    .usage-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; }
+    .usage-col { display: flex; flex-direction: column; gap: 10px; padding: 4px 24px 4px 0; }
+    .usage-col:last-child { padding: 4px 0 4px 24px; }
+    .usage-divider { width: 1px; background: rgba(30,30,30,0.1); align-self: stretch; }
+    .usage-service-tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
+    .usage-service-tag.insight { background: #E0F7FA; color: #0097A7; }
+    .usage-service-tag.pro { background: #E8F5E9; color: #2E7D32; }
+    .usage-name-row { display: flex; align-items: center; gap: 8px; }
+    .usage-plan-name { font-size: 18px; font-weight: 700; color: #1E1E1E; }
+    .usage-status-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px; font-size: 12px; font-weight: 600; background: rgba(0,160,140,0.1); color: #00A08C; border: 1px solid rgba(0,160,140,0.25); }
+    .usage-date { font-size: 13px; color: rgba(30,30,30,0.55); }
+
     .annual-toggle-wrap { display: flex; align-items: center; gap: 8px; align-self: flex-end; margin-bottom: -8px; }
     .annual-label { font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.55); }
     .toggle-switch { position: relative; width: 44px; height: 24px; background: #00A08C; border-radius: 40px; cursor: pointer; padding: 4px 4px 4px 22px; display: flex; align-items: center; }
@@ -334,10 +346,28 @@
 
         <div class="plan-status-card">
 
-          <!-- 현재 플랜 없음 표시 -->
-          <div class="plan-current">
-            <div class="plan-current-name">플랜 없음</div>
-            <div class="plan-current-desc">규모와 사용에 맞는 플랜을 선택하세요.</div>
+          <!-- 이용 현황 2단 -->
+          <div class="usage-grid">
+            <!-- 왼쪽: Insight -->
+            <div class="usage-col">
+              <span class="usage-service-tag insight">insight</span>
+              <div class="usage-name-row">
+                <span class="usage-plan-name">프로 플랜</span>
+                <span class="usage-status-badge">이용 중</span>
+              </div>
+              <div class="usage-date">2026년 2월 24일 ~ 2090년 1월 31일</div>
+            </div>
+            <!-- 구분선 -->
+            <div class="usage-divider"></div>
+            <!-- 오른쪽: Pro -->
+            <div class="usage-col">
+              <span class="usage-service-tag pro">pro</span>
+              <div class="usage-name-row">
+                <span class="usage-plan-name">유료서비스</span>
+                <span class="usage-status-badge">이용 중</span>
+              </div>
+              <div class="usage-date">2026년 2월 24일 ~ 2090년 1월 31일</div>
+            </div>
           </div>
 
           <!-- 플랜 카드 영역 -->
