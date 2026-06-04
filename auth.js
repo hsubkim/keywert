@@ -254,7 +254,7 @@ function kwRenderHeader() {
       <div class="kw-ws-dropdown" id="kwWsDropdown">
         <button class="kw-ws-item" onclick="kwSelectWorkspace(event,'개인스페이스')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>개인스페이스</button>
         ${type === 'trial'
-          ? `<button class="kw-ws-item" style="color:#6B7280;" onclick="event.stopPropagation()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>워크스페이스 추가</button>`
+          ? `<button class="kw-ws-item" style="color:#6B7280;" onclick="event.stopPropagation()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>공용 워크스페이스 생성</button>`
           : `<button class="kw-ws-item" onclick="kwSelectWorkspace(event,'워트인텔리전스')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>워트인텔리전스</button>`}
       </div>
     </div>
