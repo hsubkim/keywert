@@ -137,6 +137,8 @@
     .usage-plan-name { font-size: 18px; font-weight: 700; color: #1E1E1E; }
     .usage-status-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px; font-size: 12px; font-weight: 600; background: rgba(0,160,140,0.1); color: #00A08C; border: 1px solid rgba(0,160,140,0.25); }
     .usage-date { font-size: 13px; color: rgba(30,30,30,0.55); }
+    .usage-plan-link { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; color: #00A08C; text-decoration: none; margin-top: 2px; }
+    .usage-plan-link:hover { text-decoration: underline; }
 
     .annual-toggle-wrap { display: flex; align-items: center; gap: 8px; align-self: flex-end; margin-bottom: -8px; }
     .annual-label { font-size: 14px; font-weight: 500; color: rgba(30,30,30,0.55); }
@@ -350,7 +352,7 @@
           <div class="usage-grid">
             <!-- 왼쪽: Insight -->
             <div class="usage-col">
-              <span class="usage-service-tag insight">insight</span>
+              <span class="usage-service-tag insight">Insight</span>
               <div class="usage-name-row">
                 <span class="usage-plan-name">프로 플랜</span>
                 <span class="usage-status-badge">이용 중</span>
@@ -361,12 +363,11 @@
             <div class="usage-divider"></div>
             <!-- 오른쪽: Pro -->
             <div class="usage-col">
-              <span class="usage-service-tag pro">pro</span>
+              <span class="usage-service-tag pro">Pro</span>
               <div class="usage-name-row">
-                <span class="usage-plan-name">유료서비스</span>
-                <span class="usage-status-badge">이용 중</span>
+                <span class="usage-plan-name">유료서비스 미가입</span>
               </div>
-              <div class="usage-date">2026년 2월 24일 ~ 2090년 1월 31일</div>
+              <a href="pro.html" class="usage-plan-link" target="_blank" rel="noopener">플랜 보기<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
             </div>
           </div>
 
