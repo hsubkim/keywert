@@ -15,9 +15,9 @@ const KW_PASSWORD = '1111';
     /* ── User area ── */
     .kw-user-wrap { display: flex; align-items: center; gap: 10px; position: relative; }
     .kw-user-pill {
-      display: flex; align-items: center; gap: 8px; padding: 4px 10px;
+      display: flex; align-items: center; gap: 8px; padding: 0 10px;
       border: 1.5px solid #E5E7EB; border-radius: 24px; background: #fff;
-      min-height: 38px; box-sizing: border-box;
+      height: 40px; box-sizing: border-box; flex-shrink: 0;
       transition: border-color 0.15s, background 0.15s; position: relative; user-select: none;
     }
     .kw-user-pill:hover { border-color: #C4C8CE; background: #F9FAFB; }
