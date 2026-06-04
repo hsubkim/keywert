@@ -35,6 +35,9 @@ const KW_PASSWORD = '1111';
     .kw-chevron { color: #9CA3AF; flex-shrink: 0; margin-left: 2px; }
     .kw-settings-link { display:flex; align-items:center; justify-content:center; width:24px; height:24px; color:#9CA3AF; border-radius:5px; text-decoration:none; flex-shrink:0; transition:background 0.15s, color 0.15s; margin-left:2px; }
     .kw-settings-link:hover { background:#F3F4F6; color:#374151; }
+    .kw-notif-btn { display:flex; align-items:center; justify-content:center; width:24px; height:24px; color:#9CA3AF; border-radius:5px; border:none; background:none; cursor:pointer; flex-shrink:0; position:relative; transition:background 0.15s, color 0.15s; padding:0; margin-left:2px; }
+    .kw-notif-btn:hover { background:#F3F4F6; color:#374151; }
+    .kw-notif-dot { position:absolute; top:3px; right:3px; width:5px; height:5px; background:#EF4444; border-radius:50%; border:1.5px solid #fff; }
     .kw-pill-sep { width: 1px; height: 16px; background: #E5E7EB; flex-shrink: 0; }
     .kw-workspace-wrap { position: relative; align-self: stretch; display: flex; align-items: center; }
     .kw-workspace { display: flex; align-items: center; gap: 5px; padding: 2px 4px 2px 2px; border-radius: 6px; font-size: 12px; font-weight: 500; color: #374151; cursor: pointer; white-space: nowrap; transition: background 0.12s; }
@@ -272,6 +275,10 @@ function kwRenderHeader() {
             <button class="kw-drop-item danger" onclick="kwLogout()">로그아웃<svg class="kw-drop-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
           </div>
         </div>
+        <button class="kw-notif-btn" title="알림" onclick="event.stopPropagation()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="kw-notif-dot"></span>
+        </button>
         ${workspaceHTML}
         ${tokenLinkHTML}
         ${type !== 'free' ? `<a href="manage.html" class="kw-settings-link" title="설정" aria-label="설정" onclick="event.stopPropagation()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>` : ''}
