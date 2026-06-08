@@ -219,7 +219,7 @@ function kwRenderHeader() {
         <div class="btn-divider"></div>
         <a href="signup.html" class="btn-text">회원가입</a>
         <div class="btn-divider"></div>
-        <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
+        <a href="cslab.html" class="btn-text">고객센터</a>
       </div>
       <button class="btn-primary" onclick="kwHandleFreeTrialClick()" style="cursor:pointer;font-family:inherit;border:none;">무료체험 시작하기</button>
     `;
@@ -262,7 +262,7 @@ function kwRenderHeader() {
   ` : '';
 
   container.innerHTML = `
-    <a href="cslab.html" class="btn-text" target="_blank" rel="noopener">고객센터</a>
+    <a href="cslab.html" class="btn-text">고객센터</a>
     <div class="kw-user-wrap">
       ${type !== 'free' ? `
       <div class="kw-user-pill">
