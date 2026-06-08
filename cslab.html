@@ -424,6 +424,13 @@
 
 <script src="auth.js"></script>
 <script>
+  // cslab에서 로그아웃 시 cslab.html로 이동
+  function kwLogout() {
+    localStorage.removeItem('kw_user');
+    sessionStorage.removeItem('kw_workspace');
+    window.location.href = 'cslab.html';
+  }
+
   // cslab에서는 auth.js가 주입한 '고객센터' 링크 제거
   document.addEventListener('DOMContentLoaded', function() {
     var container = document.getElementById('headerActions');
