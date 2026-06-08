@@ -136,6 +136,11 @@
     .kw-doc-btn { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 1px solid #E5E7EB; border-radius: 5px; color: #6B7280; cursor: pointer; transition: border-color 0.12s; }
     .kw-doc-btn:hover { border-color: #9CA3AF; }
     .kw-doc-btn.pdf { color: #EF4444; }
+    .ps-float-wrap { position: fixed; right: 25px; bottom: 15px; display: flex; flex-direction: row; gap: 10px; z-index: 100; }
+    .ps-float-btn { width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.06); transition: transform 0.15s; }
+    .ps-float-btn:hover { transform: scale(1.08); }
+    .ps-float-chat { background: #00AACB; color: #fff; }
+    .ps-float-memo { background: #3D78F2; color: #fff; }
   </style>
 </head>
 <body>
@@ -571,6 +576,15 @@
 <script src="plan_insight_modal.js"></script>
 <script src="plan_unified_modal.js"></script>
 <script src="auth.js"></script>
+
+<div class="ps-float-wrap">
+  <button class="ps-float-btn ps-float-memo" title="Quick Memo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg>
+  </button>
+  <button class="ps-float-btn ps-float-chat" title="문의하기">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><text x="12" y="13" text-anchor="middle" font-size="9" font-weight="700" fill="currentColor" stroke="none" font-family="sans-serif">?</text></svg>
+  </button>
+</div>
 
 </body>
 </html>
