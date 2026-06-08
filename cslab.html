@@ -76,6 +76,8 @@
     }
     .btn-text:hover { background: #F3F4F6; color: #374151; }
     .btn-divider { width: 1px; height: 12px; background: #E5E7EB; flex-shrink: 0; }
+    .btn-primary { padding: 8px 18px; background: #00AACB; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
+    .btn-primary:hover { background: #008FA8; }
 
     /* ── HERO ── */
     .hero {
@@ -248,8 +250,8 @@
         <a href="#" class="hnav-item">블로그</a>
       </nav>
 
-      <!-- User info -->
-      <div class="header-user" id="csHeaderUser"></div>
+      <!-- User info (auth.js 렌더링) -->
+      <div id="headerActions" style="display:flex;align-items:center;gap:10px;flex-shrink:0;"></div>
 
     </div>
   </div>
@@ -420,37 +422,18 @@
   </button>
 </div>
 
+<script src="auth.js"></script>
 <script>
-  // GNB 유저 영역 렌더링
-  (function() {
-    var user;
-    try { user = JSON.parse(localStorage.getItem('kw_user')); } catch(e) { user = null; }
-    var el = document.getElementById('csHeaderUser');
-    if (!el) return;
-    if (user) {
-      el.style.cssText = 'display:flex;align-items:center;gap:0;';
-      el.innerHTML =
-        '<div class="user-info">' +
-          '<div class="user-icon">' +
-            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
-          '</div>' +
-          '<span style="font-size:12px;font-weight:500;color:#374151;margin-left:6px;">' + user.name + '</span>' +
-        '</div>' +
-        '<div class="btn-divider" style="margin:0 4px;"></div>' +
-        '<button class="btn-text" style="background:none;border:none;cursor:pointer;font-family:inherit;" onclick="csLogout()">로그아웃</button>';
-    } else {
-      el.style.cssText = 'display:flex;align-items:center;gap:0;';
-      el.innerHTML =
-        '<a href="login.html" class="btn-text" onclick="sessionStorage.setItem(\'kw_redirect\',\'cslab.html\')">로그인</a>' +
-        '<div class="btn-divider"></div>' +
-        '<a href="signup.html" class="btn-text" onclick="sessionStorage.setItem(\'kw_redirect\',\'cslab.html\')">회원가입</a>';
-    }
-  })();
-
-  function csLogout() {
-    localStorage.removeItem('kw_user');
-    window.location.href = 'cslab.html';
-  }
+  // cslab에서는 auth.js가 주입한 '고객센터' 링크 제거
+  document.addEventListener('DOMContentLoaded', function() {
+    var container = document.getElementById('headerActions');
+    if (!container) return;
+    container.querySelectorAll('a.btn-text[href="cslab.html"]').forEach(function(link) {
+      var prev = link.previousElementSibling;
+      if (prev && prev.classList.contains('btn-divider')) prev.remove();
+      link.remove();
+    });
+  });
 
   // Search
   document.getElementById('csSearch').addEventListener('keydown', function(e) {
@@ -458,7 +441,6 @@
       alert('"' + this.value.trim() + '" 검색 결과 페이지로 이동 예정입니다.');
     }
   });
-
 </script>
 </body>
 </html>
